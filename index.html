@@ -1,0 +1,1794 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Sudamericana App — Demo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+:root{
+  --or:#0B213A;--or2:#12385D;--orl:#EAF2F8;
+  --grad:linear-gradient(135deg,#667EEA 0%,#764BA2 100%);
+  --gradw:linear-gradient(135deg,#0B213A,#1E4D78);
+  --bg:#fff;--sf:#F7F8FC;--bd:rgba(0,0,0,.07);
+  --tx:#1A1A2E;--mt:#8E8EA0;
+  --ok:#34C759;--wn:#2563EB;--er:#FF3B30;
+  --pb:#0A1628;--pa:#9FC5E8;
+  --wa:#25D366;--wad:#128C7E;
+  --r:16px;--rl:24px;--nav:70px;
+  --f:'Nunito',sans-serif;
+  --s1:0 2px 12px rgba(0,0,0,.06);--s2:0 6px 28px rgba(0,0,0,.1);
+  --sor:0 4px 20px rgba(11,33,58,.32);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:var(--f);background:linear-gradient(135deg,rgba(4,15,30,.16),rgba(4,15,30,.24)),url("https://raw.githubusercontent.com/neurotechsoluciones-design/neurotech-assets/main/fondo_agua_sudamericana.jpg") center/cover fixed no-repeat;min-height:100vh;display:flex;justify-content:center;align-items:flex-start;padding:28px 0 50px}
+input,textarea,select,button{font-family:var(--f)}
+.ph{width:375px;height:900px;background:var(--bg);border-radius:46px;overflow:hidden;position:relative;display:flex;flex-direction:column;box-shadow:0 0 0 10px #0a0a0a,0 0 0 11px #333,0 40px 90px rgba(0,0,0,.5)}
+.sb{background:var(--bg);padding:13px 22px 5px;display:flex;justify-content:space-between;align-items:center;flex-shrink:0;z-index:60}
+.sb .t{font-size:15px;font-weight:800;color:var(--tx);letter-spacing:-.3px}
+.sb .ic{display:flex;gap:5px;color:var(--tx);font-size:12px;align-items:center}
+.scr{display:none;flex-direction:column;flex:1;overflow-y:auto;overflow-x:hidden;padding-bottom:var(--nav);-webkit-overflow-scrolling:touch}
+.scr.on{display:flex;animation:si .2s ease}
+.scr.nop{padding-bottom:0}
+@keyframes si{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+.bnav{position:absolute;bottom:0;left:0;right:0;height:var(--nav);background:rgba(255,255,255,.92);backdrop-filter:blur(20px) saturate(180%);border-top:1px solid rgba(0,0,0,.07);display:flex;align-items:stretch;z-index:100}
+.bnav.off{display:none}
+.nb{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;border:none;background:none;cursor:pointer;color:var(--mt);font-size:10px;font-weight:700;padding-bottom:5px;position:relative;transition:color .18s;font-family:var(--f)}
+.nb i{font-size:21px;transition:transform .18s}
+.nb.on{color:var(--or)}.nb.on i{transform:scale(1.08)}
+.nb.on::after{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:28px;height:3px;background:var(--or);border-radius:0 0 4px 4px}
+.pnav{position:absolute;bottom:0;left:0;right:0;height:var(--nav);background:rgba(10,22,40,.95);backdrop-filter:blur(20px);border-top:1px solid rgba(255,255,255,.08);display:none;align-items:stretch;z-index:100}
+.pnav.on{display:flex}
+.pnb{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;border:none;background:none;cursor:pointer;color:rgba(255,255,255,.4);font-size:9px;font-weight:700;padding-bottom:5px;font-family:var(--f)}
+.pnb i{font-size:20px}.pnb.on{color:var(--pa)}
+/* .fab renamed to avoid conflict with FontAwesome fab prefix */
+.ov{position:absolute;inset:0;background:rgba(0,0,0,.48);z-index:200;display:flex;align-items:flex-end;opacity:0;pointer-events:none;transition:opacity .25s}
+.ov.on{opacity:1;pointer-events:all}
+.sh{background:var(--bg);border-radius:26px 26px 0 0;width:100%;padding:18px 20px 34px;transform:translateY(100%);transition:transform .3s cubic-bezier(.32,.72,0,1);max-height:92vh;overflow-y:auto}
+.ov.on .sh{transform:translateY(0)}
+.hdl{width:34px;height:4px;background:var(--bd);border-radius:2px;margin:0 auto 18px}
+.bp{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:15px;background:var(--or);color:#fff;border:none;border-radius:var(--r);font-size:16px;font-weight:800;cursor:pointer;box-shadow:var(--sor);transition:background .18s,transform .1s;font-family:var(--f)}
+.bp:active{background:var(--or2);transform:scale(.98)}
+.bs{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:14px;background:transparent;color:var(--or);border:2px solid var(--or);border-radius:var(--r);font-size:15px;font-weight:800;cursor:pointer;font-family:var(--f)}
+.bg{background:none;border:none;color:var(--mt);font-size:13px;cursor:pointer;padding:8px;font-family:var(--f)}
+.lbl{display:block;font-size:11px;font-weight:800;color:var(--mt);text-transform:uppercase;letter-spacing:.7px;margin-bottom:6px}
+.inp{width:100%;padding:13px 15px;border:1.5px solid var(--bd);border-radius:var(--r);font-size:15px;color:var(--tx);background:var(--bg);outline:none;transition:border-color .18s,box-shadow .18s;font-family:var(--f)}
+.inp:focus{border-color:var(--or);box-shadow:0 0 0 3px rgba(11,33,58,.12)}
+select.inp{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%238E8EA0' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:38px;appearance:none}
+textarea.inp{resize:none}
+.card{background:var(--bg);border-radius:var(--r);padding:16px;box-shadow:var(--s1);border:1px solid var(--bd)}
+.tag{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:800;white-space:nowrap}
+.tok{background:#E8FAF0;color:#1a6b3c}.twn{background:#EAF2F8;color:#0B213A}.ter{background:#FFE5E5;color:#8B0000}.tbl{background:#EEF2FF;color:#4338CA}.tgr{background:#F0F0F5;color:#555}
+.av{border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;flex-shrink:0;background:var(--or);color:#fff}
+.avs{width:36px;height:36px;font-size:13px}.avm{width:44px;height:44px;font-size:16px}.avl{width:56px;height:56px;font-size:20px}
+.cumple-photo{width:44px;height:44px;border-radius:50%;object-fit:cover;display:block;flex-shrink:0;border:2px solid rgba(255,255,255,.55);box-shadow:0 4px 14px rgba(11,33,58,.22)}
+.cumple-photo-lg{width:74px;height:74px;margin:0 auto 10px;border:3px solid #fff;box-shadow:0 8px 24px rgba(11,33,58,.24)}
+.flag-img{width:34px;height:23px;border-radius:5px;display:inline-block;position:relative;overflow:hidden;box-shadow:0 0 0 1px rgba(255,255,255,.35),0 3px 8px rgba(0,0,0,.2);vertical-align:middle}
+.flag-ar{background:radial-gradient(circle at center,#f6c453 0 11%,transparent 12%),linear-gradient(to bottom,#75AADB 0 33%,#fff 33% 66%,#75AADB 66% 100%)}
+.flag-br{background:#009C3B}
+.flag-br::before{content:'';position:absolute;left:50%;top:50%;width:20px;height:20px;background:#FFDF00;transform:translate(-50%,-50%) rotate(45deg)}
+.flag-br::after{content:'';position:absolute;left:50%;top:50%;width:11px;height:11px;background:#002776;border-radius:50%;transform:translate(-50%,-50%)}
+.flag-uy{background:repeating-linear-gradient(to bottom,#fff 0 3px,#4DA3D9 3px 6px)}
+.flag-uy::before{content:'';position:absolute;left:0;top:0;width:13px;height:13px;background:#fff}
+.flag-uy::after{content:'';position:absolute;left:4px;top:4px;width:5px;height:5px;background:#f6c453;border-radius:50%}
+.flag-co{background:linear-gradient(to bottom,#FCD116 0 50%,#003893 50% 75%,#CE1126 75% 100%)}
+.flag-py{background:radial-gradient(circle at center,#f6c453 0 8%,transparent 9%),linear-gradient(to bottom,#D52B1E 0 33%,#fff 33% 66%,#0038A8 66% 100%)}
+.flag-cl{background:linear-gradient(to bottom,#fff 0 50%,#D52B1E 50% 100%)}
+.flag-cl::before{content:'';position:absolute;left:0;top:0;width:14px;height:12px;background:#0039A6}
+.flag-cl::after{content:'★';position:absolute;left:3px;top:0;color:#fff;font-size:8px;line-height:12px}
+.pod-person{border-radius:50%;object-fit:cover;display:block;margin:0 auto 6px;box-shadow:0 6px 18px rgba(0,0,0,.32)}
+.hr{height:1px;background:var(--bd);margin:14px 0}
+.toast{position:absolute;bottom:calc(var(--nav) + 72px);left:12px;right:12px;background:rgba(26,26,46,.92);backdrop-filter:blur(12px);color:#fff;padding:13px 18px;border-radius:var(--r);font-size:14px;font-weight:600;text-align:center;z-index:500;opacity:0;transform:translateY(8px);transition:opacity .25s,transform .25s;pointer-events:none}
+.toast.on{opacity:1;transform:translateY(0)}
+.spin{width:20px;height:20px;border:2.5px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:rot .65s linear infinite}
+@keyframes rot{to{transform:rotate(360deg)}}
+.sh2{padding:16px 18px 12px;border-bottom:1px solid var(--bd);position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);backdrop-filter:blur(16px)}
+.sh2 h1{font-size:22px;font-weight:900;letter-spacing:-.5px}
+.sh2 p{font-size:13px;color:var(--mt);margin-top:2px}
+.subh{display:flex;align-items:center;gap:12px;padding:14px 16px;border-bottom:1px solid var(--bd);background:rgba(255,255,255,.92);backdrop-filter:blur(16px);position:sticky;top:0;z-index:50}
+.bk{background:none;border:none;cursor:pointer;color:var(--or);font-size:20px;padding:4px;display:flex;align-items:center}
+.subh h2{font-size:18px;font-weight:800;letter-spacing:-.3px}
+.slbl{font-size:11px;font-weight:800;color:var(--mt);text-transform:uppercase;letter-spacing:.8px;margin-bottom:10px}
+.sub{display:none;flex-direction:column;flex:1;overflow-y:auto}.sub.on{display:flex}
+.tabs{display:flex;border-bottom:1px solid var(--bd);background:var(--bg);position:sticky;top:0;z-index:50}
+.tab{flex:1;padding:13px 6px;text-align:center;font-size:13px;font-weight:700;color:var(--mt);border:none;background:none;cursor:pointer;font-family:var(--f);border-bottom:2.5px solid transparent;transition:all .18s}
+.tab.on{color:var(--or);border-bottom-color:var(--or)}
+.lrow{display:flex;align-items:center;gap:12px;padding:14px;background:var(--bg);border-bottom:1px solid var(--bd);cursor:pointer;transition:background .15s}
+.lrow:last-child{border-bottom:none}.lrow:active{background:var(--sf)}
+.lrow-ico{width:48px;height:48px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.lrow-txt{flex:1}.lrow-txt h3{font-size:15px;font-weight:700;letter-spacing:-.2px}.lrow-txt p{font-size:12px;color:var(--mt);margin-top:2px}
+.lrow-chev{color:var(--mt);font-size:14px}
+.badge-rrhh{display:inline-flex;align-items:center;gap:5px;background:#FFE5E5;color:#8B0000;border-radius:20px;padding:4px 12px;font-size:11px;font-weight:800;border:1px solid #FFB3B3}
+#sl{background:linear-gradient(170deg,#ffffff 55%,#ddeaf7 100%)}
+.login-w{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px 26px 42px}
+.logo-svg{width:86px;height:86px;margin-bottom:10px}
+.logo-name{font-size:22px;font-weight:900;color:var(--tx);letter-spacing:-1px}
+.logo-sub{font-size:11px;color:var(--mt);margin-bottom:28px;letter-spacing:.8px;text-transform:uppercase}
+.ob-top{background:var(--grad);padding:22px 22px 28px;color:#fff}
+.ob-top h2{font-size:22px;font-weight:900;margin-bottom:3px;letter-spacing:-.4px}
+.ob-top p{font-size:13px;opacity:.85}
+.ob-dots{display:flex;gap:6px;justify-content:center;padding:12px 0 2px}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--bd);transition:all .2s}.dot.on{background:var(--or);width:22px;border-radius:4px}
+.ob-body{padding:18px 20px;display:flex;flex-direction:column;gap:16px}
+.home-top{background:rgba(255,255,255,.92);backdrop-filter:blur(20px);padding:13px 16px;display:flex;align-items:center;gap:11px;border-bottom:1px solid rgba(0,0,0,.06);position:sticky;top:0;z-index:50}
+.home-top-t{flex:1}.home-top-t .hi{font-size:11px;color:var(--mt);font-weight:600}.home-top-t .nm{font-size:17px;font-weight:900;letter-spacing:-.3px}
+.nbell{position:relative;background:none;border:none;cursor:pointer;color:var(--mt);font-size:22px;padding:4px}
+.nbell .nd{position:absolute;top:4px;right:4px;width:8px;height:8px;background:#FF3B30;border-radius:50%;border:1.5px solid #fff}
+.srch{margin:12px 14px 0;display:flex;align-items:center;gap:8px;background:var(--sf);border-radius:12px;padding:10px 14px;color:var(--mt);font-size:14px;cursor:pointer}
+.hgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:14px}
+.hcell{border-radius:var(--r);padding:14px 10px;display:flex;flex-direction:column;align-items:center;gap:8px;cursor:pointer;transition:transform .12s,box-shadow .18s;text-align:center;font-family:var(--f);backdrop-filter:blur(8px)}
+.hcell:active{transform:scale(.96)}
+.hcell-ico{width:46px;height:46px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:20px;color:#fff}
+.hcell span{font-size:12px;font-weight:800;color:var(--tx);line-height:1.3}
+.hbanner{margin:0 14px 14px;background-color:#4158d0;background-image:linear-gradient(43deg,#4158d0 0%,#1888b4 46%,#0f31ca 100%);border-radius:1rem;padding:18px;display:flex;gap:14px;align-items:center;box-shadow:rgba(0,0,0,.17) 0px -23px 25px 0px inset,rgba(0,0,0,.15) 0px -36px 30px 0px inset,rgba(0,0,0,.1) 0px -79px 40px 0px inset,rgba(0,0,0,.06) 0px 2px 1px,rgba(0,0,0,.09) 0px 4px 2px,rgba(0,0,0,.09) 0px 8px 4px,rgba(0,0,0,.09) 0px 16px 8px,rgba(0,0,0,.09) 0px 32px 16px;cursor:pointer}
+.hbanner h3{font-size:16px;font-weight:900;color:#fff;margin-bottom:4px;letter-spacing:-.3px}
+.hbanner p{font-size:12px;color:rgba(255,255,255,.8)}
+.hbanner-btn{flex-shrink:0;background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.3);color:#fff;border-radius:20px;padding:7px 14px;font-size:12px;font-weight:800;cursor:pointer;white-space:nowrap;font-family:var(--f)}
+.cumple-c{margin:10px 14px 0;background:var(--gradw);border-radius:var(--r);padding:12px 14px;color:#fff;display:flex;gap:10px;align-items:center;box-shadow:var(--sor);cursor:pointer}
+.cumple-c .ci{flex:1}.ctag{font-size:10px;font-weight:800;opacity:.85;text-transform:uppercase;letter-spacing:.4px}
+.cnm{font-size:18px;font-weight:900;margin:2px 0;letter-spacing:-.3px}.csu{font-size:12px;opacity:.85}
+.btn-fel{background:rgba(255,255,255,.95);color:var(--or);border:none;border-radius:18px;padding:9px 14px;font-size:12px;font-weight:900;cursor:pointer;white-space:nowrap;font-family:var(--f)}
+.doc-banner{margin:14px;background:linear-gradient(135deg,#0A1628,#1a3050);border-radius:var(--r);padding:16px 18px;display:flex;justify-content:space-between;align-items:center}
+.doc-banner h3{font-size:15px;font-weight:800;color:#fff;margin-bottom:2px}
+.doc-banner p{font-size:12px;color:rgba(255,255,255,.6)}
+.sign-btn{background:var(--or);color:#fff;border:none;border-radius:10px;padding:9px 14px;font-size:12px;font-weight:800;cursor:pointer;font-family:var(--f);box-shadow:var(--sor)}
+.legal-hero{background:linear-gradient(135deg,#0B213A,#12385D);padding:22px 18px;color:#fff}
+.legal-hero h1{font-size:20px;font-weight:900;letter-spacing:-.4px;margin:10px 0 4px}
+.legal-hero p{font-size:13px;opacity:1;line-height:1.55}
+.legal-body{padding:16px;display:flex;flex-direction:column;gap:14px}
+.chip-row{display:flex;flex-wrap:wrap;gap:7px}
+.chip{padding:7px 14px;border-radius:20px;font-size:12px;font-weight:800;border:1.5px solid var(--bd);background:var(--bg);color:var(--tx);cursor:pointer;transition:all .18s;font-family:var(--f)}
+.chip.on{background:var(--or);color:#fff;border-color:var(--or)}
+.legal-warn{background:#EAF2F8;border:1px solid #BFD8EA;border-radius:var(--r);padding:13px 14px;display:flex;gap:10px;align-items:flex-start}
+.legal-warn i{color:var(--wn);font-size:16px;margin-top:1px}
+.legal-warn p{font-size:12px;color:#0B213A;line-height:1.5}
+.hist-item{display:flex;align-items:center;gap:10px;padding:11px 0;border-bottom:1px solid var(--bd)}
+.hist-item:last-child{border-bottom:none}
+.hist-ico{width:38px;height:38px;background:#EEF2FF;border-radius:10px;display:flex;align-items:center;justify-content:center;color:#4338CA;font-size:16px;flex-shrink:0}
+.tgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:14px}
+.tbtn{background:var(--bg);border-radius:var(--r);padding:18px 12px;border:1.5px solid var(--bd);display:flex;flex-direction:column;align-items:center;gap:9px;cursor:pointer;text-align:center;box-shadow:var(--s1);transition:all .12s;font-family:var(--f)}
+.tbtn:active{background:var(--orl);border-color:var(--or);transform:scale(.97)}
+.tbtn i{font-size:26px;color:var(--or)}.tbtn span{font-size:12px;font-weight:800;color:var(--tx);line-height:1.3}
+.conf{background:#E8FAF0;border-radius:var(--r);padding:13px 14px;display:none;gap:10px;align-items:flex-start;margin:12px 14px}
+.conf.on{display:flex}.conf i{color:var(--ok);font-size:17px}.conf p{font-size:13px;color:#1a6b3c;line-height:1.45}
+.upl{border:2px dashed var(--bd);border-radius:var(--r);padding:24px 14px;display:flex;flex-direction:column;align-items:center;gap:8px;cursor:pointer;text-align:center;transition:all .2s}
+.upl.done{border-color:var(--ok);background:#E8FAF0}.upl i{font-size:30px;color:var(--mt)}.upl.done i{color:var(--ok)}
+.upl h3{font-size:14px;font-weight:800}.upl p{font-size:12px;color:var(--mt)}
+.upl-btns{display:flex;gap:8px;width:100%}
+.upl-btns button{flex:1;padding:10px;border-radius:var(--r);border:1.5px solid var(--bd);background:var(--bg);font-size:12px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:5px;font-family:var(--f)}
+.vac-ring{display:flex;flex-direction:column;align-items:center;padding:20px 16px 10px;gap:6px}
+.ring-w{position:relative;width:140px;height:140px}
+.ring-w svg{width:100%;height:100%}
+.ring-c{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.ring-n{font-size:32px;font-weight:900;color:var(--tx);letter-spacing:-1px;line-height:1}
+.ring-s{font-size:12px;font-weight:700;color:var(--mt)}
+.vac-btns{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 16px 14px}
+.vacbtn{background:var(--bg);border:1.5px solid var(--bd);border-radius:var(--r);padding:16px;display:flex;flex-direction:column;align-items:center;gap:8px;cursor:pointer;font-family:var(--f);box-shadow:var(--s1)}
+.vacbtn i{font-size:26px;color:var(--or)}.vacbtn span{font-size:12px;font-weight:800;color:var(--tx)}
+.ger-top{background:linear-gradient(135deg,#1D1D1F,#2A2A2C);padding:18px;color:#fff}
+.ger-bk{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+.ger-bk button{background:none;border:none;cursor:pointer;color:rgba(255,255,255,.6);font-size:20px}
+.ger-bk span{color:rgba(255,255,255,.45);font-size:13px}
+.ger-badge{display:inline-flex;align-items:center;gap:5px;background:rgba(255,255,255,.1);padding:4px 10px;border-radius:18px;font-size:11px;font-weight:700;color:rgba(255,255,255,.85);margin-bottom:7px;border:1px solid rgba(255,255,255,.1)}
+.ger-top h1{font-size:24px;font-weight:900;letter-spacing:-.5px}
+.ger-top p{font-size:13px;opacity:.5;margin-top:3px}
+.kgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:12px}
+.kpi{background:var(--bg);border-radius:var(--r);padding:13px;box-shadow:var(--s1);border:1px solid var(--bd)}
+.kpi-l{font-size:10px;font-weight:800;color:var(--mt);text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px}
+.kpi-v{font-size:30px;font-weight:900;letter-spacing:-1px;line-height:1}
+.kpi-s{font-size:11px;color:var(--mt);margin-top:2px}
+.kpi-tr{font-size:11px;font-weight:700;margin-top:4px}
+.kpi-tr.up{color:#FF3B30}.kpi-tr.dn{color:var(--ok)}.kpi-tr.nf{color:#4338CA}
+.chart-w{margin:0 12px 12px;background:var(--bg);border-radius:var(--r);padding:16px;box-shadow:var(--s1);border:1px solid var(--bd)}
+.chart-w h3{font-size:15px;font-weight:800;margin-bottom:2px;letter-spacing:-.2px}
+.chart-w .cs{font-size:12px;color:var(--mt);margin-bottom:16px}
+.bars{display:flex;align-items:flex-end;gap:6px;height:90px}
+.bc{display:flex;flex-direction:column;align-items:center;gap:2px;flex:1}
+.bf{width:100%;background:linear-gradient(180deg,#667EEA,#764BA2);border-radius:3px 3px 0 0;min-height:4px}
+.bc.hl .bf{background:linear-gradient(180deg,#0B213A,#12385D)}
+.bl{font-size:10px;color:var(--mt)}.bv{font-size:9px;font-weight:700;color:var(--mt)}
+.adt{width:100%;border-collapse:collapse}
+.adt th{text-align:left;font-size:10px;color:var(--mt);font-weight:800;text-transform:uppercase;padding:0 0 7px;border-bottom:1px solid var(--bd)}
+.adt td{padding:8px 0;font-size:13px;border-bottom:1px solid var(--bd)}
+.adt tr:last-child td{border-bottom:none}
+.prode-hero{background:var(--pb);display:flex;flex-direction:column;position:relative;overflow:hidden;min-height:100%}
+.p-wm{position:absolute;right:-10px;bottom:80px;width:200px;opacity:.07}
+.p-con{position:relative;z-index:1;padding:30px 22px 28px;flex:1;display:flex;flex-direction:column;justify-content:flex-end}
+.p-tag{font-size:11px;font-weight:800;color:var(--pa);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:10px}
+.p-title{font-size:34px;font-weight:900;color:#fff;letter-spacing:-1px;line-height:1.05;margin-bottom:8px}
+.p-sub{font-size:14px;color:rgba(255,255,255,.6);margin-bottom:26px;line-height:1.5}
+.bp-gold{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:15px;background:var(--pa);color:var(--pb);border:none;border-radius:var(--r);font-size:16px;font-weight:900;cursor:pointer;font-family:var(--f);letter-spacing:-.2px}
+.p-scr{display:none;flex-direction:column;flex:1;overflow-y:auto;padding-bottom:var(--nav)}
+.p-scr.on{display:flex}
+.p-hd{background:var(--pb);padding:16px 18px;display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:50;border-bottom:1px solid rgba(255,255,255,.08)}
+.p-hd h1{font-size:20px;font-weight:900;color:#fff;letter-spacing:-.4px;flex:1}
+.p-tabs{display:flex;background:var(--pb);border-bottom:1px solid rgba(255,255,255,.1)}
+.p-tab{flex:1;padding:12px;text-align:center;font-size:13px;font-weight:700;color:rgba(255,255,255,.4);border:none;background:none;cursor:pointer;font-family:var(--f);border-bottom:2.5px solid transparent;transition:all .18s}
+.p-tab.on{color:var(--pa);border-bottom-color:var(--pa)}
+.partido{background:var(--bg);border-radius:var(--r);padding:14px;margin:0 12px 10px;box-shadow:var(--s1);border:1px solid var(--bd)}
+.prow{display:flex;align-items:center;gap:8px}
+.eq{flex:1;display:flex;align-items:center;gap:7px}.eq.r{flex-direction:row-reverse}
+.flag{font-size:24px}.eqn{font-size:13px;font-weight:800}.eq.r .eqn{text-align:right}
+.sc-w{display:flex;align-items:center;gap:5px}
+.sc-inp{width:40px;height:42px;border:2px solid var(--bd);border-radius:10px;text-align:center;font-size:19px;font-weight:900;color:var(--tx);background:var(--sf);outline:none;font-family:var(--f);transition:all .18s}
+.sc-inp:focus{border-color:var(--or);background:var(--bg)}
+.pdt{font-size:11px;color:var(--mt);text-align:center;margin-top:9px}
+.podio{display:flex;align-items:flex-end;justify-content:center;gap:10px;padding:24px 16px 16px;background:var(--pb)}
+.pod{display:flex;flex-direction:column;align-items:center;gap:6px}
+.pod-av{border-radius:50%;border:3px solid;display:flex;align-items:center;justify-content:center;font-weight:900;color:#fff;position:relative}
+.pod-av .cr{position:absolute;top:-16px;font-size:18px}
+.pod-nm{font-size:12px;font-weight:800;color:rgba(255,255,255,.9);text-align:center;max-width:72px;line-height:1.2}
+.pod-pts{font-size:11px;font-weight:700;color:var(--pa)}
+.pod-base{border-radius:8px 8px 0 0;display:flex;align-items:flex-end;justify-content:center;padding-bottom:4px;color:rgba(255,255,255,.7);font-size:13px;font-weight:900;width:72px}
+.lb-row{display:flex;align-items:center;gap:10px;padding:11px 14px;border-bottom:1px solid rgba(0,0,0,.06)}
+.lb-row.me{background:var(--orl)}
+.lb-pos{width:24px;text-align:center;font-size:13px;font-weight:800;color:var(--mt)}
+.lb-nm{flex:1;font-size:14px;font-weight:700}.lb-pt{font-size:14px;font-weight:900;color:var(--or)}
+.wa-ov{align-items:stretch;background:rgba(0,0,0,.6)}
+.wa-sh{border-radius:0!important;padding:0!important;display:flex;flex-direction:column;height:100%;max-height:100%;overflow:hidden}
+.wa-hd{background:var(--wad);padding:11px 14px;display:flex;align-items:center;gap:11px;flex-shrink:0}
+.wa-bk{background:none;border:none;cursor:pointer;color:rgba(255,255,255,.85);font-size:20px;padding:4px}
+.wa-av2{width:40px;height:40px;background:rgba(255,255,255,.2);border:2px solid rgba(255,255,255,.25);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;color:#fff;font-size:16px}
+.wa-hi{flex:1}.wa-hn{color:#fff;font-size:15px;font-weight:800}
+.wa-hs{color:rgba(255,255,255,.7);font-size:12px;display:flex;align-items:center;gap:4px}
+.wa-dot{width:7px;height:7px;background:#4CD964;border-radius:50%;display:inline-block}
+.wa-msgs{flex:1;overflow-y:auto;padding:10px 10px 6px;background:#ECE5DD;display:flex;flex-direction:column;gap:3px}
+.wa-dt{text-align:center;font-size:11px;color:#666;background:rgba(255,255,255,.7);padding:3px 10px;border-radius:10px;margin:3px auto;align-self:center;font-weight:700}
+.mw{display:flex;flex-direction:column;gap:2px;max-width:88%}
+.mw.b{align-self:flex-start}.mw.u{align-self:flex-end}
+.bbl{padding:9px 12px;border-radius:14px;font-size:14px;line-height:1.5}
+.bbl.b{background:#fff;color:var(--tx);border-radius:0 14px 14px 14px;box-shadow:0 1px 2px rgba(0,0,0,.12)}
+.bbl.u{background:#DCF8C6;color:var(--tx);border-radius:14px 14px 0 14px;box-shadow:0 1px 2px rgba(0,0,0,.12)}
+.wt{font-size:10px;color:rgba(0,0,0,.35);align-self:flex-end;display:flex;align-items:center;gap:3px}
+.wt i{font-size:10px;color:#53BDEB}
+.wq{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px;align-self:flex-start}
+.wq button{background:rgba(255,255,255,.9);border:1px solid rgba(0,0,0,.1);padding:6px 12px;border-radius:18px;font-size:12px;font-weight:800;color:var(--wad);cursor:pointer;font-family:var(--f)}
+.wa-ab{display:flex;align-items:center;justify-content:center;gap:7px;background:var(--or);color:#fff;border:none;border-radius:10px;padding:10px 14px;font-size:13px;font-weight:800;cursor:pointer;margin-top:4px;width:100%;font-family:var(--f);box-shadow:var(--sor)}
+.typing .bbl{display:flex;align-items:center;gap:3px;padding:11px 14px}
+.typing .bbl span{width:7px;height:7px;background:#aaa;border-radius:50%;animation:wb 1.2s ease-in-out infinite}
+.typing .bbl span:nth-child(2){animation-delay:.2s}.typing .bbl span:nth-child(3){animation-delay:.4s}
+@keyframes wb{0%,60%,100%{transform:translateY(0);opacity:.5}30%{transform:translateY(-5px);opacity:1}}
+.wa-ir{display:flex;align-items:center;gap:7px;padding:9px 10px;background:#F0F0F0;flex-shrink:0}
+.wa-iw{flex:1}
+.wa-inp2{width:100%;padding:9px 15px;background:#fff;border:none;border-radius:22px;font-size:14px;outline:none;font-family:var(--f)}
+.wa-snd{width:42px;height:42px;background:var(--wad);border:none;border-radius:50%;color:#fff;font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+
+@keyframes logoContainerIn{0%{opacity:0;transform:translateY(-16px) scale(.9)}60%{opacity:1;transform:translateY(2px) scale(1.01)}100%{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes logoReveal{0%{filter:brightness(.12) grayscale(.9);transform:scale(.88)}55%{filter:brightness(.55) grayscale(.2);transform:scale(1.03)}100%{filter:brightness(1) grayscale(0);transform:scale(1)}}
+.logo-login{animation:logoContainerIn .9s cubic-bezier(.22,.68,0,1.2) both}
+.logo-reveal{animation:logoReveal 2.2s cubic-bezier(.22,.68,0,1) .1s both}
+.kpi{background:linear-gradient(145deg,#0c1a2e,#0f2040);border-radius:var(--r);padding:13px;border:1px solid rgba(102,126,234,.2);box-shadow:0 4px 20px rgba(0,0,0,.3)}
+.kpi-l{font-size:10px;font-weight:800;color:rgba(255,255,255,.65);text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px}
+.kpi-v{font-size:30px;font-weight:900;letter-spacing:-1px;line-height:1;color:#fff}
+.kpi-s{font-size:11px;color:rgba(255,255,255,.55);margin-top:2px}
+.kpi-tr{font-size:11px;font-weight:700;margin-top:4px}
+.kpi-tr.up{color:#FF3B30}.kpi-tr.dn{color:#34C759}.kpi-tr.nf{color:#9fc7e8}
+.chart-w{background:linear-gradient(145deg,#0c1a2e,#0f2040);border:1px solid rgba(102,126,234,.18);border-radius:var(--r);padding:16px;margin:0 12px 12px;box-shadow:0 4px 22px rgba(0,0,0,.3)}
+.chart-w h3{color:#fff;font-size:14px;font-weight:900;margin-bottom:2px;letter-spacing:-.2px}
+.chart-w .cs{color:rgba(255,255,255,.38);font-size:11px;margin-bottom:14px}
+.bars{display:flex;align-items:flex-end;gap:6px;height:90px}
+.bc{display:flex;flex-direction:column;align-items:center;gap:2px;flex:1}
+.bf{width:100%;background:linear-gradient(180deg,#667EEA,rgba(102,126,234,.2));border-radius:4px 4px 0 0;min-height:4px;transition:height .6s cubic-bezier(.4,0,.2,1)}
+.bc.hl .bf{background:linear-gradient(180deg,#FF3B30,rgba(255,59,48,.2));box-shadow:0 0 14px rgba(255,59,48,.5)}
+.bl{font-size:9px;color:rgba(255,255,255,.35)}.bv{font-size:9px;font-weight:800;color:rgba(255,255,255,.5)}
+.bc.hl .bl{color:#FF3B30;font-weight:800}.bc.hl .bv{color:#FF3B30}
+.adt{width:100%;border-collapse:collapse}
+.adt th{text-align:left;font-size:10px;color:rgba(255,255,255,.35);font-weight:800;text-transform:uppercase;padding:0 0 7px;border-bottom:1px solid rgba(255,255,255,.08)}
+.adt td{padding:8px 0;font-size:13px;border-bottom:1px solid rgba(255,255,255,.06);color:rgba(255,255,255,.8)}
+.adt tr:last-child td{border-bottom:none}
+.firma-pad{border:2px solid rgba(11,33,58,.2);border-radius:var(--r);margin-bottom:14px;overflow:hidden;position:relative;background:#f8fafd}
+.firma-pad canvas{display:block;width:100%;cursor:crosshair;touch-action:none}
+.firma-pad .clear-btn{position:absolute;top:6px;right:8px;background:rgba(255,255,255,.85);border:1px solid var(--bd);border-radius:8px;padding:4px 9px;font-size:11px;color:var(--mt);cursor:pointer;font-family:var(--f)}
+.perfil-hero{background:linear-gradient(145deg,#0B213A,#1a3a5e);padding:22px 18px 26px;display:flex;flex-direction:column;align-items:center;gap:10px}
+.perf-av{width:70px;height:70px;border-radius:50%;background:rgba(255,255,255,.15);border:3px solid rgba(255,255,255,.3);display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:900;color:#fff}
+@media(max-width:420px){body{padding:0;background:var(--bg)}.ph{width:100%;border-radius:0;box-shadow:none;height:100svh}}
+
+/* === AJUSTES GERENCIA: visibilidad de Legal IA y Filtro CVs sin tocar lógica === */
+#sger .ger-top{padding:14px 18px 12px!important}
+#sger .ger-bk{margin-bottom:8px!important}
+#sger .ger-badge{font-size:10px!important;margin-bottom:5px!important;padding:3px 9px!important}
+#sger .ger-top h1{font-size:22px!important;line-height:1.05!important}
+#sger .ger-top p{font-size:12px!important;margin-top:2px!important}
+#sger .kgrid{gap:8px!important;padding:10px 12px!important}
+#sger .kpi{padding:10px 11px!important;border-radius:14px!important}
+#sger .kpi-l{font-size:9px!important;letter-spacing:.35px!important}
+#sger .kpi-v{font-size:25px!important;line-height:.95!important}
+#sger .kpi-s,#sger .kpi-tr{font-size:10px!important;line-height:1.15!important}
+#sger .chart-w{margin:0 12px 8px!important;padding:11px 12px!important;border-radius:14px!important}
+#sger .chart-w h3{font-size:13px!important;margin-bottom:1px!important}
+#sger .chart-w .cs{font-size:10px!important;margin-bottom:8px!important}
+#sger .bars{height:64px!important;gap:5px!important}
+#sger .bf{border-radius:3px 3px 0 0!important}
+#sger .adt th{font-size:9px!important;padding:0 0 5px!important}
+#sger .adt td{padding:5px 0!important;font-size:11.5px!important}
+#sger .adt .tag{font-size:9px!important;padding:2px 7px!important}
+#sger .ger-actions{display:grid!important;grid-template-columns:1fr 1fr!important;gap:8px!important;padding:0 12px 9px!important}
+#sger .ger-action-btn{min-height:38px!important;padding:8px 8px!important;border-radius:12px!important;font-size:11px!important;line-height:1.1!important;box-shadow:none!important}
+#sger .ger-action-btn i{font-size:12px!important}
+#sger .ger-tools{padding:0 12px 12px!important}
+#sger .ger-tools-label{font-size:10px!important;color:rgba(255,255,255,.72)!important;margin-bottom:6px!important}
+#sger .ger-tools-grid{gap:8px!important}
+#sger .ger-tool-card{min-height:96px!important;padding:12px 8px!important;gap:7px!important;border-radius:16px!important;box-shadow:0 10px 28px rgba(0,0,0,.26),inset 0 1px 0 rgba(255,255,255,.16)!important;position:relative!important;overflow:hidden!important}
+#sger .ger-tool-card::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 20% 0%,rgba(255,255,255,.22),transparent 32%);pointer-events:none}
+#sger .ger-tool-legal{background:linear-gradient(135deg,#24124F 0%,#4C1D95 46%,#7C3AED 100%)!important;border:1px solid rgba(196,181,253,.55)!important}
+#sger .ger-tool-cvs{background:linear-gradient(135deg,#083344 0%,#0E7490 48%,#14B8A6 100%)!important;border:1px solid rgba(94,234,212,.55)!important}
+#sger .ger-tool-card div[style*="width:42px"]{width:38px!important;height:38px!important;border-radius:12px!important;background:rgba(255,255,255,.18)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.22)!important}
+#sger .ger-tool-card i{font-size:17px!important;color:#fff!important}
+#sger .ger-tool-card span:first-of-type{font-size:14px!important;line-height:1.05!important;font-weight:900!important;color:#fff!important;letter-spacing:-.2px!important;position:relative!important;z-index:1!important}
+#sger .ger-tool-card span:last-of-type{font-size:9px!important;padding:2px 8px!important;color:rgba(255,255,255,.78)!important;background:rgba(255,255,255,.12)!important;border:1px solid rgba(255,255,255,.18)!important;position:relative!important;z-index:1!important}
+
+/* === AJUSTES SOLICITADOS: color perfil onboarding + contraste cards gerencia === */
+.ob-top{
+  background:linear-gradient(135deg,#0B213A 0%,#12385D 58%,#1E4D78 100%)!important;
+  box-shadow:0 10px 28px rgba(11,33,58,.22)!important;
+}
+.ob-top h2{color:#fff!important;text-shadow:0 2px 10px rgba(0,0,0,.18)!important}
+.ob-top p{color:rgba(255,255,255,.86)!important;opacity:1!important}
+
+#sger .ger-tool-legal{
+  background:linear-gradient(135deg,#0B213A 0%,#243B73 52%,#5B3DB3 100%)!important;
+  border:1px solid rgba(196,181,253,.75)!important;
+}
+#sger .ger-tool-cvs{
+  background:linear-gradient(135deg,#052E3F 0%,#075E67 52%,#0F766E 100%)!important;
+  border:1px solid rgba(94,234,212,.75)!important;
+}
+#sger .ger-tool-card div[style*="width:42px"]{
+  position:relative!important;
+  z-index:2!important;
+  background:rgba(255,255,255,.96)!important;
+  box-shadow:0 6px 18px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.85)!important;
+}
+#sger .ger-tool-legal i{color:#4C1D95!important}
+#sger .ger-tool-cvs i{color:#0F766E!important}
+#sger .ger-tool-card span:first-of-type{
+  color:#fff!important;
+  text-shadow:0 2px 8px rgba(0,0,0,.28)!important;
+}
+#sger .ger-tool-card span:last-of-type{
+  color:#fff!important;
+  background:rgba(255,255,255,.18)!important;
+  border:1px solid rgba(255,255,255,.32)!important;
+}
+
+</style>
+</head>
+<body>
+<div class="ph">
+<div class="sb"><span class="t" id="clk">9:41</span><div class="ic"><i class="fas fa-signal"></i><i class="fas fa-wifi"></i><i class="fas fa-battery-full"></i></div></div>
+
+<!-- LOGIN -->
+<div id="sl" class="scr nop on">
+<div class="login-w" style="align-items:flex-start">
+<div class="logo-login" style="width:100%;max-width:300px;align-self:center;margin-bottom:24px;background:linear-gradient(145deg,#071020,#0d1e36);border-radius:22px;padding:24px 20px 20px;box-shadow:0 16px 48px rgba(7,16,32,.55)"><img src="logo.avif" alt="Sudamericana de Bebidas" class="logo-reveal" style="width:100%;object-fit:contain;display:block"></div>
+<div style="width:100%;margin-bottom:28px">
+<p style="font-size:19px;font-weight:900;color:#000;letter-spacing:-.4px;line-height:1.2">Tu empresa,<br>más cerca</p>
+<p style="font-size:12px;font-weight:600;color:#222;margin-top:5px;letter-spacing:.1px">Todo lo que necesitas siempre a mano.</p>
+</div>
+<div style="width:100%;display:flex;flex-direction:column;gap:14px">
+<div><label class="lbl" style="color:#0B213A;opacity:.6">DNI o Nº de Legajo</label><input id="inp-leg" class="inp" type="number" inputmode="numeric" placeholder="Ej: 1247 o 28456789" style="border-color:rgba(11,33,58,.2)"></div>
+<button class="bp" id="btn-login" onclick="doLogin()" style="background:#0B213A;box-shadow:0 4px 20px rgba(11,33,58,.35)"><i class="fas fa-arrow-right"></i> Ingresar</button>
+<div style="display:flex;align-items:center;gap:10px;color:var(--mt);font-size:12px"><div style="flex:1;height:1px;background:rgba(11,33,58,.1)"></div>¿Consulta rápida?<div style="flex:1;height:1px;background:rgba(11,33,58,.1)"></div></div>
+<button class="bs" onclick="openModal('mwa')" style="color:#0B213A;border-color:#0B213A"><i class="fab fa-whatsapp" style="color:var(--wa)"></i> Hablar con el Asistente</button>
+</div>
+<p style="margin-top:24px;text-align:center;width:100%;font-size:11px;color:var(--mt)">Plataforma segura &nbsp;·&nbsp; <a href="#" style="color:#0B213A;font-weight:800;text-decoration:none">Privacidad</a></p>
+</div>
+</div>
+
+<!-- ONBOARDING -->
+<div id="sob" class="scr nop">
+<div class="ob-top"><h2>¡Hola, Martina! 👋</h2><p>Completá tu perfil — solo toma 2 minutos</p></div>
+<div class="ob-dots"><div class="dot on"></div><div class="dot"></div><div class="dot"></div></div>
+<div class="ob-body">
+<div><label class="lbl">Tu fecha de nacimiento</label><input type="date" class="inp" value="1992-08-14"></div>
+<div><label class="lbl">Fecha de ingreso</label><input type="date" class="inp" value="2020-03-02"></div>
+<div class="hr"></div>
+<div style="display:flex;justify-content:space-between;align-items:center">
+<p style="font-size:15px;font-weight:800">Datos de tus hijos</p>
+<button class="bg" style="color:var(--or);font-weight:800" onclick="addHijo()"><i class="fas fa-plus"></i> Agregar</button>
+</div>
+<div id="hijos-w">
+<div class="card" style="margin-bottom:10px">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px"><span style="font-size:14px;font-weight:800">Hijo 1</span><button onclick="this.closest('.card').remove()" class="bg"><i class="fas fa-times"></i></button></div>
+<div style="display:flex;flex-direction:column;gap:10px"><input type="text" class="inp" placeholder="Nombre" value="Santiago"><input type="date" class="inp" value="2020-05-10"></div>
+</div>
+</div>
+<button class="bp" onclick="go('home')"><i class="fas fa-check"></i> Guardar y continuar</button>
+<button class="bg" onclick="go('home')" style="text-align:center;width:100%">Completar más tarde</button>
+</div>
+</div>
+
+<!-- HOME -->
+<div id="shome" class="scr">
+<div class="home-top">
+<div class="av avm">MG</div>
+<div class="home-top-t"><div class="hi">Bienvenida de vuelta</div><div class="nm">¡Hola, Martina!</div></div>
+<button class="nbell" onclick="toast('2 notificaciones nuevas')"><i class="fas fa-bell"></i><div class="nd"></div></button>
+</div>
+<div class="cumple-c" onclick="openModal('mcumple')">
+<img src="https://raw.githubusercontent.com/neurotechsoluciones-design/neurotech-assets/main/foto_IA2.png" alt="Cumpleaños" class="cumple-photo">
+<div class="ci"><div class="ctag">🎂 Cumpleaños hoy</div><div class="cnm">María Pérez</div><div class="csu">Producción · 8 años</div></div>
+<button class="btn-fel" onclick="event.stopPropagation();openModal('mcumple')">¡Felicitar!</button>
+</div>
+<div class="hgrid">
+<button class="hcell" onclick="go('docs')" style="background:linear-gradient(135deg,rgba(16,185,129,.14),rgba(16,185,129,.05));border:1px solid rgba(16,185,129,.3);box-shadow:0 4px 22px rgba(16,185,129,.14)"><div class="hcell-ico" style="background:linear-gradient(135deg,#10b981,#059669)"><i class="fas fa-folder"></i></div><span style="color:#065f46">Mis Documentos</span></button>
+<button class="hcell" onclick="go('tramites')" style="background:linear-gradient(135deg,rgba(59,130,246,.14),rgba(59,130,246,.05));border:1px solid rgba(59,130,246,.3);box-shadow:0 4px 22px rgba(59,130,246,.14)"><div class="hcell-ico" style="background:linear-gradient(135deg,#3b82f6,#2563eb)"><i class="fas fa-clipboard-list"></i></div><span style="color:#1e3a8a">Trámites</span></button>
+<button class="hcell" onclick="go('vac')" style="background:linear-gradient(135deg,rgba(11,33,58,.14),rgba(11,33,58,.05));border:1px solid rgba(11,33,58,.3);box-shadow:0 4px 22px rgba(11,33,58,.14)"><div class="hcell-ico" style="background:linear-gradient(135deg,#0B213A,#12385D)"><i class="fas fa-umbrella-beach"></i></div><span style="color:#0B213A">Vacaciones</span></button>
+<button class="hcell" onclick="go('social')" style="background:linear-gradient(135deg,rgba(139,92,246,.14),rgba(139,92,246,.05));border:1px solid rgba(139,92,246,.3);box-shadow:0 4px 22px rgba(139,92,246,.14)"><div class="hcell-ico" style="background:linear-gradient(135deg,#8b5cf6,#7c3aed)"><i class="fas fa-users"></i></div><span style="color:#4c1d95">Muro Social</span></button>
+<button class="hcell" onclick="go('comms')" style="background:linear-gradient(135deg,rgba(244,63,94,.14),rgba(244,63,94,.05));border:1px solid rgba(244,63,94,.3);box-shadow:0 4px 22px rgba(244,63,94,.14)"><div class="hcell-ico" style="background:linear-gradient(135deg,#f43f5e,#e11d48)"><i class="fas fa-bullhorn"></i></div><span style="color:#881337">Comunicados</span></button>
+</div>
+<div class="hbanner" onclick="go('comms')">
+<div><h3>Actualización Beneficios 2025</h3><p>Conocé las novedades y aprovechalas al máximo</p></div>
+<button class="hbanner-btn">Ver más</button>
+</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 14px 16px">
+<div style="background:linear-gradient(135deg,#0A1628,#162040);border-radius:var(--r);padding:12px 14px;display:flex;align-items:center;gap:10px;cursor:pointer;box-shadow:0 4px 18px rgba(10,22,40,.4);position:relative;overflow:hidden" onclick="pgo('sprode')">
+<div style="position:absolute;right:8px;bottom:-4px;font-size:48px;font-weight:900;color:rgba(159,197,232,.1);line-height:1;pointer-events:none">10</div>
+<div style="width:40px;height:40px;border-radius:11px;background:var(--pa);display:flex;align-items:center;justify-content:center;flex-shrink:0;position:relative"><i class="fas fa-futbol" style="color:#0A1628;font-size:17px"></i></div>
+<div style="position:relative"><div style="color:#fff;font-size:13px;font-weight:900;line-height:1.2">Prode</div><div style="color:var(--pa);font-size:11px;font-weight:700;margin-top:2px">3&deg; &bull; 1,240 pts</div></div>
+</div>
+<div style="background:linear-gradient(135deg,#1D1D1F,#2A2A2C);border-radius:var(--r);padding:12px 14px;display:flex;align-items:center;gap:10px;cursor:pointer;box-shadow:0 4px 18px rgba(0,0,0,.2)" onclick="go('ger')">
+<div style="width:40px;height:40px;border-radius:11px;background:rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;flex-shrink:0"><i class="fas fa-chart-line" style="color:#fff;font-size:17px"></i></div>
+<div><div style="color:#fff;font-size:13px;font-weight:900;line-height:1.2">Gerencia</div><div style="color:rgba(255,255,255,.45);font-size:11px;font-weight:700;margin-top:2px">Tablero, Legal &amp; CVs</div></div>
+</div>
+</div>
+
+</div>
+<!-- MIS DOCUMENTOS -->
+<div id="sdocs" class="scr">
+<div class="sub on" id="docs-main">
+<div class="sh2"><h1>Mis Documentos</h1><p>Accedé y gestioná tu documentación de forma segura</p></div>
+<div class="doc-banner"><div><h3>Recibo junio pendiente</h3><p>Firmá en menos de 1 minuto</p></div><button class="sign-btn" onclick="openModal('mfirma')">Firmar ahora</button></div>
+<div class="lrow" onclick="showSub('docs-recibos')"><div class="lrow-ico" style="background:#E8FAF0;color:#1a8a4a"><i class="fas fa-dollar-sign"></i></div><div class="lrow-txt"><h3>Recibos de sueldo</h3><p>Consultá y descargá tus recibos mensuales</p></div><div style="display:flex;align-items:center;gap:6px"><span class="tag tok">Actualizado</span><i class="fas fa-chevron-right lrow-chev"></i></div></div>
+<div class="lrow" onclick="openModal('mfirma')"><div class="lrow-ico" style="background:#EEF2FF;color:#4338CA"><i class="fas fa-pen-fancy"></i></div><div class="lrow-txt"><h3>Firma electrónica</h3><p>Firmá documentos de manera rápida y segura</p></div><div style="display:flex;align-items:center;gap:6px"><span class="tag tbl">Activo</span><i class="fas fa-chevron-right lrow-chev"></i></div></div>
+<div class="lrow" onclick="showSub('docs-legajo')"><div class="lrow-ico" style="background:#F3E8FF;color:#7C3AED"><i class="fas fa-id-card"></i></div><div class="lrow-txt"><h3>Legajo</h3><p>Visualizá tu información personal y laboral</p></div><i class="fas fa-chevron-right lrow-chev"></i></div>
+<div class="lrow" onclick="showSub('docs-subir')"><div class="lrow-ico" style="background:var(--orl);color:var(--or)"><i class="fas fa-cloud-upload-alt"></i></div><div class="lrow-txt"><h3>Subir documentos</h3><p>Cargá documentación adicional a tu legajo</p></div><i class="fas fa-chevron-right lrow-chev"></i></div>
+<div style="padding:14px"><button class="bp"><i class="fas fa-cloud-upload-alt"></i> Subir nuevo documento</button></div>
+</div>
+<div class="sub" id="docs-recibos">
+<div class="subh"><button class="bk" onclick="showSub('docs-main')"><i class="fas fa-arrow-left"></i></button><h2>Recibos de sueldo</h2></div>
+<div style="padding:12px;display:flex;flex-direction:column;gap:8px">
+<div class="card" style="border:1.5px solid var(--or);background:var(--orl);display:flex;align-items:center;gap:12px;cursor:pointer" onclick="openModal('mfirma')">
+<div class="lrow-ico" style="background:var(--orl);color:var(--or)"><i class="fas fa-file-signature"></i></div>
+<div style="flex:1"><div style="font-size:15px;font-weight:800">Junio 2025</div><div style="font-size:13px;color:var(--mt)">$2.847.350 bruto · <span style="color:var(--or);font-weight:800">Pendiente de firma</span></div></div>
+<button class="sign-btn" onclick="event.stopPropagation();openModal('mfirma')">Firmar</button>
+</div>
+<div class="card" style="display:flex;align-items:center;gap:12px"><div class="lrow-ico" style="background:var(--sf);color:var(--mt)"><i class="fas fa-file-alt"></i></div><div style="flex:1"><div style="font-size:15px;font-weight:700">Mayo 2025</div><div style="font-size:13px;color:var(--mt)">$2.763.200 bruto</div></div><span class="tag tok"><i class="fas fa-check"></i> Firmado</span></div>
+<div class="card" style="display:flex;align-items:center;gap:12px"><div class="lrow-ico" style="background:var(--sf);color:var(--mt)"><i class="fas fa-file-alt"></i></div><div style="flex:1"><div style="font-size:15px;font-weight:700">Abril 2025</div><div style="font-size:13px;color:var(--mt)">$2.690.100 bruto</div></div><span class="tag tok"><i class="fas fa-check"></i> Firmado</span></div>
+<div class="card" style="display:flex;align-items:center;gap:12px"><div class="lrow-ico" style="background:var(--sf);color:var(--mt)"><i class="fas fa-file-alt"></i></div><div style="flex:1"><div style="font-size:15px;font-weight:700">Marzo 2025</div><div style="font-size:13px;color:var(--mt)">$2.580.900 bruto</div></div><span class="tag tok"><i class="fas fa-check"></i> Firmado</span></div>
+<div class="card" style="display:flex;align-items:center;gap:12px"><div class="lrow-ico" style="background:var(--sf);color:var(--mt)"><i class="fas fa-file-alt"></i></div><div style="flex:1"><div style="font-size:15px;font-weight:700">Febrero 2025</div><div style="font-size:13px;color:var(--mt)">$2.445.600 bruto</div></div><span class="tag tok"><i class="fas fa-check"></i> Firmado</span></div>
+</div>
+</div>
+<div class="sub" id="docs-legajo">
+<div class="subh"><button class="bk" onclick="showSub('docs-main')"><i class="fas fa-arrow-left"></i></button><h2>Mi Legajo</h2></div>
+<div style="padding:16px;display:flex;flex-direction:column;gap:12px">
+<div class="card" style="display:flex;align-items:center;gap:14px"><div class="av avl">MG</div><div><div style="font-size:18px;font-weight:900">Martina González</div><div style="font-size:13px;color:var(--mt)">Legajo #0847</div></div></div>
+<div class="card">
+<div style="display:flex;flex-direction:column;gap:8px">
+<div style="display:flex;justify-content:space-between;font-size:13px"><span style="color:var(--mt)">Sector</span><strong>RR.HH.</strong></div><div class="hr" style="margin:2px 0"></div>
+<div style="display:flex;justify-content:space-between;font-size:13px"><span style="color:var(--mt)">Fecha de ingreso</span><strong>02/03/2020</strong></div><div class="hr" style="margin:2px 0"></div>
+<div style="display:flex;justify-content:space-between;font-size:13px"><span style="color:var(--mt)">Antigüedad</span><strong>5 años 3 meses</strong></div><div class="hr" style="margin:2px 0"></div>
+<div style="display:flex;justify-content:space-between;font-size:13px"><span style="color:var(--mt)">CUIL</span><strong>27-29456789-0</strong></div><div class="hr" style="margin:2px 0"></div>
+<div style="display:flex;justify-content:space-between;font-size:13px"><span style="color:var(--mt)">Modalidad</span><strong>Tiempo completo</strong></div>
+</div>
+</div>
+</div>
+</div>
+<div class="sub" id="docs-subir">
+<div class="subh"><button class="bk" onclick="showSub('docs-main')"><i class="fas fa-arrow-left"></i></button><h2>Subir documento</h2></div>
+<div style="padding:16px;display:flex;flex-direction:column;gap:14px">
+<div><label class="lbl">Tipo de documento</label><select class="inp"><option>Certificado médico</option><option>Constancia de estudios</option><option>DNI actualizado</option><option>Otro</option></select></div>
+<div class="upl" id="upl-doc" onclick="doUpload('upl-doc','Documento adjuntado correctamente')">
+<i class="fas fa-camera"></i><h3>Adjuntá el documento</h3><p>Tomá una foto clara y legible</p>
+<div class="upl-btns"><button onclick="event.stopPropagation();doUpload('upl-doc','📷 Foto adjuntada')"><i class="fas fa-camera"></i> Foto</button><button onclick="event.stopPropagation();doUpload('upl-doc','🖼️ Archivo adjuntado')"><i class="fas fa-images"></i> Galería</button></div>
+</div>
+<button class="bp" onclick="toast('¡Documento enviado al legajo!');showSub('docs-main')"><i class="fas fa-paper-plane"></i> Enviar</button>
+</div>
+</div>
+</div>
+
+<!-- MURO SOCIAL -->
+<div id="ssocial" class="scr">
+<div class="sh2"><h1>Muro Social</h1><p>Novedades, reconocimientos y celebraciones</p></div>
+<div style="margin:12px 14px;background:#EEF2FF;border:1px solid #C7D2FE;border-radius:var(--r);padding:14px">
+<h4 style="font-size:13px;font-weight:800;color:#4338CA;margin-bottom:4px">🔔 Alerta RR.HH. — En 3 días: Roberto C.</h4>
+<p style="font-size:12px;color:#5B4DC8">Cumple años el 8 de junio. Organizá el festejo presencial y la compra de torta.</p>
+</div>
+<div class="tabs">
+<button class="tab on" onclick="switchTab(this,'tnov')">Novedades</button>
+<button class="tab" onclick="switchTab(this,'trec')">Reconocimientos</button>
+<button class="tab" onclick="switchTab(this,'tcum')">Cumpleaños</button>
+</div>
+<div id="tnov">
+<div style="padding:15px 14px;border-bottom:1px solid var(--bd)">
+<div style="display:flex;gap:10px;align-items:flex-start;margin-bottom:8px"><div class="av avs" style="background:#667EEA">RH</div><div><div style="font-size:14px;font-weight:800">RR.HH. Sudamericana</div><div style="font-size:11px;color:var(--mt)">Hace 2 horas &nbsp;<span class="tag tbl" style="font-size:10px;padding:1px 7px">Oficial</span></div></div></div>
+<p style="font-size:14px;color:var(--tx);line-height:1.55;margin-bottom:10px">🎉 Sudamericana fue reconocida entre las mejores empresas del sector bebidas 2025. ¡Gracias a todo el equipo por hacer esto posible!</p>
+<div style="display:flex;gap:14px"><button onclick="toggleLike(this)" style="background:none;border:none;cursor:pointer;color:var(--mt);font-size:13px;font-weight:700;display:flex;align-items:center;gap:5px;font-family:var(--f)"><i class="fas fa-heart"></i> 24</button><button style="background:none;border:none;cursor:pointer;color:var(--mt);font-size:13px;font-weight:700;display:flex;align-items:center;gap:5px;font-family:var(--f)"><i class="fas fa-comment"></i> 8</button></div>
+</div>
+<div style="padding:15px 14px;border-bottom:1px solid var(--bd)">
+<div style="display:flex;gap:10px;align-items:flex-start;margin-bottom:8px"><div class="av avs" style="background:#059669">CM</div><div><div style="font-size:14px;font-weight:800">Carlos M. — Logística</div><div style="font-size:11px;color:var(--mt)">Ayer</div></div></div>
+<p style="font-size:14px;color:var(--tx);line-height:1.55;margin-bottom:10px">¡Cerramos mayo con récord de despachos! El equipo entregó un 18% más que el mes anterior. 💪🚛</p>
+<div style="display:flex;gap:14px"><button onclick="toggleLike(this)" style="background:none;border:none;cursor:pointer;color:var(--mt);font-size:13px;font-weight:700;display:flex;align-items:center;gap:5px;font-family:var(--f)"><i class="fas fa-heart"></i> 41</button><button style="background:none;border:none;cursor:pointer;color:var(--mt);font-size:13px;font-weight:700;display:flex;align-items:center;gap:5px;font-family:var(--f)"><i class="fas fa-comment"></i> 12</button></div>
+</div>
+</div>
+<div id="trec" style="display:none">
+<div style="padding:15px 14px;border-bottom:1px solid var(--bd)">
+<div style="display:flex;gap:10px;align-items:flex-start;margin-bottom:8px"><div class="av avs" style="background:var(--or)">MR</div><div><div style="font-size:14px;font-weight:800">Mariano R. — Gerente General</div><div style="font-size:11px;color:var(--mt)">Hoy</div></div></div>
+<p style="font-size:14px;color:var(--tx);line-height:1.55;margin-bottom:10px">🏆 Reconocimiento especial para <strong>Lucas Fernández</strong> de Calidad por su iniciativa en reducción de merma. ¡Ejemplo para toda la empresa!</p>
+<div style="display:flex;gap:14px"><button style="background:none;border:none;cursor:pointer;color:#FF3B30;font-size:13px;font-weight:700;display:flex;align-items:center;gap:5px;font-family:var(--f)"><i class="fas fa-heart"></i> 58</button><button style="background:none;border:none;cursor:pointer;color:var(--mt);font-size:13px;font-weight:700;display:flex;align-items:center;gap:5px;font-family:var(--f)"><i class="fas fa-comment"></i> 14</button></div>
+</div>
+</div>
+<div id="tcum" style="display:none">
+<div style="padding:20px 14px;text-align:center">
+<img src="https://raw.githubusercontent.com/neurotechsoluciones-design/neurotech-assets/main/foto_IA2.png" alt="Maria Perez" style="width:80px;height:80px;border-radius:50%;object-fit:cover;border:3px solid var(--or);margin-bottom:10px;display:block;margin-left:auto;margin-right:auto">
+<div style="font-size:52px;margin-bottom:8px">🎂</div>
+<div style="font-size:17px;font-weight:900;margin-bottom:6px">María Pérez cumple hoy</div>
+<p style="font-size:13px;color:var(--mt);margin-bottom:16px">Producción · 8 años en Sudamericana</p>
+<button class="bp" onclick="openModal('mcumple')"><i class="fas fa-paper-plane"></i> Enviar felicitación</button>
+</div>
+</div>
+</div>
+
+<!-- LEGAL IA -->
+<div id="slegal" class="scr">
+<div class="legal-hero">
+<span class="badge-rrhh"><i class="fas fa-lock"></i> Solo RR.HH.</span>
+<div style="font-size:38px;margin:10px 0 8px">&#x2696;&#xFE0F;</div>
+<h1>Asistencia Legal Inteligente</h1>
+<p>IA entrenada con el convenio colectivo de bebidas y la legislacion laboral vigente. Redacta documentos criticos en segundos con base normativa controlada.</p>
+</div>
+<div class="legal-body">
+<div><div class="slbl">Tipo de documento</div>
+<div class="chip-row" id="lchips">
+<button class="chip on" onclick="selChip(this,'lchips')">Suspension</button>
+<button class="chip" onclick="selChip(this,'lchips')">Sancion disciplinaria</button>
+<button class="chip" onclick="selChip(this,'lchips')">Carta documento</button>
+<button class="chip" onclick="selChip(this,'lchips')">Comunicacion formal</button>
+<button class="chip" onclick="selChip(this,'lchips')">Acta de apercibimiento</button>
+</div></div>
+<div><label class="lbl">Empleado</label><input type="text" class="inp" id="legal-emp" placeholder="Nombre y apellido" value="Lucas Fernandez"></div>
+<div><label class="lbl">Causa</label><textarea class="inp" id="legal-causa" rows="3">Ausencia injustificada los dias 2 y 3 de junio de 2025 sin aviso previo ni certificado medico.</textarea></div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+<div><label class="lbl">Fecha del hecho</label><input type="date" class="inp" value="2025-06-03"></div>
+<div><label class="lbl">Dias de sancion</label><input type="number" class="inp" placeholder="0" value="3" inputmode="numeric"></div>
+</div>
+<button class="bp" id="btn-gen" onclick="genLegal()"><i class="fas fa-magic"></i> Generar con IA</button>
+<div id="gen-out" style="background:var(--sf);border-radius:var(--r);padding:14px;border:1px solid var(--bd);display:none">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+<span style="font-size:13px;font-weight:800">Borrador generado</span>
+<button onclick="toast('Copiado')" style="background:none;border:none;cursor:pointer;color:var(--or);font-size:12px;font-weight:800;font-family:var(--f)"><i class="fas fa-copy"></i> Copiar</button>
+</div>
+<textarea class="inp" style="background:transparent;border:none;padding:0;font-size:13px;line-height:1.7;min-height:180px" id="legal-txt"></textarea>
+</div>
+<div class="legal-warn"><i class="fas fa-exclamation-triangle"></i><p><strong>Revision obligatoria:</strong> Basado en CCT Bebidas Art.68 y LCT. Revisa con el asesor legal antes de notificar. La IA no reemplaza el criterio profesional.</p></div>
+<div><div class="slbl">Historial reciente</div>
+<div class="card">
+<div class="hist-item"><div class="hist-ico"><i class="fas fa-file-alt"></i></div><div style="flex:1"><div style="font-size:13px;font-weight:800">Suspension &mdash; P. Mendez</div><div style="font-size:11px;color:var(--mt)">hace 2 dias</div></div><span class="tag tbl" style="font-size:10px">Generado</span></div>
+<div class="hist-item"><div class="hist-ico"><i class="fas fa-file-alt"></i></div><div style="flex:1"><div style="font-size:13px;font-weight:800">Acta apercibimiento &mdash; R. Diaz</div><div style="font-size:11px;color:var(--mt)">hace 5 dias</div></div><span class="tag tbl" style="font-size:10px">Generado</span></div>
+<div class="hist-item"><div class="hist-ico"><i class="fas fa-file-alt"></i></div><div style="flex:1"><div style="font-size:13px;font-weight:800">Carta documento &mdash; A. Torres</div><div style="font-size:11px;color:var(--mt)">hace 1 semana</div></div><span class="tag tbl" style="font-size:10px">Generado</span></div>
+</div></div>
+</div>
+</div>
+
+<!-- TRAMITES -->
+<div id="stamites" class="scr">
+<div class="sub on" id="tram-main">
+<div class="sh2"><h1>Tramites y permisos</h1><p>Gestioná tus solicitudes sin ir a RR.HH.</p></div>
+<div class="conf" id="tram-conf"><i class="fas fa-check-circle"></i><p id="tram-msg">Solicitud enviada</p></div>
+<div class="tgrid">
+<button class="tbtn" onclick="showSub('tram-adelanto')"><i class="fas fa-money-bill-wave"></i><span>Adelanto de sueldo</span></button>
+<button class="tbtn" onclick="showSub('tram-cert')"><i class="fas fa-file-medical"></i><span>Certificado medico</span></button>
+<button class="tbtn" onclick="showSub('tram-vac2')"><i class="fas fa-umbrella-beach"></i><span>Solicitar vacaciones</span></button>
+<button class="tbtn" onclick="toast('Proximamente disponible')"><i class="fas fa-exchange-alt"></i><span>Cambio de turno</span></button>
+<button class="tbtn" onclick="toast('Proximamente disponible')"><i class="fas fa-baby"></i><span>Licencia paternidad</span></button>
+<button class="tbtn" onclick="toast('Proximamente disponible')"><i class="fas fa-key"></i><span>Clave AFIP</span></button>
+</div>
+<div style="padding:0 14px 4px"><div class="slbl">Mis solicitudes recientes</div></div>
+<div style="padding:0 14px 14px;display:flex;flex-direction:column;gap:8px">
+<div class="card" style="display:flex;align-items:center;gap:12px"><i class="fas fa-umbrella-beach" style="color:var(--or);font-size:20px;width:22px;text-align:center"></i><div style="flex:1"><div style="font-size:14px;font-weight:700">Vacaciones 15-28 ene</div><div style="font-size:12px;color:var(--mt)">Enviada el 3 dic 2024</div></div><span class="tag tok"><i class="fas fa-check"></i> Aprobada</span></div>
+<div class="card" style="display:flex;align-items:center;gap:12px"><i class="fas fa-money-bill-wave" style="color:var(--wn);font-size:20px;width:22px;text-align:center"></i><div style="flex:1"><div style="font-size:14px;font-weight:700">Adelanto $80.000</div><div style="font-size:12px;color:var(--mt)">Enviado el 1 feb 2025</div></div><span class="tag twn">En revision</span></div>
+</div>
+</div>
+<div class="sub" id="tram-adelanto">
+<div class="subh"><button class="bk" onclick="showSub('tram-main')"><i class="fas fa-arrow-left"></i></button><h2>Adelanto de sueldo</h2></div>
+<div style="padding:18px;display:flex;flex-direction:column;gap:16px">
+<div style="background:var(--orl);border-radius:var(--r);padding:14px;display:flex;gap:10px;align-items:center"><i class="fas fa-info-circle" style="color:var(--or);font-size:18px"></i><p style="font-size:13px;font-weight:800;color:var(--or)">Maximo disponible: $142.367 (50% del neto)</p></div>
+<div><label class="lbl">Monto</label><input type="number" class="inp" placeholder="Ej: 50000" inputmode="numeric"></div>
+<div><label class="lbl">Motivo</label><select class="inp"><option>Gastos de salud</option><option>Educacion</option><option>Reparaciones del hogar</option><option>Otro</option></select></div>
+<div><label class="lbl">Aclaracion opcional</label><textarea class="inp" rows="3" placeholder="Contanos brevemente..."></textarea></div>
+<button class="bp" onclick="sendTramite('Adelanto solicitado. Te avisamos cuando sea aprobado.')"><i class="fas fa-paper-plane"></i> Enviar solicitud</button>
+</div>
+</div>
+<div class="sub" id="tram-cert">
+<div class="subh"><button class="bk" onclick="showSub('tram-main')"><i class="fas fa-arrow-left"></i></button><h2>Certificado medico</h2></div>
+<div style="padding:18px;display:flex;flex-direction:column;gap:16px">
+<div><label class="lbl">Fecha de la ausencia</label><input type="date" class="inp" value="2025-06-06"></div>
+<div><label class="lbl">Diagnostico opcional</label><input type="text" class="inp" placeholder="Ej: Gripe, reposo medico"></div>
+<div class="upl" id="upl-cert" onclick="doUpload('upl-cert','Certificado adjuntado')">
+<i class="fas fa-camera"></i><h3>Adjunta el certificado</h3><p>Toma una foto clara y legible</p>
+<div class="upl-btns"><button onclick="event.stopPropagation();doUpload('upl-cert','Foto adjuntada')"><i class="fas fa-camera"></i> Foto</button><button onclick="event.stopPropagation();doUpload('upl-cert','Archivo adjuntado')"><i class="fas fa-images"></i> Galeria</button></div>
+</div>
+<button class="bp" onclick="sendTramite('Certificado enviado. Quedo registrada tu ausencia.')"><i class="fas fa-paper-plane"></i> Enviar certificado</button>
+</div>
+</div>
+<div class="sub" id="tram-vac2">
+<div class="subh"><button class="bk" onclick="showSub('tram-main')"><i class="fas fa-arrow-left"></i></button><h2>Solicitar vacaciones</h2></div>
+<div style="padding:18px;display:flex;flex-direction:column;gap:16px">
+<div style="background:#E8FAF0;border-radius:var(--r);padding:14px;display:flex;gap:10px;align-items:center"><i class="fas fa-calendar-check" style="color:var(--ok);font-size:18px"></i><div><p style="font-size:13px;font-weight:800;color:#1a6b3c">Dias disponibles: 18</p><p style="font-size:12px;color:#1a6b3c">Periodo 2024/2025</p></div></div>
+<div><label class="lbl">Desde</label><input type="date" class="inp" id="vd" oninput="calcVac()"></div>
+<div><label class="lbl">Hasta</label><input type="date" class="inp" id="vh" oninput="calcVac()"></div>
+<div id="dias-box" style="display:none;background:var(--orl);border-radius:var(--r);padding:12px;text-align:center"><span id="dias-n" style="font-size:36px;font-weight:900;color:var(--or)">0</span><span style="font-size:15px;color:var(--or)"> dias habiles</span></div>
+<div><label class="lbl">Observaciones</label><textarea class="inp" rows="3" placeholder="Ej: tengo turno programado..."></textarea></div>
+<button class="bp" onclick="sendTramite('Vacaciones solicitadas. Te avisamos cuando las apruebe RR.HH.')"><i class="fas fa-paper-plane"></i> Enviar solicitud</button>
+</div>
+</div>
+</div>
+
+<!-- VACACIONES -->
+<div id="svac" class="scr">
+<div class="sh2"><h1>Vacaciones y Permisos</h1><p>Gestioná tus licencias desde el celular</p></div>
+<div class="vac-ring">
+<div class="ring-w">
+<svg viewBox="0 0 100 100">
+<circle cx="50" cy="50" r="40" fill="none" stroke="#F0F0F5" stroke-width="10"/>
+<circle cx="50" cy="50" r="40" fill="none" stroke="#0B213A" stroke-width="10" stroke-dasharray="150.8 251.3" stroke-dashoffset="62.8" stroke-linecap="round" transform="rotate(-90 50 50)"/>
+</svg>
+<div class="ring-c"><span class="ring-n">18</span><span class="ring-s">dias</span></div>
+</div>
+<div style="font-size:13px;color:var(--mt);font-weight:600">de 30 dias anuales &bull; 60% utilizado</div>
+</div>
+<div class="vac-btns">
+<button class="vacbtn" onclick="showSub('vac-form')"><i class="fas fa-umbrella-beach"></i><span>Solicitar Vacaciones</span></button>
+<button class="vacbtn" onclick="showSub('vac-perm')"><i class="fas fa-file-alt"></i><span>Solicitar Permiso</span></button>
+</div>
+<div style="padding:0 14px 4px"><div class="slbl">Subir certificado medico</div></div>
+<div style="padding:0 14px 14px">
+<div class="upl" id="upl-vac" onclick="doUpload('upl-vac','Certificado adjuntado')">
+<i class="fas fa-camera"></i><h3>Adjunta el certificado</h3><p>Justifica tu ausencia por enfermedad</p>
+<div class="upl-btns"><button onclick="event.stopPropagation();doUpload('upl-vac','Foto adjuntada')"><i class="fas fa-camera"></i> Foto</button><button onclick="event.stopPropagation();doUpload('upl-vac','Archivo adjuntado')"><i class="fas fa-images"></i> Galeria</button></div>
+</div>
+</div>
+<div style="padding:0 14px 4px"><div class="slbl">Mis solicitudes</div></div>
+<div style="padding:0 14px 14px;display:flex;flex-direction:column;gap:8px">
+<div class="card" style="display:flex;align-items:center;gap:10px"><div style="width:38px;height:38px;background:#E8FAF0;border-radius:10px;display:flex;align-items:center;justify-content:center;color:var(--ok)"><i class="fas fa-check"></i></div><div style="flex:1"><div style="font-size:14px;font-weight:700">Vacaciones 15/01 - 22/07/24</div><div style="font-size:12px;color:var(--mt)">Enviada el 3/12/24</div></div><span class="tag tok">Aprobada</span></div>
+<div class="card" style="display:flex;align-items:center;gap:10px"><div style="width:38px;height:38px;background:#EAF2F8;border-radius:10px;display:flex;align-items:center;justify-content:center;color:var(--wn)"><i class="fas fa-clock"></i></div><div style="flex:1"><div style="font-size:14px;font-weight:700">Permiso personal 03/06</div><div style="font-size:12px;color:var(--mt)">Enviada el 1/06/25</div></div><span class="tag twn">En revision</span></div>
+<div class="card" style="display:flex;align-items:center;gap:10px"><div style="width:38px;height:38px;background:#F0F0F5;border-radius:10px;display:flex;align-items:center;justify-content:center;color:var(--mt)"><i class="fas fa-check-double"></i></div><div style="flex:1"><div style="font-size:14px;font-weight:700">Vacaciones 02/01 - 09/01/24</div><div style="font-size:12px;color:var(--mt)">Periodo anterior</div></div><span class="tag tgr">Finalizada</span></div>
+</div>
+</div>
+<div id="svac" class="sub" id="vac-form" style="display:none">
+<div class="subh"><button class="bk" onclick="this.closest('.scr').querySelector('#vac-form').style.display='none'"><i class="fas fa-arrow-left"></i></button><h2>Solicitar vacaciones</h2></div>
+<div style="padding:18px;display:flex;flex-direction:column;gap:16px">
+<div><label class="lbl">Desde</label><input type="date" class="inp" id="vd2" oninput="calcVac2()"></div>
+<div><label class="lbl">Hasta</label><input type="date" class="inp" id="vh2" oninput="calcVac2()"></div>
+<div id="dias-box2" style="display:none;background:var(--orl);border-radius:var(--r);padding:12px;text-align:center"><span id="dias-n2" style="font-size:36px;font-weight:900;color:var(--or)">0</span><span style="font-size:15px;color:var(--or)"> dias habiles</span></div>
+<div><label class="lbl">Observaciones</label><textarea class="inp" rows="3" placeholder="Comentario opcional..."></textarea></div>
+<button class="bp" onclick="toast('Solicitud de vacaciones enviada a RR.HH. para aprobacion');go('vac')"><i class="fas fa-paper-plane"></i> Enviar solicitud</button>
+</div>
+</div>
+
+<!-- TABLERO GERENCIA -->
+<div id="sger" class="scr">
+<div class="ger-top">
+<div class="ger-bk"><button onclick="go('home')"><i class="fas fa-arrow-left"></i></button><span>Volver al inicio</span></div>
+<div class="ger-badge"><i class="fas fa-shield-alt"></i> Vista Gerencia / RR.HH.</div>
+<h1>Tablero de Control</h1>
+<p>Junio 2025 &bull; Datos en tiempo real</p>
+</div>
+<div class="kgrid">
+<div class="kpi"><div class="kpi-l">Ausentismo hoy</div><div class="kpi-v" style="color:var(--er)">7</div><div class="kpi-s">empleados ausentes</div><div class="kpi-tr up"><i class="fas fa-arrow-up"></i> +2 vs ayer</div></div>
+<div class="kpi"><div class="kpi-l">Adelantos jun</div><div class="kpi-v">8</div><div class="kpi-s">solicitudes</div><div class="kpi-tr dn"><i class="fas fa-arrow-down"></i> -3 vs mayo</div></div>
+<div class="kpi"><div class="kpi-l">Recibos firmados</div><div class="kpi-v" style="color:var(--ok)">163</div><div class="kpi-s">de 200 empleados</div><div class="kpi-tr nf"><i class="fas fa-clock"></i> 37 pendientes</div></div>
+<div class="kpi"><div class="kpi-l">Vac. pendientes</div><div class="kpi-v" style="color:var(--wn)">12</div><div class="kpi-s">a aprobar</div><div class="kpi-tr up"><i class="fas fa-exclamation"></i> Accion requerida</div></div>
+</div>
+<div class="chart-w">
+<h3>Ausentismo mensual 2025</h3><div class="cs">Empleados ausentes promedio por mes</div>
+<div class="bars">
+<div class="bc"><div class="bv">18</div><div class="bf" style="height:54px"></div><div class="bl">Ene</div></div>
+<div class="bc"><div class="bv">22</div><div class="bf" style="height:66px"></div><div class="bl">Feb</div></div>
+<div class="bc"><div class="bv">15</div><div class="bf" style="height:45px"></div><div class="bl">Mar</div></div>
+<div class="bc"><div class="bv">19</div><div class="bf" style="height:57px"></div><div class="bl">Abr</div></div>
+<div class="bc"><div class="bv">28</div><div class="bf" style="height:84px"></div><div class="bl">May</div></div>
+<div class="bc hl"><div class="bv">21</div><div class="bf" style="height:63px"></div><div class="bl">Jun</div></div>
+</div>
+</div>
+<div class="chart-w">
+<h3>Adelantos de sueldo &mdash; Junio 2025</h3><div class="cs">8 solicitudes &bull; $1.240.000 total</div>
+<table class="adt"><thead><tr><th>Empleado</th><th>Monto</th><th>Estado</th></tr></thead>
+<tbody>
+<tr><td>Juan Garcia</td><td>$80.000</td><td><span class="tag twn">Revision</span></td></tr>
+<tr><td>Ana Flores</td><td>$120.000</td><td><span class="tag tok">Aprobado</span></td></tr>
+<tr><td style="color:var(--mt)">+ 6 mas</td><td>$1.040.000</td><td><span class="tag tbl">Ver detalle</span></td></tr>
+</tbody></table>
+</div>
+<div class="ger-actions" style="padding:0 12px 16px;display:flex;flex-direction:column;gap:10px">
+<button class="bp ger-action-btn" onclick="toast('Reporte generado y enviado a tu correo')"><i class="fas fa-download"></i> Exportar reporte</button>
+<button class="bs ger-action-btn" onclick="toast('Modulo de aprobaciones proximamente')"><i class="fas fa-check-double"></i> Aprobar solicitud</button>
+</div>
+<div class="ger-tools" style="padding:0 12px 18px">
+<div class="ger-tools-label" style="font-size:10px;font-weight:800;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:.8px;margin-bottom:10px">Herramientas exclusivas RR.HH.</div>
+<div class="ger-tools-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+<button class="ger-tool-card ger-tool-legal" onclick="go('legal')" style="background:rgba(102,126,234,.18);border:1px solid rgba(102,126,234,.3);border-radius:var(--r);padding:16px 10px;display:flex;flex-direction:column;align-items:center;gap:8px;cursor:pointer;font-family:var(--f);transition:background .15s">
+<div style="width:42px;height:42px;border-radius:12px;background:rgba(139,92,246,.3);display:flex;align-items:center;justify-content:center"><i class="fas fa-balance-scale" style="color:#c4b5fd;font-size:18px"></i></div>
+<span style="font-size:11px;font-weight:800;color:rgba(255,255,255,.9);text-align:center">Asist. Legal IA</span>
+<span style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:2px 8px;font-size:9px;font-weight:800;color:rgba(255,255,255,.45)">Solo RR.HH.</span>
+</button>
+<button class="ger-tool-card ger-tool-cvs" onclick="go('cvs')" style="background:rgba(18,176,83,.13);border:1px solid rgba(52,199,89,.28);border-radius:var(--r);padding:16px 10px;display:flex;flex-direction:column;align-items:center;gap:8px;cursor:pointer;font-family:var(--f);transition:background .15s">
+<div style="width:42px;height:42px;border-radius:12px;background:rgba(18,176,83,.3);display:flex;align-items:center;justify-content:center"><i class="fas fa-user-check" style="color:#4ade80;font-size:18px"></i></div>
+<span style="font-size:11px;font-weight:800;color:rgba(255,255,255,.9);text-align:center">Filtro de CVs</span>
+<span style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:2px 8px;font-size:9px;font-weight:800;color:rgba(255,255,255,.45)">Solo RR.HH.</span>
+</button>
+</div>
+</div>
+</div>
+
+<!-- COMUNICACIONES OFICIALES -->
+<div id="scomms" class="scr">
+<div class="sh2"><h1>Comunicaciones</h1><p>La unica fuente oficial de la empresa</p></div>
+<div style="padding:12px 14px;display:flex;flex-direction:column;gap:2px">
+<div style="padding:16px 0;border-bottom:1px solid var(--bd)">
+<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px">
+<div><span class="tag tbl" style="margin-bottom:6px;display:inline-flex"><i class="fas fa-bullhorn"></i>&nbsp; Anuncio oficial</span><div style="font-size:15px;font-weight:800;margin-top:4px">Actualizacion cobertura medica</div></div>
+<span style="font-size:11px;color:var(--mt);margin-left:8px;white-space:nowrap">Hoy</span>
+</div>
+<p style="font-size:13px;color:var(--tx);line-height:1.6;margin-bottom:12px">A partir del 1 de julio, el Plan Familiar cubre medicamentos oncologicos sin copago. Aplica automaticamente a todos los afiliados activos.</p>
+<button id="rb1" onclick="markRead('rb1')" style="background:none;border:1.5px solid var(--bd);border-radius:20px;padding:5px 12px;font-size:11px;font-weight:800;color:var(--mt);cursor:pointer;font-family:var(--f)">Marcar como leido</button>
+</div>
+<div style="padding:16px 0;border-bottom:1px solid var(--bd)">
+<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px">
+<div style="font-size:15px;font-weight:800;letter-spacing:-.2px">Nuevo lanzamiento: Linea Premium Citrus</div>
+<span style="font-size:11px;color:var(--mt);white-space:nowrap">Ayer</span>
+</div>
+<p style="font-size:13px;color:var(--tx);line-height:1.6;margin-bottom:12px">Nos enorgullece presentar nuestra nueva linea Premium Citrus. Capacitacion de producto el viernes a las 10hs. Asistencia obligatoria para el area comercial.</p>
+<button id="rb2" onclick="markRead('rb2')" style="background:none;border:1.5px solid var(--bd);border-radius:20px;padding:5px 12px;font-size:11px;font-weight:800;color:var(--mt);cursor:pointer;font-family:var(--f)">Marcar como leido</button>
+</div>
+<div style="padding:16px 0">
+<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px">
+<div><span class="tag ter" style="margin-bottom:6px;display:inline-flex"><i class="fas fa-exclamation-circle"></i>&nbsp; Urgente</span><div style="font-size:15px;font-weight:800;margin-top:4px">Protocolo de seguridad: area de carga</div></div>
+<span style="font-size:11px;color:var(--mt);white-space:nowrap">3 jun</span>
+</div>
+<p style="font-size:13px;color:var(--tx);line-height:1.6;margin-bottom:12px">Uso obligatorio de chaleco reflectante y calzado de seguridad en el area de carga. Se reforzara el control a partir del lunes proximo.</p>
+<button id="rb3" onclick="markRead('rb3')" style="background:none;border:1.5px solid var(--bd);border-radius:20px;padding:5px 12px;font-size:11px;font-weight:800;color:var(--mt);cursor:pointer;font-family:var(--f)">Marcar como leido</button>
+</div>
+</div>
+</div>
+
+<!-- CVs CON IA -->
+<div id="scvs" class="scr">
+<div class="legal-hero" style="background:linear-gradient(135deg,#0B213A,#1E4D78)">
+<span class="badge-rrhh"><i class="fas fa-lock"></i> Solo RR.HH.</span>
+<div style="font-size:38px;margin:10px 0 8px">&#x1F916;</div>
+<h1>Asistente de Contratacion &amp; Filtro de CVs</h1>
+<p>Agente de IA dedicado a la recepcion, lectura y pre-clasificacion masiva de postulantes. Integrado con WhatsApp: los CVs llegan automaticamente, ya ordenados, al correo de RR.HH.</p>
+</div>
+<div style="padding:14px;display:flex;flex-direction:column;gap:14px">
+<div style="background:#E8FAF0;border-radius:var(--r);padding:14px;display:flex;gap:10px;align-items:flex-start">
+<i class="fab fa-whatsapp" style="color:var(--wa);font-size:22px;flex-shrink:0;margin-top:2px"></i>
+<div>
+<p style="font-size:13px;color:#1a6b3c;line-height:1.5;font-weight:700;margin-bottom:8px">Integracion activa con WhatsApp</p>
+<p style="font-size:12px;color:#1a6b3c;line-height:1.55;margin-bottom:10px">El postulante envia su CV al numero de la empresa. El bot lo recibe, agradece automaticamente y lo deriva al motor de IA para su analisis. Sin saturar al equipo.</p>
+<div style="display:flex;flex-direction:column;gap:5px">
+<div style="display:flex;align-items:center;gap:6px">
+<span style="background:#fff;border:1px solid rgba(37,211,102,.4);border-radius:16px;padding:3px 10px;font-size:10px;font-weight:800;color:var(--wad);white-space:nowrap"><i class="fab fa-whatsapp"></i> Postulante envia CV</span>
+<i class="fas fa-arrow-right" style="color:#1a6b3c;font-size:9px"></i>
+<span style="background:#fff;border:1px solid rgba(37,211,102,.4);border-radius:16px;padding:3px 10px;font-size:10px;font-weight:800;color:var(--wad);white-space:nowrap">Bot agradece</span>
+</div>
+<div style="display:flex;align-items:center;gap:6px">
+<span style="background:#fff;border:1px solid rgba(37,211,102,.4);border-radius:16px;padding:3px 10px;font-size:10px;font-weight:800;color:var(--wad);white-space:nowrap"><i class="fas fa-robot"></i> IA analiza y clasifica</span>
+<i class="fas fa-arrow-right" style="color:#1a6b3c;font-size:9px"></i>
+<span style="background:#fff;border:1px solid rgba(37,211,102,.4);border-radius:16px;padding:3px 10px;font-size:10px;font-weight:800;color:var(--wad);white-space:nowrap"><i class="fas fa-envelope"></i> Resumen al correo RRHH</span>
+</div>
+</div>
+</div>
+</div>
+<div style="background:#EAF2F8;border:1px solid #BFD8EA;border-radius:var(--r);padding:13px 14px;display:flex;gap:10px;align-items:flex-start">
+<i class="fas fa-info-circle" style="color:var(--wn);font-size:15px;margin-top:1px;flex-shrink:0"></i>
+<p style="font-size:12px;color:#0B213A;line-height:1.55">Los resumenes con perfiles extraidos llegan <strong>ordenados directamente al correo de RR.HH.</strong>, usando la misma logica de automatizacion del modulo de Formularios y Tramites. Sin CVs perdidos en el celular.</p>
+</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+<button class="vacbtn" onclick="analyzeCV()"><i class="fas fa-cloud-upload-alt"></i><span>Analizar nuevo CV</span></button>
+<button class="vacbtn" onclick="showCVList()"><i class="fas fa-users"></i><span>Ver postulantes</span></button>
+</div>
+<div id="cv-loading" style="display:none;flex-direction:column;align-items:center;gap:12px;padding:24px">
+<div style="width:48px;height:48px;border:4px solid rgba(11,33,58,.3);border-top-color:#4A90D9;border-radius:50%;animation:rot .8s linear infinite"></div>
+<p style="font-size:14px;font-weight:700;color:var(--mt)">Analizando CV con IA...</p>
+</div>
+<div id="cv-result" style="display:none;background:var(--sf);border-radius:var(--r);padding:16px">
+<div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
+<div style="font-size:36px;font-weight:900;color:var(--ok)">87%</div>
+<div><div style="font-size:16px;font-weight:900">Martin Lopez</div><div style="font-size:13px;color:var(--mt)">Postulante para Operario de Produccion</div></div>
+</div>
+<div class="hr"></div>
+<div style="display:flex;flex-direction:column;gap:8px">
+<div style="font-size:12px;font-weight:800;color:var(--mt);text-transform:uppercase;letter-spacing:.6px">Resumen del perfil</div>
+<p style="font-size:13px;color:var(--tx);line-height:1.6">Tecnico en industria alimentaria con 4 anos de experiencia en lineas de produccion. Conocimiento de BPM y normas ISO 9001. Disponibilidad inmediata para turnos rotativos.</p>
+<div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:4px"><span class="tag tok">BPM certificado</span><span class="tag tbl">ISO 9001</span><span class="tag tok">Turnos rotativos</span></div>
+</div>
+<div class="hr"></div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+<button class="bp" style="font-size:13px;padding:11px" onclick="toast('Candidato preseleccionado')"><i class="fas fa-check"></i> Preseleccionar</button>
+<button class="bs" style="font-size:13px;padding:11px" onclick="toast('Candidato archivado')"><i class="fas fa-archive"></i> Archivar</button>
+</div>
+</div>
+<div id="cv-lista" style="display:none;flex-direction:column;gap:8px">
+<div class="card" style="display:flex;align-items:center;gap:10px"><div class="av avs" style="background:var(--ok)">ML</div><div style="flex:1"><div style="font-size:14px;font-weight:800">Martin Lopez</div><div style="font-size:12px;color:var(--mt)">Operario de produccion</div></div><div style="text-align:right"><div style="font-size:16px;font-weight:900;color:var(--ok)">87%</div><span class="tag tok" style="font-size:10px">Preseleccionado</span></div></div>
+<div class="card" style="display:flex;align-items:center;gap:10px"><div class="av avs" style="background:#3B82F6">SR</div><div style="flex:1"><div style="font-size:14px;font-weight:800">Sofia Rodriguez</div><div style="font-size:12px;color:var(--mt)">Administrativa</div></div><div style="text-align:right"><div style="font-size:16px;font-weight:900;color:#3B82F6">72%</div><span class="tag tbl" style="font-size:10px">En evaluacion</span></div></div>
+<div class="card" style="display:flex;align-items:center;gap:10px"><div class="av avs" style="background:var(--mt)">DP</div><div style="flex:1"><div style="font-size:14px;font-weight:800">Diego Pereyra</div><div style="font-size:12px;color:var(--mt)">Chofer distribucion</div></div><div style="text-align:right"><div style="font-size:16px;font-weight:900;color:var(--mt)">41%</div><span class="tag tgr" style="font-size:10px">Descartado</span></div></div>
+</div>
+</div>
+</div>
+
+<!-- PRODE: HERO -->
+<div id="sprode" class="scr" style="background:var(--pb);padding-bottom:80px">
+<div style="position:relative;overflow:hidden;padding:36px 20px 28px;text-align:center">
+<!-- Maradona #10 watermark -->
+<div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:180px;font-weight:900;color:rgba(159,197,232,.06);line-height:1;pointer-events:none;z-index:0">10</div>
+<div style="position:relative;z-index:1">
+<div style="display:inline-flex;align-items:center;gap:6px;background:rgba(159,197,232,.15);border:1px solid rgba(159,197,232,.3);border-radius:20px;padding:4px 12px;margin-bottom:16px">
+<span style="color:var(--pa);font-size:11px;font-weight:900;letter-spacing:.8px;text-transform:uppercase">Copa del Mundo 2026</span>
+</div>
+<h1 style="color:#fff;font-size:26px;font-weight:900;letter-spacing:-.5px;margin-bottom:4px">PRODE SUDAMERICANA</h1>
+<p style="color:rgba(255,255,255,.55);font-size:14px;margin-bottom:20px">Edicion Especial Mundial</p>
+<div style="display:flex;justify-content:center;gap:24px;margin-bottom:20px">
+<div style="text-align:center"><div style="font-size:28px;font-weight:900;color:var(--pa)">1,240</div><div style="font-size:11px;color:rgba(255,255,255,.45);font-weight:700">Tu puntaje</div></div>
+<div style="width:1px;background:rgba(255,255,255,.1)"></div>
+<div style="text-align:center"><div style="font-size:28px;font-weight:900;color:#fff">3°</div><div style="font-size:11px;color:rgba(255,255,255,.45);font-weight:700">Tu posicion</div></div>
+<div style="width:1px;background:rgba(255,255,255,.1)"></div>
+<div style="text-align:center"><div style="font-size:28px;font-weight:900;color:var(--ok)">7</div><div style="font-size:11px;color:rgba(255,255,255,.45);font-weight:700">Partidos</div></div>
+</div>
+<button class="bp" onclick="pgo('ppronosticos')" style="padding:13px 32px;font-size:15px;background:var(--pa);border:none;color:#1A1A2E">&#9889; Hacer pronos de hoy</button>
+</div>
+</div>
+<!-- Prode nav -->
+<div id="pnav" style="display:flex;background:rgba(255,255,255,.06);border-bottom:1px solid rgba(255,255,255,.1)">
+<button onclick="pgo('sprode')" class="pntab" id="pt0" style="color:var(--pa)">Inicio</button>
+<button onclick="pgo('ppronosticos')" class="pntab" id="pt1">Pronos</button>
+<button onclick="pgo('pranking')" class="pntab" id="pt2">Ranking</button>
+<button onclick="pgo('pmuro')" class="pntab" id="pt3">Muro</button>
+</div>
+<div style="padding:14px">
+<!-- Proximos partidos -->
+<div style="margin-bottom:20px">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+<div style="font-size:14px;font-weight:900;color:#fff">Proximos partidos</div>
+<button onclick="pgo('ppronosticos')" style="background:none;border:none;color:var(--pa);font-size:12px;font-weight:800;font-family:var(--f);cursor:pointer">Ver todos</button>
+</div>
+<div style="display:flex;flex-direction:column;gap:10px">
+<div class="pcard">
+<div style="font-size:10px;color:var(--pa);font-weight:900;letter-spacing:.8px;text-align:center;margin-bottom:10px">GRUPO A &nbsp;|&nbsp; Hoy 15:00</div>
+<div style="display:flex;align-items:center;justify-content:space-between">
+<div style="text-align:center;flex:1"><div style="margin-bottom:4px"><span class="flag-img flag-ar"></span></div><div style="color:#fff;font-size:12px;font-weight:800">Argentina</div></div>
+<div style="text-align:center;min-width:60px"><div style="font-size:20px;font-weight:900;color:var(--pa)">VS</div><div style="font-size:10px;color:rgba(255,255,255,.4);margin-top:4px">Sin prono</div></div>
+<div style="text-align:center;flex:1"><div style="margin-bottom:4px"><span class="flag-img flag-br"></span></div><div style="color:#fff;font-size:12px;font-weight:800">Brasil</div></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Mi posicion -->
+<div class="card" style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);margin-bottom:20px">
+<div style="display:flex;align-items:center;gap:12px">
+<div style="width:44px;height:44px;border-radius:50%;background:var(--pa);display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:900;color:#1A1A2E">3</div>
+<div style="flex:1"><div style="color:#fff;font-size:15px;font-weight:800">Juan Perez</div><div style="color:rgba(255,255,255,.5);font-size:12px">1,240 puntos</div></div>
+<div style="text-align:right"><div style="color:var(--ok);font-size:12px;font-weight:900">&#9650; +2</div><div style="color:rgba(255,255,255,.4);font-size:11px">vs ayer</div></div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- PRODE: PRONÓSTICOS -->
+<div id="ppronosticos" class="scr" style="background:var(--pb);min-height:100%;padding-bottom:80px;display:none">
+<div style="padding:20px 16px 10px;display:flex;align-items:center;justify-content:space-between">
+<h1 style="color:#fff;font-size:20px;font-weight:900">Mis Pronosticos</h1>
+<span style="color:rgba(255,255,255,.45);font-size:12px">Fecha 3 &bull; Mundial 2026</span>
+</div>
+<div style="padding:0 14px;display:flex;flex-direction:column;gap:12px">
+<div class="pcard">
+<div style="font-size:10px;color:var(--pa);font-weight:900;letter-spacing:.8px;text-align:center;margin-bottom:10px">GRUPO A &nbsp;|&nbsp; Hoy 15:00</div>
+<div style="display:flex;align-items:center;justify-content:space-between;gap:8px">
+<div style="text-align:center;flex:1"><div style="margin-bottom:4px"><span class="flag-img flag-ar"></span></div><div style="color:#fff;font-size:12px;font-weight:800">Argentina</div></div>
+<div style="text-align:center;display:flex;flex-direction:column;align-items:center;gap:6px">
+<div style="display:flex;gap:8px">
+<input type="number" min="0" max="9" placeholder="0" style="width:44px;height:44px;text-align:center;border-radius:10px;border:1.5px solid rgba(159,197,232,.5);background:rgba(255,255,255,.08);color:#fff;font-size:20px;font-weight:900;font-family:var(--f)">
+<input type="number" min="0" max="9" placeholder="0" style="width:44px;height:44px;text-align:center;border-radius:10px;border:1.5px solid rgba(159,197,232,.5);background:rgba(255,255,255,.08);color:#fff;font-size:20px;font-weight:900;font-family:var(--f)">
+</div>
+<div style="font-size:10px;color:rgba(255,255,255,.4)">Tu prono</div>
+</div>
+<div style="text-align:center;flex:1"><div style="margin-bottom:4px"><span class="flag-img flag-br"></span></div><div style="color:#fff;font-size:12px;font-weight:800">Brasil</div></div>
+</div>
+</div>
+<div class="pcard">
+<div style="font-size:10px;color:rgba(255,255,255,.4);font-weight:900;letter-spacing:.8px;text-align:center;margin-bottom:10px">GRUPO B &nbsp;|&nbsp; Hoy 18:00</div>
+<div style="display:flex;align-items:center;justify-content:space-between;gap:8px">
+<div style="text-align:center;flex:1"><div style="margin-bottom:4px"><span class="flag-img flag-uy"></span></div><div style="color:#fff;font-size:12px;font-weight:800">Uruguay</div></div>
+<div style="text-align:center;display:flex;flex-direction:column;align-items:center;gap:6px">
+<div style="display:flex;gap:8px">
+<input type="number" min="0" max="9" value="2" style="width:44px;height:44px;text-align:center;border-radius:10px;border:1.5px solid rgba(52,199,89,.5);background:rgba(52,199,89,.1);color:var(--ok);font-size:20px;font-weight:900;font-family:var(--f)">
+<input type="number" min="0" max="9" value="1" style="width:44px;height:44px;text-align:center;border-radius:10px;border:1.5px solid rgba(52,199,89,.5);background:rgba(52,199,89,.1);color:var(--ok);font-size:20px;font-weight:900;font-family:var(--f)">
+</div>
+<div style="font-size:10px;color:var(--ok)">&#10003; Enviado</div>
+</div>
+<div style="text-align:center;flex:1"><div style="margin-bottom:4px"><span class="flag-img flag-co"></span></div><div style="color:#fff;font-size:12px;font-weight:800">Colombia</div></div>
+</div>
+</div>
+<div class="pcard">
+<div style="font-size:10px;color:rgba(255,255,255,.4);font-weight:900;letter-spacing:.8px;text-align:center;margin-bottom:10px">GRUPO C &nbsp;|&nbsp; Hoy 21:00</div>
+<div style="display:flex;align-items:center;justify-content:space-between;gap:8px">
+<div style="text-align:center;flex:1"><div style="margin-bottom:4px"><span class="flag-img flag-py"></span></div><div style="color:#fff;font-size:12px;font-weight:800">Paraguay</div></div>
+<div style="text-align:center;display:flex;flex-direction:column;align-items:center;gap:6px">
+<div style="display:flex;gap:8px">
+<input type="number" min="0" max="9" placeholder="0" style="width:44px;height:44px;text-align:center;border-radius:10px;border:1.5px solid rgba(159,197,232,.5);background:rgba(255,255,255,.08);color:#fff;font-size:20px;font-weight:900;font-family:var(--f)">
+<input type="number" min="0" max="9" placeholder="0" style="width:44px;height:44px;text-align:center;border-radius:10px;border:1.5px solid rgba(159,197,232,.5);background:rgba(255,255,255,.08);color:#fff;font-size:20px;font-weight:900;font-family:var(--f)">
+</div>
+<div style="font-size:10px;color:rgba(255,255,255,.4)">Tu prono</div>
+</div>
+<div style="text-align:center;flex:1"><div style="margin-bottom:4px"><span class="flag-img flag-cl"></span></div><div style="color:#fff;font-size:12px;font-weight:800">Chile</div></div>
+</div>
+</div>
+<button class="bp" onclick="toast('Pronostico guardado!')" style="width:100%;padding:14px;font-size:15px;background:var(--pa);border:none;color:#1A1A2E;margin-top:4px">Guardar pronosticos</button>
+</div>
+</div>
+
+<!-- PRODE: RANKING -->
+<div id="pranking" class="scr" style="background:var(--pb);min-height:100%;padding-bottom:80px;display:none">
+<div style="padding:20px 16px 14px"><h1 style="color:#fff;font-size:20px;font-weight:900">Ranking General</h1></div>
+<!-- Podio top 3 -->
+<div style="display:flex;align-items:flex-end;justify-content:center;gap:0;padding:0 16px 20px">
+<!-- 2do -->
+<div style="flex:1;text-align:center">
+<div style="font-size:28px;margin-bottom:6px">&#x1F948;</div>
+<img src="https://i.pravatar.cc/120?img=65" alt="M. Cardozo" class="pod-person" style="width:48px;height:48px;border:3px solid #8B8BA1">
+<div style="color:#fff;font-size:12px;font-weight:800;margin-bottom:2px">M. Cardozo</div>
+<div style="color:rgba(255,255,255,.5);font-size:11px;margin-bottom:8px">1,180 pts</div>
+<div style="background:rgba(139,139,161,.2);border-radius:8px 8px 0 0;height:80px;display:flex;align-items:center;justify-content:center"><span style="color:rgba(255,255,255,.4);font-size:28px;font-weight:900">2</span></div>
+</div>
+<!-- 1ro -->
+<div style="flex:1;text-align:center">
+<div style="font-size:28px;margin-bottom:6px">&#x1F947;</div>
+<img src="https://i.pravatar.cc/120?img=32" alt="L. Gomez" class="pod-person" style="width:56px;height:56px;border:3px solid var(--pa)">
+<div style="color:#fff;font-size:13px;font-weight:900;margin-bottom:2px">L. Gomez</div>
+<div style="color:var(--pa);font-size:12px;font-weight:800;margin-bottom:8px">1,480 pts</div>
+<div style="background:rgba(159,197,232,.2);border-radius:8px 8px 0 0;height:110px;display:flex;align-items:center;justify-content:center"><span style="color:rgba(159,197,232,.4);font-size:36px;font-weight:900">1</span></div>
+</div>
+<!-- 3ro -->
+<div style="flex:1;text-align:center">
+<div style="font-size:28px;margin-bottom:6px">&#x1F949;</div>
+<img src="https://i.pravatar.cc/120?img=12" alt="J. Perez" class="pod-person" style="width:48px;height:48px;border:3px solid #8B5E3C">
+<div style="color:#fff;font-size:12px;font-weight:800;margin-bottom:2px">J. Perez</div>
+<div style="color:rgba(255,255,255,.5);font-size:11px;margin-bottom:8px">1,240 pts</div>
+<div style="background:rgba(139,94,60,.2);border-radius:8px 8px 0 0;height:60px;display:flex;align-items:center;justify-content:center"><span style="color:rgba(139,94,60,.4);font-size:28px;font-weight:900">3</span></div>
+</div>
+</div>
+<!-- Lista completa -->
+<div style="padding:0 14px;display:flex;flex-direction:column;gap:8px">
+<div style="font-size:12px;font-weight:900;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.8px;margin-bottom:4px">Tu empresa</div>
+<div style="background:rgba(255,255,255,.04);border-radius:var(--r);overflow:hidden">
+<div style="display:flex;align-items:center;gap:12px;padding:12px 14px;border-bottom:1px solid rgba(255,255,255,.06)">
+<span style="width:24px;text-align:center;color:var(--pa);font-weight:900;font-size:14px">4</span>
+<div class="av avs" style="width:36px;height:36px;font-size:12px;background:#3B82F6">SR</div>
+<div style="flex:1"><div style="color:#fff;font-size:13px;font-weight:800">S. Rodriguez</div><div style="color:rgba(255,255,255,.4);font-size:11px">Administracion</div></div>
+<div style="color:#fff;font-weight:900;font-size:13px">1,120 pts</div>
+</div>
+<div style="display:flex;align-items:center;gap:12px;padding:12px 14px;border-bottom:1px solid rgba(255,255,255,.06);background:rgba(159,197,232,.05)">
+<span style="width:24px;text-align:center;color:var(--ok);font-weight:900;font-size:14px">5</span>
+<div class="av avs" style="width:36px;height:36px;font-size:12px;background:var(--ok)">JP</div>
+<div style="flex:1"><div style="color:var(--ok);font-size:13px;font-weight:900">Juan Perez <span style="font-size:11px;font-weight:700;color:rgba(52,199,89,.7)">(vos)</span></div><div style="color:rgba(255,255,255,.4);font-size:11px">Ventas</div></div>
+<div style="color:var(--ok);font-weight:900;font-size:13px">1,040 pts</div>
+</div>
+<div style="display:flex;align-items:center;gap:12px;padding:12px 14px;border-bottom:1px solid rgba(255,255,255,.06)">
+<span style="width:24px;text-align:center;color:rgba(255,255,255,.4);font-weight:900;font-size:14px">6</span>
+<div class="av avs" style="width:36px;height:36px;font-size:12px;background:#8B5E3C">RM</div>
+<div style="flex:1"><div style="color:#fff;font-size:13px;font-weight:800">R. Martinez</div><div style="color:rgba(255,255,255,.4);font-size:11px">Produccion</div></div>
+<div style="color:#fff;font-weight:900;font-size:13px">980 pts</div>
+</div>
+<div style="display:flex;align-items:center;gap:12px;padding:12px 14px">
+<span style="width:24px;text-align:center;color:rgba(255,255,255,.4);font-weight:900;font-size:14px">7</span>
+<div class="av avs" style="width:36px;height:36px;font-size:12px;background:#764BA2">FT</div>
+<div style="flex:1"><div style="color:#fff;font-size:13px;font-weight:800">F. Torres</div><div style="color:rgba(255,255,255,.4);font-size:11px">Logistica</div></div>
+<div style="color:#fff;font-weight:900;font-size:13px">870 pts</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- PRODE: MURO -->
+<div id="pmuro" class="scr" style="background:var(--pb);min-height:100%;padding-bottom:80px;display:none">
+<div style="background:rgba(255,255,255,.06);padding:16px;margin-bottom:2px">
+<div style="font-size:11px;color:var(--pa);font-weight:900;letter-spacing:.8px;margin-bottom:8px">PARTIDO EN JUEGO</div>
+<div style="display:flex;align-items:center;justify-content:space-between">
+<div style="text-align:center"><div><span class="flag-img flag-ar"></span></div><div style="color:#fff;font-size:13px;font-weight:900">Argentina</div></div>
+<div style="text-align:center"><div style="font-size:24px;font-weight:900;color:#fff">1 - 0</div><div style="background:var(--er);border-radius:4px;padding:2px 6px;font-size:10px;color:#fff;font-weight:900;margin-top:4px;display:inline-block">EN VIVO 67</div></div>
+<div style="text-align:center"><div><span class="flag-img flag-br"></span></div><div style="color:#fff;font-size:13px;font-weight:900">Brasil</div></div>
+</div>
+</div>
+<div style="padding:14px;display:flex;flex-direction:column;gap:14px">
+<!-- Post 1 -->
+<div style="background:rgba(255,255,255,.06);border-radius:var(--r);padding:14px">
+<div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
+<div class="av avs" style="width:36px;height:36px;font-size:12px;background:var(--pa);color:#1A1A2E">LG</div>
+<div><div style="color:#fff;font-size:13px;font-weight:800">L. Gomez</div><div style="color:rgba(255,255,255,.4);font-size:11px">hace 5 min</div></div>
+</div>
+<p style="color:rgba(255,255,255,.85);font-size:14px;line-height:1.5;margin-bottom:10px">El gol de Di Maria fue una joya! Deje todo en el campo y eso es lo que vale. Vamos Argentina!</p>
+<div style="display:flex;gap:12px">
+<button onclick="reactPost(this,'reac1')" style="background:none;border:none;color:rgba(255,255,255,.5);font-family:var(--f);font-size:13px;cursor:pointer;padding:0">&#x1F525; 18</button>
+<button onclick="reactPost(this,'reac1b')" style="background:none;border:none;color:rgba(255,255,255,.5);font-family:var(--f);font-size:13px;cursor:pointer;padding:0">&#128079; 7</button>
+<button style="background:none;border:none;color:rgba(255,255,255,.5);font-family:var(--f);font-size:13px;cursor:pointer;padding:0;margin-left:auto">&#128172; Comentar</button>
+</div>
+</div>
+<!-- Post 2 -->
+<div style="background:rgba(255,255,255,.06);border-radius:var(--r);padding:14px">
+<div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
+<div class="av avs" style="width:36px;height:36px;font-size:12px;background:#3B82F6">SR</div>
+<div><div style="color:#fff;font-size:13px;font-weight:800">S. Rodriguez</div><div style="color:rgba(255,255,255,.4);font-size:11px">hace 12 min</div></div>
+</div>
+<p style="color:rgba(255,255,255,.85);font-size:14px;line-height:1.5;margin-bottom:10px">Yo pronostique 1-0. Si termina asi, me llevo 120 puntos! &#x1F3AF;</p>
+<div style="display:flex;gap:12px">
+<button onclick="reactPost(this,'reac2')" style="background:none;border:none;color:rgba(255,255,255,.5);font-family:var(--f);font-size:13px;cursor:pointer;padding:0">&#x1F525; 5</button>
+<button onclick="reactPost(this,'reac2b')" style="background:none;border:none;color:rgba(255,255,255,.5);font-family:var(--f);font-size:13px;cursor:pointer;padding:0">&#128079; 3</button>
+<button style="background:none;border:none;color:rgba(255,255,255,.5);font-family:var(--f);font-size:13px;cursor:pointer;padding:0;margin-left:auto">&#128172; Comentar</button>
+</div>
+</div>
+<!-- Post escribir -->
+<div style="background:rgba(255,255,255,.06);border-radius:var(--r);padding:12px">
+<div style="display:flex;gap:10px;align-items:center">
+<div class="av avs" style="width:36px;height:36px;font-size:12px;background:var(--ok);flex-shrink:0">JP</div>
+<input placeholder="Comenta el partido..." id="muro-input" style="flex:1;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:20px;padding:8px 14px;color:#fff;font-family:var(--f);font-size:13px">
+<button onclick="sendMuro()" style="background:var(--pa);border:none;border-radius:50%;width:34px;height:34px;color:#1A1A2E;font-size:14px;cursor:pointer;flex-shrink:0">&#9654;</button>
+</div>
+</div>
+</div>
+</div>
+
+
+<!-- PERFIL -->
+<div id="sperfil" class="scr">
+<div class="perfil-hero">
+<div class="perf-av">MG</div>
+<div style="text-align:center">
+<div style="color:#fff;font-size:18px;font-weight:900;letter-spacing:-.3px">Martina González</div>
+<div style="color:rgba(255,255,255,.6);font-size:13px;margin-top:2px">RR.HH. &bull; Legajo #0847</div>
+</div>
+<div style="display:flex;gap:20px;margin-top:6px;background:rgba(255,255,255,.08);border-radius:var(--r);padding:10px 16px">
+<div style="text-align:center"><div style="color:#fff;font-size:15px;font-weight:900">5 años</div><div style="color:rgba(255,255,255,.45);font-size:10px;margin-top:2px">Antigüedad</div></div>
+<div style="width:1px;background:rgba(255,255,255,.12)"></div>
+<div style="text-align:center"><div style="color:#fff;font-size:15px;font-weight:900">18</div><div style="color:rgba(255,255,255,.45);font-size:10px;margin-top:2px">Días vac.</div></div>
+<div style="width:1px;background:rgba(255,255,255,.12)"></div>
+<div style="text-align:center"><div style="color:#fff;font-size:15px;font-weight:900">$2.8M</div><div style="color:rgba(255,255,255,.45);font-size:10px;margin-top:2px">Último recibo</div></div>
+</div>
+</div>
+<div style="display:flex;flex-direction:column">
+<div class="lrow" onclick="go('docs')"><div class="lrow-ico" style="background:linear-gradient(135deg,rgba(16,185,129,.18),rgba(16,185,129,.08));border:1px solid rgba(16,185,129,.25)"><i class="fas fa-file-alt" style="color:#10b981"></i></div><div class="lrow-txt"><h3>Mis recibos de sueldo</h3><p>Ver y firmar documentos</p></div><i class="fas fa-chevron-right lrow-chev"></i></div>
+<div class="lrow" onclick="go('vac')"><div class="lrow-ico" style="background:linear-gradient(135deg,rgba(245,158,11,.18),rgba(245,158,11,.08));border:1px solid rgba(245,158,11,.25)"><i class="fas fa-umbrella-beach" style="color:#f59e0b"></i></div><div class="lrow-txt"><h3>Mis vacaciones</h3><p>18 días disponibles</p></div><i class="fas fa-chevron-right lrow-chev"></i></div>
+<div class="lrow" onclick="go('tramites')"><div class="lrow-ico" style="background:linear-gradient(135deg,rgba(59,130,246,.18),rgba(59,130,246,.08));border:1px solid rgba(59,130,246,.25)"><i class="fas fa-clipboard-list" style="color:#3b82f6"></i></div><div class="lrow-txt"><h3>Mis trámites</h3><p>1 solicitud en revisión</p></div><i class="fas fa-chevron-right lrow-chev"></i></div>
+<div class="lrow" onclick="toast('Datos personales — próximamente')"><div class="lrow-ico" style="background:linear-gradient(135deg,rgba(139,92,246,.18),rgba(139,92,246,.08));border:1px solid rgba(139,92,246,.25)"><i class="fas fa-user-edit" style="color:#8b5cf6"></i></div><div class="lrow-txt"><h3>Editar datos personales</h3><p>Teléfono, dirección, CUIL</p></div><i class="fas fa-chevron-right lrow-chev"></i></div>
+<div class="lrow" onclick="toast('Notificaciones configuradas')"><div class="lrow-ico" style="background:linear-gradient(135deg,rgba(244,63,94,.18),rgba(244,63,94,.08));border:1px solid rgba(244,63,94,.25)"><i class="fas fa-bell" style="color:#f43f5e"></i></div><div class="lrow-txt"><h3>Notificaciones</h3><p>Configurar alertas y avisos</p></div><i class="fas fa-chevron-right lrow-chev"></i></div>
+</div>
+<div style="padding:14px 14px 18px">
+<button onclick="go('login')" style="width:100%;padding:13px;background:none;border:1.5px solid rgba(11,33,58,.15);border-radius:var(--r);color:var(--mt);font-size:14px;font-weight:700;cursor:pointer;font-family:var(--f);display:flex;align-items:center;justify-content:center;gap:8px"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</button>
+</div>
+</div>
+
+<!-- BOTTOM NAV PRINCIPAL -->
+<nav class="bottom-nav" id="main-nav">
+<button class="nav-btn active" id="nb-home" onclick="go('shome')"><i class="fas fa-home"></i><span>Inicio</span></button>
+<button class="nav-btn" id="nb-docs" onclick="go('sdocs')"><i class="fas fa-file-alt"></i><span>Mis Docs</span><span class="notif-dot"></span></button>
+<button class="nav-btn" id="nb-muro" onclick="go('ssocial')"><i class="fas fa-users"></i><span>Muro</span></button>
+<button class="nav-btn" id="nb-perfil" onclick="go('sperfil')"><i class="fas fa-user"></i><span>Perfil</span></button>
+</nav>
+
+<!-- BOTTOM NAV PRODE -->
+<nav class="bottom-nav" id="prode-nav" style="display:none;background:rgba(10,22,40,.95);border-top:1px solid rgba(159,197,232,.2)">
+<button class="nav-btn" style="color:rgba(255,255,255,.5)" onclick="pgo('sprode')"><i class="fas fa-home"></i><span style="color:inherit">Inicio</span></button>
+<button class="nav-btn" style="color:rgba(255,255,255,.5)" onclick="pgo('ppronosticos')"><i class="fas fa-futbol"></i><span style="color:inherit">Pronos</span></button>
+<button class="nav-btn" style="color:rgba(255,255,255,.5)" onclick="pgo('pranking')"><i class="fas fa-trophy"></i><span style="color:inherit">Ranking</span></button>
+<button class="nav-btn" style="color:rgba(255,255,255,.5)" onclick="pgo('pmuro')"><i class="fas fa-comments"></i><span style="color:inherit">Muro</span></button>
+<button class="nav-btn" style="color:rgba(255,255,255,.5)" onclick="exitProde()"><i class="fas fa-times"></i><span style="color:inherit">Salir</span></button>
+</nav>
+
+<!-- FAB WhatsApp -->
+<button id="fab-wa" onclick="openModal('mwa')" style="position:absolute;bottom:calc(var(--nav) + 14px);right:14px;width:52px;height:52px;border-radius:50%;background:var(--wa);border:none;box-shadow:0 4px 20px rgba(37,211,102,.4);display:flex;align-items:center;justify-content:center;font-size:24px;cursor:pointer;z-index:90;transition:.2s">
+<i class="fab fa-whatsapp" style="color:#fff"></i>
+</button>
+
+<!-- TOAST -->
+<div class="toast" id="toast-el"></div>
+
+<!-- MODAL: FIRMA -->
+<div id="mfirma" class="modal-overlay" onclick="closeModal('mfirma')">
+<div class="modal-box" onclick="event.stopPropagation()">
+<div style="text-align:center;padding-bottom:16px;border-bottom:1px solid var(--bd)">
+<div style="font-size:40px;margin-bottom:8px">&#x270D;&#xFE0F;</div>
+<h2 style="font-size:18px;font-weight:900">Firma Digital</h2>
+<p style="font-size:13px;color:var(--mt)">Recibo de sueldo Mayo 2025</p>
+</div>
+<div style="padding:16px 0">
+<p style="font-size:13px;color:var(--tx);line-height:1.6">Confirmas haber recibido el pago de <strong>$486,200</strong> correspondiente al mes de Mayo 2025. Esta firma es legalmente valida segun la Ley de Firma Digital 25.506.</p>
+</div>
+<div class="firma-pad"><canvas id="firma-canvas" width="320" height="110"></canvas><button class="clear-btn" onclick="clearCanvas()"><i class="fas fa-undo"></i> Borrar</button></div><p id="firma-hint" style="text-align:center;font-size:12px;color:var(--mt);margin-bottom:12px">Dibujá tu firma con el dedo o el mouse</p>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+<button class="bs" onclick="closeModal('mfirma')">Cancelar</button>
+<button class="bp" id="btn-confirmar-firma" onclick="doFirma()">Confirmar</button>
+</div>
+</div>
+</div>
+
+<!-- MODAL: CUMPLEANOS -->
+<div id="mcumple" class="modal-overlay" onclick="closeModal('mcumple')">
+<div class="modal-box" onclick="event.stopPropagation()">
+<div style="text-align:center;padding-bottom:16px">
+<img src="https://raw.githubusercontent.com/neurotechsoluciones-design/neurotech-assets/main/foto_IA2.png" alt="Cumpleaños" class="cumple-photo cumple-photo-lg">
+<h2 style="font-size:22px;font-weight:900">Hoy es tu cumpleanos!</h2>
+<p style="font-size:14px;color:var(--mt);margin-top:4px">De parte de todo el equipo Sudamericana</p>
+</div>
+<div style="background:var(--orl);border-radius:var(--r);padding:16px;margin:12px 0;text-align:center">
+<p style="font-size:15px;color:var(--or);font-weight:800;line-height:1.5">Feliz cumpleanos Juan! Que este nuevo ano te traiga muchos exitos y alegrias. Tu equipo te desea lo mejor.</p>
+</div>
+<div style="display:flex;justify-content:center;gap:8px;margin-bottom:16px;flex-wrap:wrap">
+<button onclick="doFelicitar('JP')" class="chip" style="font-size:20px">&#x1F389;</button>
+<button onclick="doFelicitar('JP')" class="chip" style="font-size:20px">&#x2764;&#xFE0F;</button>
+<button onclick="doFelicitar('JP')" class="chip" style="font-size:20px">&#x1F973;</button>
+<button onclick="doFelicitar('JP')" class="chip" style="font-size:20px">&#x1F44F;</button>
+</div>
+<button class="bp" onclick="doFelicitar('self')" style="width:100%">Compartir en el Muro</button>
+</div>
+</div>
+
+<!-- MODAL: WHATSAPP CHATBOT -->
+<div id="mwa" class="modal-overlay" onclick="closeModal('mwa')">
+<div class="modal-box" style="padding:0;overflow:hidden;border-radius:var(--rl)" onclick="event.stopPropagation()">
+<!-- Header WA -->
+<div style="background:var(--wad);padding:14px 16px;display:flex;align-items:center;gap:10px">
+<div style="width:40px;height:40px;border-radius:50%;background:var(--wa);display:flex;align-items:center;justify-content:center;font-size:20px">&#x1F916;</div>
+<div style="flex:1"><div style="color:#fff;font-size:14px;font-weight:900">Asistente Sudamericana</div><div style="color:rgba(255,255,255,.65);font-size:11px">&#x25CF; En linea</div></div>
+<button onclick="closeModal('mwa')" style="background:none;border:none;color:rgba(255,255,255,.7);font-size:20px;cursor:pointer;padding:4px">&times;</button>
+</div>
+<!-- Chat area -->
+<div id="wa-chat" style="height:280px;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px;background:#ECE5DD">
+<div class="wa-msg wa-bot">Hola Juan! Soy el asistente de Sudamericana. Como puedo ayudarte?</div>
+<div style="display:flex;flex-wrap:wrap;gap:6px;justify-content:flex-start">
+<button class="wa-chip" onclick="waAsk('sueldo')">&#x1F4B0; Sueldo</button>
+<button class="wa-chip" onclick="waAsk('recibo')">&#x1F4C4; Recibos</button>
+<button class="wa-chip" onclick="waAsk('vacaciones')">&#x1F334; Vacaciones</button>
+<button class="wa-chip" onclick="waAsk('certificado')">&#x1F3E5; Certificado</button>
+</div>
+</div>
+<!-- Input -->
+<div style="padding:10px 12px;background:#F0F0F0;display:flex;gap:8px;align-items:center">
+<input id="wa-input" placeholder="Escribe un mensaje..." onkeydown="if(event.key==='Enter')waSend()" style="flex:1;border:none;border-radius:20px;padding:9px 14px;font-family:var(--f);font-size:13px;outline:none">
+<button onclick="waSend()" style="background:var(--wa);border:none;border-radius:50%;width:38px;height:38px;color:#fff;font-size:16px;cursor:pointer">&#9654;</button>
+</div>
+</div>
+</div>
+
+</div><!-- /phone-body -->
+</div><!-- /phone -->
+
+<style>
+.pcard{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:var(--r);padding:14px}
+.pntab{flex:1;padding:10px 0;background:none;border:none;color:rgba(255,255,255,.45);font-family:var(--f);font-size:12px;font-weight:900;cursor:pointer;transition:.2s}
+.wa-msg{max-width:80%;padding:8px 12px;border-radius:12px;font-size:13px;line-height:1.5;font-family:var(--f)}
+.wa-bot{background:#fff;border-bottom-left-radius:2px;align-self:flex-start;box-shadow:0 1px 2px rgba(0,0,0,.1)}
+.wa-user{background:#DCF8C6;border-bottom-right-radius:2px;align-self:flex-end;box-shadow:0 1px 2px rgba(0,0,0,.1)}
+.wa-chip{background:#fff;border:1.5px solid var(--wa);border-radius:20px;padding:5px 10px;font-size:11px;font-weight:800;color:var(--wad);cursor:pointer;font-family:var(--f)}
+@keyframes bounce{from{transform:scale(1)}to{transform:scale(1.1)}}
+
+.bottom-nav{position:absolute;bottom:0;left:0;right:0;height:var(--nav);background:rgba(255,255,255,.92);backdrop-filter:blur(20px) saturate(180%);border-top:1px solid rgba(0,0,0,.07);display:flex;align-items:stretch;z-index:100}
+.nav-btn{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;border:none;background:none;cursor:pointer;color:var(--mt);font-size:10px;font-weight:700;padding-bottom:5px;position:relative;transition:color .18s;font-family:var(--f)}
+.nav-btn i{font-size:21px;transition:transform .18s}
+.nav-btn.on,.nav-btn.active{color:var(--or)}.nav-btn.on i{transform:scale(1.08)}
+.nav-btn.on::after,.nav-btn.active::after{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:28px;height:3px;background:var(--or);border-radius:0 0 4px 4px}
+.modal-overlay{position:absolute;inset:0;background:rgba(0,0,0,.5);z-index:200;display:none;align-items:flex-end;transition:opacity .25s;backdrop-filter:blur(4px)}
+.modal-overlay.on{display:flex}
+.modal-box{background:#fff;border-radius:26px 26px 0 0;width:100%;padding:20px 20px 34px;animation:si .25s ease;max-height:90vh;overflow-y:auto}
+.vacbtn{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:14px;background:var(--sf);border:1.5px solid var(--bd);border-radius:var(--r);cursor:pointer;font-family:var(--f);font-size:12px;font-weight:800;color:var(--tx);transition:background .18s}
+.vacbtn i{font-size:22px;color:var(--or)}.vacbtn:active{background:var(--orl)}
+.badge-rrhh{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);border-radius:20px;padding:4px 12px;font-size:11px;font-weight:900;color:#fff;letter-spacing:.5px;margin-bottom:12px}
+.legal-hero{padding:28px 20px 22px;text-align:center;position:relative}
+.legal-hero h1{color:#fff;font-size:22px;font-weight:900;margin:8px 0 4px}
+.legal-hero p{color:rgba(255,255,255,.92);font-size:13px;line-height:1.5}
+.chip{padding:8px 16px;border:2px solid var(--bd);border-radius:20px;background:var(--bg);font-family:var(--f);font-size:13px;font-weight:700;cursor:pointer;transition:.15s}
+.chip.active{border-color:var(--or);background:var(--orl);color:var(--or)}
+
+
+
+/* === AJUSTES VISUALES SOLICITADOS: cards, muro social, gerencia y menu inferior === */
+:root{
+  --glass-border:rgba(255,255,255,.28);
+  --ease-spring:cubic-bezier(.2,.8,.2,1);
+}
+
+.card,
+.partido,
+.tbtn,
+.vacbtn{
+  background:linear-gradient(145deg,#ffffff,#f3f6fa) !important;
+  border:2px solid rgb(206,206,206) !important;
+  box-shadow:
+    inset 4px 4px 10px rgba(188,188,188,.58),
+    inset -4px -4px 10px rgba(255,255,255,.96),
+    0 10px 24px rgba(11,33,58,.06) !important;
+  transition:
+    box-shadow .2s ease-in-out,
+    transform .2s ease-in-out,
+    border-color .2s ease-in-out !important;
+}
+.card:hover,
+.card:focus-within,
+.partido:hover,
+.tbtn:hover,
+.vacbtn:hover{
+  box-shadow:
+    inset 2px 2px 5px rgba(188,188,188,.55),
+    inset -2px -2px 5px rgba(255,255,255,.98),
+    2px 2px 5px rgba(188,188,188,.35),
+    -2px -2px 5px rgba(255,255,255,.95),
+    0 12px 26px rgba(11,33,58,.08) !important;
+  border-color:rgba(11,33,58,.18) !important;
+}
+.card:active,
+.partido:active,
+.tbtn:active,
+.vacbtn:active{
+  transform:scale(.985);
+}
+
+#ssocial .tabs{
+  margin:12px 14px 10px !important;
+  padding:5px !important;
+  border:1px solid rgba(11,33,58,.1) !important;
+  border-radius:999rem !important;
+  background:linear-gradient(145deg,#ffffff,#eef3f8) !important;
+  box-shadow:
+    inset 3px 3px 8px rgba(188,188,188,.38),
+    inset -3px -3px 8px rgba(255,255,255,.95),
+    0 8px 20px rgba(11,33,58,.06) !important;
+  gap:5px !important;
+}
+#ssocial .tab{
+  border-bottom:none !important;
+  border-radius:999rem !important;
+  padding:10px 7px !important;
+  color:rgba(11,33,58,.62) !important;
+  transition:background .18s ease,color .18s ease,box-shadow .18s ease,transform .18s ease !important;
+}
+#ssocial .tab.on{
+  background:#0B213A !important;
+  color:#fff !important;
+  box-shadow:0 6px 16px rgba(11,33,58,.24) !important;
+}
+#ssocial .tab:active{
+  transform:scale(.98);
+}
+#ssocial > div:nth-of-type(2){
+  background:linear-gradient(145deg,#ffffff,#EAF2F8) !important;
+  border:1px solid rgba(11,33,58,.14) !important;
+  box-shadow:0 10px 24px rgba(11,33,58,.08) !important;
+}
+#ssocial > div:nth-of-type(2) h4{
+  color:#0B213A !important;
+}
+#ssocial > div:nth-of-type(2) p{
+  color:#28445F !important;
+}
+#ssocial #tnov > div,
+#ssocial #trec > div{
+  margin:12px 14px !important;
+  padding:14px !important;
+  border:1px solid rgba(11,33,58,.1) !important;
+  border-radius:20px !important;
+  background:linear-gradient(145deg,#ffffff,#f4f7fb) !important;
+  box-shadow:
+    inset 3px 3px 8px rgba(188,188,188,.28),
+    inset -3px -3px 8px rgba(255,255,255,.95),
+    0 10px 22px rgba(11,33,58,.06) !important;
+}
+#ssocial #tnov > div p,
+#ssocial #trec > div p{
+  color:#1A1A2E !important;
+}
+#ssocial #tnov button,
+#ssocial #trec button{
+  background:rgba(11,33,58,.05) !important;
+  border:1px solid rgba(11,33,58,.08) !important;
+  border-radius:999px !important;
+  padding:6px 10px !important;
+}
+#ssocial #tcum > div{
+  margin:12px 14px !important;
+  border:1px solid rgba(11,33,58,.1) !important;
+  border-radius:22px !important;
+  background:linear-gradient(145deg,#ffffff,#f4f7fb) !important;
+  box-shadow:0 10px 24px rgba(11,33,58,.08) !important;
+}
+
+#sger button[onclick="go('legal')"],
+#sger button[onclick="go('cvs')"]{
+  background:linear-gradient(145deg,rgba(234,242,248,.16),rgba(11,33,58,.42)) !important;
+  border:1px solid rgba(159,197,232,.38) !important;
+  box-shadow:
+    inset 2px 2px 8px rgba(255,255,255,.08),
+    inset -2px -2px 8px rgba(0,0,0,.24),
+    0 10px 24px rgba(0,0,0,.24) !important;
+}
+#sger button[onclick="go('legal')"] > div,
+#sger button[onclick="go('cvs')"] > div{
+  background:rgba(159,197,232,.18) !important;
+  border:1px solid rgba(234,242,248,.28) !important;
+  box-shadow:inset 2px 2px 6px rgba(255,255,255,.12),inset -2px -2px 6px rgba(0,0,0,.22) !important;
+}
+#sger button[onclick="go('legal')"] i,
+#sger button[onclick="go('cvs')"] i{
+  color:#EAF2F8 !important;
+}
+#sger button[onclick="go('legal')"] > span:first-of-type,
+#sger button[onclick="go('cvs')"] > span:first-of-type{
+  color:#ffffff !important;
+  text-shadow:0 1px 8px rgba(0,0,0,.18) !important;
+}
+#sger button[onclick="go('legal')"] > span:last-child,
+#sger button[onclick="go('cvs')"] > span:last-child{
+  background:rgba(234,242,248,.16) !important;
+  border:1px solid rgba(234,242,248,.28) !important;
+  color:#EAF2F8 !important;
+}
+
+#main-nav.bottom-nav{
+  left:0 !important;
+  right:0 !important;
+  bottom:0 !important;
+  width:auto !important;
+  height:var(--nav) !important;
+  min-height:0 !important;
+  max-width:none !important;
+  margin:0 !important;
+  padding:6px 10px 8px !important;
+  border-radius:22px 22px 0 0 !important;
+  justify-content:center !important;
+  align-items:stretch !important;
+  gap:4px !important;
+  background:linear-gradient(180deg,rgba(11,33,58,.88),rgba(10,22,40,.96)) !important;
+  border-top:1px solid rgba(255,255,255,.16) !important;
+  border-left:0 !important;
+  border-right:0 !important;
+  border-bottom:0 !important;
+  box-shadow:0 -8px 24px rgba(11,33,58,.22) !important;
+  backdrop-filter:blur(16px) saturate(160%) !important;
+  -webkit-backdrop-filter:blur(16px) saturate(160%) !important;
+  overflow:hidden !important;
+}
+#main-nav.bottom-nav::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:inherit;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.20),
+    inset 0 -1px 0 rgba(255,255,255,.08);
+  pointer-events:none;
+}
+#main-nav .nav-btn{
+  flex:1 1 0 !important;
+  min-width:0 !important;
+  padding:5px 4px 4px !important;
+  border-radius:16px !important;
+  color:rgba(255,255,255,.66) !important;
+  background:transparent !important;
+  transition:
+    background .18s ease,
+    color .18s ease,
+    transform .18s ease,
+    box-shadow .22s ease !important;
+}
+#main-nav .nav-btn i{
+  width:auto !important;
+  font-size:20px !important;
+  line-height:1 !important;
+}
+#main-nav .nav-btn span{
+  font-size:10px !important;
+  font-weight:800 !important;
+  line-height:1 !important;
+  margin-top:3px !important;
+}
+#main-nav .nav-btn:hover{
+  background-color:rgba(255,255,255,.10) !important;
+  box-shadow:inset 2px 2px 5px rgba(255,255,255,.08),inset -2px -2px 5px rgba(0,0,0,.16) !important;
+  transform:translateY(-1px) !important;
+  color:#ffffff !important;
+}
+#main-nav .nav-btn.on,
+#main-nav .nav-btn.active.on{
+  background:rgba(255,255,255,.16) !important;
+  color:#ffffff !important;
+  box-shadow:inset 2px 2px 5px rgba(255,255,255,.12),inset -2px -2px 5px rgba(0,0,0,.20) !important;
+}
+#main-nav .nav-btn.active:not(.on){
+  background:rgba(255,255,255,.10) !important;
+  color:#9FC5E8 !important;
+  box-shadow:none !important;
+}
+#main-nav .nav-btn.on::after,
+#main-nav .nav-btn.active::after{
+  display:none !important;
+}
+#main-nav .nav-btn:active{
+  transform:scale(.98) !important;
+}
+</style>
+
+<script>
+// ---- State ----
+let currentScreen = 'sl';
+let prodeMode = false;
+let currentProde = 'sprode';
+
+const WA_REPLIES = {
+  sueldo:      {msg:'Tu proximo pago es el 30 de junio por $486,200. Queres ver el detalle?', action:'sdocs', label:'Ver recibo'},
+  recibo:      {msg:'Tenes el recibo de Mayo 2025 pendiente de firma digital.', action:'sdocs', label:'Ir a Mis Docs'},
+  vacaciones:  {msg:'Tenes 18 dias disponibles. Queres solicitar fechas ahora?', action:'svac', label:'Solicitar vacaciones'},
+  certificado: {msg:'Podes subir tu certificado medico desde Tramites > Subir certificado.', action:'stamites', label:'Ir a Tramites'},
+  adelanto:    {msg:'Podes pedir hasta $142,367 como adelanto de sueldo. Lo pedimos?', action:'stamites', label:'Pedir adelanto'},
+  default:     {msg:'No entendi. Prueba: sueldo, recibo, vacaciones, certificado o adelanto.', action:null}
+};
+
+// ---- Navigation ----
+function go(raw) {
+  if (prodeMode) exitProde();
+  // resolve id: try as-is, then with 's' prefix, then full alias map
+  var alias = {login:'sl',l:'sl',home:'shome',docs:'sdocs',social:'ssocial',muro:'ssocial',
+                legal:'slegal',tramites:'stamites',vac:'svac',ger:'sger',tablero:'sger',
+                comms:'scomms',cvs:'scvs',prode:'sprode',ob:'sob',perfil:'sperfil'};
+  if(raw==='prode'||raw==='sprode'){pgo('sprode');return;}
+  var id = alias[raw] || (document.getElementById(raw) ? raw :
+           document.getElementById('s'+raw) ? 's'+raw : raw);
+
+  document.querySelectorAll('.scr').forEach(function(s){ s.style.display = 'none'; });
+  var el = document.getElementById(id);
+  if (el) { el.style.display = 'block'; currentScreen = id; }
+
+  var nav = document.getElementById('main-nav');
+  var fab = document.getElementById('fab-wa');
+  var pnav = document.getElementById('prode-nav');
+  if (id === 'sl' || id === 'sob') {
+    if(nav) nav.style.display = 'none';
+    if(pnav) pnav.style.display = 'none';
+    if(fab) fab.style.display = 'none';
+  } else {
+    if(nav) nav.style.display = 'flex';
+    if(pnav) pnav.style.display = 'none';
+    if(fab) fab.style.display = 'flex';
+    prodeMode = false;
+  }
+
+  document.querySelectorAll('#main-nav .nav-btn').forEach(function(b){ b.classList.remove('on'); });
+  var map = {shome:'nb-home', sdocs:'nb-docs', ssocial:'nb-muro', stamites:'nb-tramites', sperfil:'nb-perfil'};
+  if (map[id]) { var nb = document.getElementById(map[id]); if(nb) nb.classList.add('on'); }
+  if (id === 'shome') { var nb2 = document.getElementById('nb-home'); if(nb2) nb2.classList.add('on'); }
+
+  var pb = document.getElementById('ph-body') || document.querySelector('.ph');
+  if (pb) pb.scrollTop = 0;
+}
+
+function showSub(id) {
+  var el = document.getElementById(id);
+  if (!el) return;
+  var parent = el.parentElement;
+  if (parent) parent.querySelectorAll('.sub').forEach(function(s){ s.style.display = 'none'; });
+  el.style.display = 'flex';
+  currentScreen = id;
+}
+
+// ---- Prode navigation ----
+function pgo(id) {
+  document.querySelectorAll('.scr').forEach(function(s){ s.style.display = 'none'; });
+  var el = document.getElementById(id);
+  if (el) { el.style.display = 'block'; currentProde = id; }
+  var nav = document.getElementById('main-nav');
+  var pnav = document.getElementById('prode-nav');
+  var fab = document.getElementById('fab-wa');
+  if(nav) nav.style.display = 'none';
+  if(pnav) pnav.style.display = 'flex';
+  if(fab) fab.style.display = 'none';
+  prodeMode = true;
+  document.querySelectorAll('#prode-nav .nav-btn').forEach(function(b){ b.style.color = 'rgba(255,255,255,.45)'; });
+  var tabMap = {sprode:'pt0', ppronosticos:'pt1', pranking:'pt2', pmuro:'pt3'};
+  if (tabMap[id]) { var pt = document.getElementById(tabMap[id]); if(pt) pt.style.color = 'var(--pa)'; }
+}
+
+function exitProde() {
+  prodeMode = false;
+  go('shome');
+}
+
+// ---- Modals ----
+function openModal(id) {
+  var m = document.getElementById(id);
+  if (m) { m.classList.add('on'); }
+  if (id === 'mfirma') { setTimeout(initFirmaCanvas, 80); }
+}
+function closeModal(id) {
+  var m = document.getElementById(id);
+  if (m) { m.classList.remove('on'); }
+}
+
+// ---- Login ----
+function doLogin() {
+  var btn = document.getElementById('btn-login');
+  if(btn){ btn.textContent = 'Ingresando...'; btn.disabled = true; }
+  setTimeout(function(){
+    go('sob');
+  }, 1200);
+}
+
+// ---- Onboarding: agregar hijo ----
+function addHijo() {
+  var n = document.getElementById('hijo-nombre');
+  var d = document.getElementById('hijo-fecha');
+  if (!n || !n.value) { toast('Ingresa el nombre'); return; }
+  var cont = document.getElementById('hijos-list');
+  if (cont) {
+    var div = document.createElement('div');
+    div.style.cssText = 'background:var(--orl);border-radius:10px;padding:10px 12px;display:flex;align-items:center;gap:8px;margin-top:8px';
+    div.innerHTML = '<i class="fas fa-child" style="color:var(--or)"></i><span style="font-size:13px;font-weight:700">' + n.value + (d && d.value ? ' - ' + d.value : '') + '</span>';
+    cont.appendChild(div);
+  }
+  n.value = '';
+  if (d) d.value = '';
+  toast('Hijo/a agregado');
+}
+
+// ---- Tabs ----
+function switchTab(btn, tabId) {
+  var parent = btn ? btn.closest('.tabs') : null;
+  if (parent) parent.querySelectorAll('.tab').forEach(function(b){ b.classList.remove('on'); });
+  if (btn) btn.classList.add('on');
+  var screen = btn ? btn.closest('.scr') : document.getElementById(tabId);
+  if (screen) {
+    screen.querySelectorAll('.tab-panel,[id^="t"]').forEach(function(p){
+      if (p.closest('.tabs') === null && p.tagName !== 'BUTTON') {
+        // find tab content divs - toggle by ID match
+      }
+    });
+  }
+  // Simple: show/hide by toggling directly
+  if (tabId) {
+    var allPanels = document.querySelectorAll('#tnov,#trec,#tcum,#tmuro-panel');
+    allPanels.forEach(function(p){ p.style.display = 'none'; });
+    var target = document.getElementById(tabId);
+    if (target) target.style.display = 'block';
+  }
+}
+
+// ---- Chips ----
+function selChip(el, name) {
+  var parent = el.parentElement;
+  if (parent) parent.querySelectorAll('.chip').forEach(function(c){ c.classList.remove('active'); });
+  el.classList.add('active');
+}
+
+// ---- Legal IA ----
+function genLegal() {
+  var btn = document.getElementById('gen-legal-btn');
+  var res = document.getElementById('legal-result');
+  var load = document.getElementById('legal-loading');
+  if (load) load.style.display = 'flex';
+  if (res) res.style.display = 'none';
+  if (btn) btn.disabled = true;
+  setTimeout(function(){
+    if (load) load.style.display = 'none';
+    if (res) res.style.display = 'block';
+    if (btn) { btn.disabled = false; btn.innerHTML = '<i class="fas fa-magic"></i> Generar nota'; }
+  }, 2200);
+}
+
+// ---- Upload ----
+function doUpload(elId, msg) {
+  toast(msg || 'Documento adjuntado');
+  var el = document.getElementById(elId);
+  if (el) { el.style.background = 'var(--orl)'; el.style.borderColor = 'var(--or)'; }
+  setTimeout(function(){ go('sdocs'); }, 1500);
+}
+
+// ---- Tramites ----
+function sendTramite(tipo) {
+  toast('Solicitud de ' + tipo + ' enviada a RR.HH.');
+  setTimeout(function(){ go('stamites'); }, 1500);
+}
+
+// ---- Vacaciones ----
+function calcVac() {
+  var d1 = document.getElementById('vd2') || document.getElementById('vac-desde');
+  var d2 = document.getElementById('vh2') || document.getElementById('vac-hasta');
+  if (!d1 || !d1.value || !d2 || !d2.value) { toast('Selecciona fechas'); return; }
+  var ms = new Date(d2.value) - new Date(d1.value);
+  var dias = Math.round(ms / 86400000);
+  if (dias <= 0) { toast('Fechas invalidas'); return; }
+  var box = document.getElementById('dias-box2');
+  var num = document.getElementById('dias-n2');
+  if (box) box.style.display = 'block';
+  if (num) num.textContent = dias;
+  toast(dias + ' dias seleccionados');
+}
+function calcVac2() { calcVac(); }
+
+// ---- Firma ----
+function showFirmaOK() { /* handled by canvas */ }
+function doFirma() {
+  if (!canvasSigned()) { toast('Dibujá tu firma primero'); return; }
+  closeModal('mfirma');
+  toast('Recibo firmado digitalmente');
+}
+
+// ---- Birthday ----
+function doFelicitar(id) {
+  closeModal('mcumple');
+  toast('Felicitacion enviada al Muro!');
+}
+
+// ---- Likes ----
+function toggleLike(btn) {
+  var txt = btn.innerHTML;
+  var n = parseInt(txt.replace(/[^0-9]/g,'')) || 0;
+  if (btn.classList.contains('liked')) {
+    btn.classList.remove('liked');
+    btn.style.color = '';
+    btn.innerHTML = btn.innerHTML.replace(n, n - 1);
+  } else {
+    btn.classList.add('liked');
+    btn.style.color = 'var(--or)';
+    btn.innerHTML = btn.innerHTML.replace(n, n + 1);
+  }
+}
+
+// ---- Comms ----
+function markRead(id) {
+  var btn = document.getElementById(id);
+  if (btn) { btn.textContent = 'Leido'; btn.style.color = 'var(--ok)'; btn.style.borderColor = 'var(--ok)'; btn.disabled = true; }
+  toast('Marcado como leido');
+}
+
+// ---- CVs ----
+function analyzeCV() {
+  var load = document.getElementById('cv-loading');
+  var res = document.getElementById('cv-result');
+  var lista = document.getElementById('cv-lista');
+  if (load) load.style.display = 'flex';
+  if (res) res.style.display = 'none';
+  if (lista) lista.style.display = 'none';
+  setTimeout(function(){
+    if (load) load.style.display = 'none';
+    if (res) res.style.display = 'block';
+  }, 2500);
+}
+function showCVList() {
+  var load = document.getElementById('cv-loading');
+  var res = document.getElementById('cv-result');
+  var lista = document.getElementById('cv-lista');
+  if (load) load.style.display = 'none';
+  if (res) res.style.display = 'none';
+  if (lista) lista.style.display = 'flex';
+}
+
+// ---- Prode reactions ----
+function reactPost(el) {
+  var parts = el.textContent.split(' ');
+  var num = parseInt(parts[parts.length-1]) || 0;
+  parts[parts.length-1] = num + 1;
+  el.textContent = parts.join(' ');
+  el.style.color = 'var(--pa)';
+}
+function sendMuro() {
+  var inp = document.getElementById('muro-input');
+  if (!inp || !inp.value.trim()) return;
+  toast('Comentario enviado!');
+  inp.value = '';
+}
+
+// ---- WA Chatbot ----
+function waAsk(kw) {
+  addWaMsg(kw, 'user');
+  var r = WA_REPLIES[kw] || WA_REPLIES['default'];
+  setTimeout(function(){
+    addWaMsg(r.msg, 'bot');
+    if (r.action) setTimeout(function(){ addWaAction(r.label, r.action); }, 400);
+  }, 700);
+}
+function waSend() {
+  var inp = document.getElementById('wa-input');
+  if (!inp || !inp.value.trim()) return;
+  var text = inp.value.trim().toLowerCase();
+  inp.value = '';
+  addWaMsg(text, 'user');
+  var found = null;
+  Object.keys(WA_REPLIES).forEach(function(k){ if (text.indexOf(k) !== -1 && k !== 'default') found = k; });
+  var r = found ? WA_REPLIES[found] : WA_REPLIES['default'];
+  setTimeout(function(){
+    addWaMsg(r.msg, 'bot');
+    if (r && r.action) setTimeout(function(){ addWaAction(r.label || 'Ir a la app', r.action); }, 400);
+  }, 700);
+}
+function addWaMsg(text, who) {
+  var chat = document.getElementById('wa-chat');
+  if (!chat) return;
+  var div = document.createElement('div');
+  div.className = 'wa-msg ' + (who === 'bot' ? 'wa-bot' : 'wa-user');
+  div.textContent = text;
+  chat.appendChild(div);
+  chat.scrollTop = chat.scrollHeight;
+}
+function addWaAction(label, screen) {
+  var chat = document.getElementById('wa-chat');
+  if (!chat) return;
+  var btn = document.createElement('button');
+  btn.className = 'wa-chip';
+  btn.textContent = label;
+  btn.style.background = 'var(--wa)';
+  btn.style.color = '#fff';
+  btn.style.borderColor = 'var(--wa)';
+  btn.onclick = function(){ closeModal('mwa'); go(screen); };
+  var wrap = document.createElement('div');
+  wrap.style.cssText = 'display:flex;justify-content:flex-end';
+  wrap.appendChild(btn);
+  chat.appendChild(wrap);
+  chat.scrollTop = chat.scrollHeight;
+}
+
+// ---- Toast ----
+function toast(msg) {
+  var t = document.querySelector('.toast');
+  if (!t) return;
+  t.textContent = msg;
+  t.classList.add('on');
+  clearTimeout(t._timer);
+  t._timer = setTimeout(function(){ t.classList.remove('on'); }, 2500);
+}
+
+// ---- Init ----
+window.addEventListener('load', function(){
+  go('sl');
+});
+
+
+// ---- Firma canvas pizarra ----
+function initFirmaCanvas() {
+  var canvas = document.getElementById('firma-canvas');
+  if (!canvas || canvas._inited) return;
+  canvas._inited = true;
+  var ctx = canvas.getContext('2d');
+  ctx.strokeStyle = '#0B213A';
+  ctx.lineWidth = 2.8;
+  ctx.lineCap = 'round';
+  ctx.lineJoin = 'round';
+  var drawing = false, lastX, lastY;
+  function pos(e) {
+    var r = canvas.getBoundingClientRect();
+    var pt = e.touches ? e.touches[0] : e;
+    return { x: (pt.clientX - r.left) * canvas.width / r.width,
+             y: (pt.clientY - r.top) * canvas.height / r.height };
+  }
+  function start(e) { drawing = true; var p = pos(e); lastX = p.x; lastY = p.y; ctx.beginPath(); ctx.moveTo(lastX, lastY); }
+  function move(e) { e.preventDefault(); if (!drawing) return; var p = pos(e); ctx.lineTo(p.x, p.y); ctx.stroke(); lastX = p.x; lastY = p.y; }
+  function stop() { drawing = false; }
+  canvas.addEventListener('mousedown', start);
+  canvas.addEventListener('mousemove', move);
+  canvas.addEventListener('mouseup', stop);
+  canvas.addEventListener('mouseleave', stop);
+  canvas.addEventListener('touchstart', start, {passive:false});
+  canvas.addEventListener('touchmove', move, {passive:false});
+  canvas.addEventListener('touchend', stop);
+}
+function clearCanvas() {
+  var c = document.getElementById('firma-canvas');
+  if (c) { var ctx = c.getContext('2d'); ctx.clearRect(0,0,c.width,c.height); }
+}
+function canvasSigned() {
+  var c = document.getElementById('firma-canvas');
+  if (!c) return false;
+  var d = c.getContext('2d').getImageData(0,0,c.width,c.height).data;
+  for (var i=3;i<d.length;i+=4) if(d[i]>0) return true;
+  return false;
+}
+
+</script>
+</body>
+</html>
