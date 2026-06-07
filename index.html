@@ -357,10 +357,10 @@ textarea.inp{resize:none}
 /* === LOGO ANIMADO B64: visible arriba a la derecha en pantallas internas === */
 .nt-animated-logo{
   position:absolute;
-  top:52px;
-  right:14px;
-  width:38px;
-  height:38px;
+  top:40px;
+  right:12px;
+  width:32px;
+  height:32px;
   z-index:96;
   pointer-events:none;
   display:none;
@@ -369,9 +369,15 @@ textarea.inp{resize:none}
   border-radius:50%;
 }
 .ph.nt-logo-visible .nt-animated-logo{display:flex}
-.ph.nt-logo-home .nt-animated-logo{right:52px}
+.ph.nt-logo-home .nt-animated-logo{right:46px}
 .ph.nt-logo-gerencia .nt-animated-logo,
-.ph.nt-logo-prode .nt-animated-logo{top:34px;right:12px;width:30px;height:30px}
+.ph.nt-logo-prode .nt-animated-logo{top:28px;right:10px;width:28px;height:28px}
+@media(max-width:420px){
+  .nt-animated-logo{top:24px;right:10px;width:28px;height:28px}
+  .ph.nt-logo-home .nt-animated-logo{right:42px}
+  .ph.nt-logo-gerencia .nt-animated-logo,
+  .ph.nt-logo-prode .nt-animated-logo{top:24px;right:10px;width:26px;height:26px}
+}
 .nt-animated-logo img,
 .nt-login-logo{
   position:relative;
