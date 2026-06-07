@@ -186,8 +186,8 @@ textarea.inp{resize:none}
 .chart-w .cs{font-size:12px;color:var(--mt);margin-bottom:16px}
 .bars{display:flex;align-items:flex-end;gap:6px;height:90px}
 .bc{display:flex;flex-direction:column;align-items:center;gap:2px;flex:1}
-.bf{width:100%;background:linear-gradient(180deg,#667EEA,#764BA2);border-radius:3px 3px 0 0;min-height:4px}
-.bc.hl .bf{background:linear-gradient(180deg,#0B213A,#12385D)}
+.bf{width:100%;background:linear-gradient(180deg,#38BDF8,#0EA5E9);border-radius:3px 3px 0 0;min-height:4px}
+.bc.hl .bf{background:linear-gradient(180deg,#67E8F9,#0EA5E9)}
 .bl{font-size:10px;color:var(--mt)}.bv{font-size:9px;font-weight:700;color:var(--mt)}
 .adt{width:100%;border-collapse:collapse}
 .adt th{text-align:left;font-size:10px;color:var(--mt);font-weight:800;text-transform:uppercase;padding:0 0 7px;border-bottom:1px solid var(--bd)}
@@ -270,10 +270,10 @@ textarea.inp{resize:none}
 .chart-w .cs{color:rgba(255,255,255,.38);font-size:11px;margin-bottom:14px}
 .bars{display:flex;align-items:flex-end;gap:6px;height:90px}
 .bc{display:flex;flex-direction:column;align-items:center;gap:2px;flex:1}
-.bf{width:100%;background:linear-gradient(180deg,#667EEA,rgba(102,126,234,.2));border-radius:4px 4px 0 0;min-height:4px;transition:height .6s cubic-bezier(.4,0,.2,1)}
-.bc.hl .bf{background:linear-gradient(180deg,#FF3B30,rgba(255,59,48,.2));box-shadow:0 0 14px rgba(255,59,48,.5)}
+.bf{width:100%;background:linear-gradient(180deg,#38BDF8,rgba(14,165,233,.22));border-radius:4px 4px 0 0;min-height:4px;transition:height .6s cubic-bezier(.4,0,.2,1)}
+.bc.hl .bf{background:linear-gradient(180deg,#67E8F9,rgba(14,165,233,.28));box-shadow:0 0 14px rgba(103,232,249,.52)}
 .bl{font-size:9px;color:rgba(255,255,255,.35)}.bv{font-size:9px;font-weight:800;color:rgba(255,255,255,.5)}
-.bc.hl .bl{color:#FF3B30;font-weight:800}.bc.hl .bv{color:#FF3B30}
+.bc.hl .bl{color:#67E8F9;font-weight:800}.bc.hl .bv{color:#67E8F9}
 .adt{width:100%;border-collapse:collapse}
 .adt th{text-align:left;font-size:10px;color:rgba(255,255,255,.35);font-weight:800;text-transform:uppercase;padding:0 0 7px;border-bottom:1px solid rgba(255,255,255,.08)}
 .adt td{padding:8px 0;font-size:13px;border-bottom:1px solid rgba(255,255,255,.06);color:rgba(255,255,255,.8)}
@@ -370,6 +370,8 @@ textarea.inp{resize:none}
 }
 .ph.nt-logo-visible .nt-animated-logo{display:flex}
 .ph.nt-logo-home .nt-animated-logo{right:52px}
+.ph.nt-logo-gerencia .nt-animated-logo,
+.ph.nt-logo-prode .nt-animated-logo{top:34px;right:12px;width:30px;height:30px}
 .nt-animated-logo img,
 .nt-login-logo{
   position:relative;
@@ -440,6 +442,88 @@ textarea.inp{resize:none}
   .nt-animated-logo img,.nt-login-logo,.nt-animated-logo::after,.nt-login-logo-wrap::after{animation:none!important}
 }
 
+
+/* === AJUSTE FINAL: index más compacto y sin desplazamiento externo === */
+body{
+  align-items:center!important;
+  padding:14px 0!important;
+  overflow:hidden!important;
+}
+.ph{
+  width:360px!important;
+  height:min(840px,calc(100svh - 28px))!important;
+  border-radius:42px!important;
+}
+.sb{padding:10px 20px 4px!important}
+.sh2{padding:13px 16px 10px!important}
+.sh2 h1{font-size:20px!important}
+.sh2 p{font-size:12px!important}
+.home-top{padding:10px 14px!important}
+.home-top-t .nm{font-size:16px!important}
+.srch{margin:9px 12px 0!important;padding:8px 12px!important;font-size:13px!important}
+.hgrid{gap:8px!important;padding:10px 12px!important}
+.hcell{padding:10px 8px!important;gap:6px!important;border-radius:14px!important}
+.hcell-ico{width:40px!important;height:40px!important;font-size:18px!important;border-radius:12px!important}
+.hcell span{font-size:11.5px!important;line-height:1.2!important}
+.hbanner{margin:0 12px 10px!important;padding:14px!important;border-radius:15px!important}
+.hbanner h3{font-size:15px!important}
+.hbanner p{font-size:11px!important}
+.hbanner-btn{padding:6px 12px!important;font-size:11px!important}
+.cumple-c{margin:8px 12px 0!important;padding:10px 12px!important}
+.cnm{font-size:16px!important}
+.csu{font-size:11px!important}
+.cumple-photo{width:40px!important;height:40px!important}
+.btn-fel{padding:8px 11px!important;font-size:11px!important}
+.doc-banner{margin:10px 12px!important;padding:13px 14px!important}
+.tgrid{gap:8px!important;padding:10px 12px!important}
+.tbtn{padding:14px 10px!important;gap:7px!important}
+.tbtn i{font-size:23px!important}
+.tbtn span{font-size:11.5px!important}
+.card{padding:14px!important}
+.lrow{padding:12px!important}
+.lrow-ico{width:42px!important;height:42px!important;font-size:19px!important}
+.lrow-txt h3{font-size:14px!important}
+.lrow-txt p{font-size:11.5px!important}
+.bp{padding:13px!important;font-size:15px!important}
+.bs{padding:12px!important;font-size:14px!important}
+.inp{padding:11px 13px!important;font-size:14px!important}
+.ob-top{padding:18px 20px 22px!important}
+.ob-body{padding:14px 18px!important;gap:12px!important}
+.login-w{padding:24px 24px 34px!important}
+.nt-login-logo{width:165px!important}
+
+#sger .ger-tool-card .ger-tool-icon{
+  width:44px!important;
+  height:44px!important;
+  border-radius:50%!important;
+  background:#fff!important;
+}
+#sger .ger-tool-card .ger-tool-icon i{
+  font-size:19px!important;
+}
+#sger .ger-tool-legal .ger-tool-icon i{color:#4C1D95!important}
+#sger .ger-tool-cvs .ger-tool-icon i{color:#0F766E!important}
+
+@media(max-height:760px){
+  .ph{height:100svh!important;border-radius:34px!important}
+  .sb{padding-top:8px!important}
+  .home-top{padding:8px 12px!important}
+  .hgrid{gap:7px!important;padding:8px 10px!important}
+  .hcell{padding:8px 7px!important}
+  .hcell-ico{width:36px!important;height:36px!important;font-size:16px!important}
+  .hcell span{font-size:10.8px!important}
+  .hbanner{padding:12px!important;margin-bottom:8px!important}
+  .cumple-c{padding:9px 10px!important}
+  .nt-login-logo{width:148px!important}
+}
+
+@media(max-width:420px){
+  body{padding:0!important;background:var(--bg)!important;overflow:hidden!important}
+  .ph{width:100%!important;height:100svh!important;border-radius:0!important;box-shadow:none!important}
+  .scr{font-size:.96em}
+  .login-w{padding:22px 22px 30px!important}
+}
+
 </style>
 </head>
 <body>
@@ -483,7 +567,7 @@ textarea.inp{resize:none}
 <div style="display:flex;flex-direction:column;gap:10px"><input type="text" class="inp" placeholder="Nombre" value="Santiago"><input type="date" class="inp" value="2020-05-10"></div>
 </div>
 </div>
-<button class="bp" onclick="go('home')"><i class="fas fa-check"></i> Guardar y continuar</button>
+<button class="bp" onclick="finishOnboarding()"><i class="fas fa-check"></i> Guardar y continuar</button>
 <button class="bg" onclick="go('home')" style="text-align:center;width:100%">Completar más tarde</button>
 </div>
 </div>
@@ -567,7 +651,7 @@ textarea.inp{resize:none}
 <div class="sub" id="docs-subir">
 <div class="subh"><button class="bk" onclick="showSub('docs-main')"><i class="fas fa-arrow-left"></i></button><h2>Subir documento</h2></div>
 <div style="padding:16px;display:flex;flex-direction:column;gap:14px">
-<div><label class="lbl">Tipo de documento</label><select class="inp"><option>Certificado médico</option><option>Constancia de estudios</option><option>DNI actualizado</option><option>Otro</option></select></div>
+<div><label class="lbl">Tipo de documento</label><select class="inp"><option>Constancia de estudios</option><option>DNI actualizado</option><option>Otro</option></select></div>
 <div class="upl" id="upl-doc" onclick="doUpload('upl-doc','Documento adjuntado correctamente')">
 <i class="fas fa-camera"></i><h3>Adjuntá el documento</h3><p>Tomá una foto clara y legible</p>
 <div class="upl-btns"><button onclick="event.stopPropagation();doUpload('upl-doc','📷 Foto adjuntada')"><i class="fas fa-camera"></i> Foto</button><button onclick="event.stopPropagation();doUpload('upl-doc','🖼️ Archivo adjuntado')"><i class="fas fa-images"></i> Galería</button></div>
@@ -668,14 +752,11 @@ textarea.inp{resize:none}
 <div class="tgrid">
 <button class="tbtn" onclick="showSub('tram-adelanto')"><i class="fas fa-money-bill-wave"></i><span>Adelanto de sueldo</span></button>
 <button class="tbtn" onclick="showSub('tram-cert')"><i class="fas fa-file-medical"></i><span>Certificado medico</span></button>
-<button class="tbtn" onclick="showSub('tram-vac2')"><i class="fas fa-umbrella-beach"></i><span>Solicitar vacaciones</span></button>
 <button class="tbtn" onclick="toast('Proximamente disponible')"><i class="fas fa-exchange-alt"></i><span>Cambio de turno</span></button>
 <button class="tbtn" onclick="toast('Proximamente disponible')"><i class="fas fa-baby"></i><span>Licencia paternidad</span></button>
-<button class="tbtn" onclick="toast('Proximamente disponible')"><i class="fas fa-key"></i><span>Clave AFIP</span></button>
 </div>
 <div style="padding:0 14px 4px"><div class="slbl">Mis solicitudes recientes</div></div>
 <div style="padding:0 14px 14px;display:flex;flex-direction:column;gap:8px">
-<div class="card" style="display:flex;align-items:center;gap:12px"><i class="fas fa-umbrella-beach" style="color:var(--or);font-size:20px;width:22px;text-align:center"></i><div style="flex:1"><div style="font-size:14px;font-weight:700">Vacaciones 15-28 ene</div><div style="font-size:12px;color:var(--mt)">Enviada el 3 dic 2024</div></div><span class="tag tok"><i class="fas fa-check"></i> Aprobada</span></div>
 <div class="card" style="display:flex;align-items:center;gap:12px"><i class="fas fa-money-bill-wave" style="color:var(--wn);font-size:20px;width:22px;text-align:center"></i><div style="flex:1"><div style="font-size:14px;font-weight:700">Adelanto $80.000</div><div style="font-size:12px;color:var(--mt)">Enviado el 1 feb 2025</div></div><span class="tag twn">En revision</span></div>
 </div>
 </div>
@@ -699,17 +780,6 @@ textarea.inp{resize:none}
 <div class="upl-btns"><button onclick="event.stopPropagation();doUpload('upl-cert','Foto adjuntada')"><i class="fas fa-camera"></i> Foto</button><button onclick="event.stopPropagation();doUpload('upl-cert','Archivo adjuntado')"><i class="fas fa-images"></i> Galeria</button></div>
 </div>
 <button class="bp" onclick="sendTramite('Certificado enviado. Quedo registrada tu ausencia.')"><i class="fas fa-paper-plane"></i> Enviar certificado</button>
-</div>
-</div>
-<div class="sub" id="tram-vac2">
-<div class="subh"><button class="bk" onclick="showSub('tram-main')"><i class="fas fa-arrow-left"></i></button><h2>Solicitar vacaciones</h2></div>
-<div style="padding:18px;display:flex;flex-direction:column;gap:16px">
-<div style="background:#E8FAF0;border-radius:var(--r);padding:14px;display:flex;gap:10px;align-items:center"><i class="fas fa-calendar-check" style="color:var(--ok);font-size:18px"></i><div><p style="font-size:13px;font-weight:800;color:#1a6b3c">Dias disponibles: 18</p><p style="font-size:12px;color:#1a6b3c">Periodo 2024/2025</p></div></div>
-<div><label class="lbl">Desde</label><input type="date" class="inp" id="vd" oninput="calcVac()"></div>
-<div><label class="lbl">Hasta</label><input type="date" class="inp" id="vh" oninput="calcVac()"></div>
-<div id="dias-box" style="display:none;background:var(--orl);border-radius:var(--r);padding:12px;text-align:center"><span id="dias-n" style="font-size:36px;font-weight:900;color:var(--or)">0</span><span style="font-size:15px;color:var(--or)"> dias habiles</span></div>
-<div><label class="lbl">Observaciones</label><textarea class="inp" rows="3" placeholder="Ej: tengo turno programado..."></textarea></div>
-<button class="bp" onclick="sendTramite('Vacaciones solicitadas. Te avisamos cuando las apruebe RR.HH.')"><i class="fas fa-paper-plane"></i> Enviar solicitud</button>
 </div>
 </div>
 </div>
@@ -798,12 +868,12 @@ textarea.inp{resize:none}
 <div class="ger-tools-label" style="font-size:10px;font-weight:800;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:.8px;margin-bottom:10px">Herramientas exclusivas RR.HH.</div>
 <div class="ger-tools-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
 <button class="ger-tool-card ger-tool-legal" onclick="go('legal')" style="background:rgba(102,126,234,.18);border:1px solid rgba(102,126,234,.3);border-radius:var(--r);padding:16px 10px;display:flex;flex-direction:column;align-items:center;gap:8px;cursor:pointer;font-family:var(--f);transition:background .15s">
-<div style="width:42px;height:42px;border-radius:12px;background:rgba(139,92,246,.3);display:flex;align-items:center;justify-content:center"><i class="fas fa-balance-scale" style="color:#c4b5fd;font-size:18px"></i></div>
+<div class="ger-tool-icon" style="width:44px;height:44px;border-radius:50%;background:#ffffff;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 20px rgba(0,0,0,.26),inset 0 1px 0 rgba(255,255,255,.85)"><i class="fas fa-balance-scale" style="color:#4C1D95;font-size:19px"></i></div>
 <span style="font-size:11px;font-weight:800;color:rgba(255,255,255,.9);text-align:center">Asist. Legal IA</span>
 <span style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:2px 8px;font-size:9px;font-weight:800;color:rgba(255,255,255,.45)">Solo RR.HH.</span>
 </button>
 <button class="ger-tool-card ger-tool-cvs" onclick="go('cvs')" style="background:rgba(18,176,83,.13);border:1px solid rgba(52,199,89,.28);border-radius:var(--r);padding:16px 10px;display:flex;flex-direction:column;align-items:center;gap:8px;cursor:pointer;font-family:var(--f);transition:background .15s">
-<div style="width:42px;height:42px;border-radius:12px;background:rgba(18,176,83,.3);display:flex;align-items:center;justify-content:center"><i class="fas fa-user-check" style="color:#4ade80;font-size:18px"></i></div>
+<div class="ger-tool-icon" style="width:44px;height:44px;border-radius:50%;background:#ffffff;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 20px rgba(0,0,0,.26),inset 0 1px 0 rgba(255,255,255,.85)"><i class="fas fa-user-check" style="color:#0F766E;font-size:19px"></i></div>
 <span style="font-size:11px;font-weight:800;color:rgba(255,255,255,.9);text-align:center">Filtro de CVs</span>
 <span style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:2px 8px;font-size:9px;font-weight:800;color:rgba(255,255,255,.45)">Solo RR.HH.</span>
 </button>
@@ -1160,6 +1230,7 @@ textarea.inp{resize:none}
 <nav class="bottom-nav" id="main-nav">
 <button class="nav-btn active" id="nb-home" onclick="go('shome')"><i class="fas fa-home"></i><span>Inicio</span></button>
 <button class="nav-btn" id="nb-docs" onclick="go('sdocs')"><i class="fas fa-file-alt"></i><span>Mis Docs</span><span class="notif-dot"></span></button>
+<button class="nav-btn" id="nb-tramites" onclick="go('stamites')"><i class="fas fa-clipboard-list"></i><span>Trámites</span></button>
 <button class="nav-btn" id="nb-muro" onclick="go('ssocial')"><i class="fas fa-users"></i><span>Muro</span></button>
 <button class="nav-btn" id="nb-perfil" onclick="go('sperfil')"><i class="fas fa-user"></i><span>Perfil</span></button>
 </nav>
@@ -1429,11 +1500,11 @@ textarea.inp{resize:none}
   min-height:0 !important;
   max-width:none !important;
   margin:0 !important;
-  padding:6px 10px 8px !important;
+  padding:6px 6px 8px !important;
   border-radius:22px 22px 0 0 !important;
   justify-content:center !important;
   align-items:stretch !important;
-  gap:4px !important;
+  gap:2px !important;
   background:linear-gradient(180deg,rgba(11,33,58,.88),rgba(10,22,40,.96)) !important;
   border-top:1px solid rgba(255,255,255,.16) !important;
   border-left:0 !important;
@@ -1457,8 +1528,8 @@ textarea.inp{resize:none}
 #main-nav .nav-btn{
   flex:1 1 0 !important;
   min-width:0 !important;
-  padding:5px 4px 4px !important;
-  border-radius:16px !important;
+  padding:5px 2px 4px !important;
+  border-radius:14px !important;
   color:rgba(255,255,255,.66) !important;
   background:transparent !important;
   transition:
@@ -1469,13 +1540,14 @@ textarea.inp{resize:none}
 }
 #main-nav .nav-btn i{
   width:auto !important;
-  font-size:20px !important;
+  font-size:17px !important;
   line-height:1 !important;
 }
 #main-nav .nav-btn span{
-  font-size:10px !important;
+  font-size:8.6px !important;
   font-weight:800 !important;
   line-height:1 !important;
+  white-space:nowrap !important;
   margin-top:3px !important;
 }
 #main-nav .nav-btn:hover{
@@ -1509,6 +1581,7 @@ textarea.inp{resize:none}
 let currentScreen = 'sl';
 let prodeMode = false;
 let currentProde = 'sprode';
+let birthdayModalShown = false;
 
 const WA_REPLIES = {
   sueldo:      {msg:'Tu proximo pago es el 30 de junio por $486,200. Queres ver el detalle?', action:'sdocs', label:'Ver recibo'},
@@ -1538,6 +1611,8 @@ function go(raw) {
   if (phoneShell) {
     phoneShell.classList.toggle('nt-logo-visible', id !== 'sl');
     phoneShell.classList.toggle('nt-logo-home', id === 'shome');
+    phoneShell.classList.toggle('nt-logo-gerencia', id === 'sger');
+    phoneShell.classList.remove('nt-logo-prode');
   }
 
   var nav = document.getElementById('main-nav');
@@ -1588,6 +1663,8 @@ function pgo(id) {
   if (phoneShell) {
     phoneShell.classList.add('nt-logo-visible');
     phoneShell.classList.remove('nt-logo-home');
+    phoneShell.classList.remove('nt-logo-gerencia');
+    phoneShell.classList.add('nt-logo-prode');
   }
   document.querySelectorAll('#prode-nav .nav-btn').forEach(function(b){ b.style.color = 'rgba(255,255,255,.45)'; });
   var tabMap = {sprode:'pt0', ppronosticos:'pt1', pranking:'pt2', pmuro:'pt3'};
@@ -1611,11 +1688,25 @@ function closeModal(id) {
 }
 
 // ---- Login ----
+function showBirthdayAviso() {
+  if (birthdayModalShown) return;
+  birthdayModalShown = true;
+  openModal('mcumple');
+}
+
+function finishOnboarding() {
+  go('shome');
+  setTimeout(showBirthdayAviso, 260);
+}
+
 function doLogin() {
   var btn = document.getElementById('btn-login');
   if(btn){ btn.textContent = 'Ingresando...'; btn.disabled = true; }
   setTimeout(function(){
     go('sob');
+    setTimeout(function(){
+      if (currentScreen === 'sob') finishOnboarding();
+    }, 2800);
   }, 1200);
 }
 
