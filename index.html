@@ -557,6 +557,9 @@ body{
 
 <!-- ONBOARDING -->
 <div id="sob" class="scr nop">
+<!-- NT_INSERT_BACK_ONBOARDING_START -->
+<div class="nt-backbar"><button onclick="go('home')"><i class="fas fa-arrow-left"></i> Volver al inicio</button></div>
+<!-- NT_INSERT_BACK_ONBOARDING_END -->
 <div class="ob-top"><h2>¡Hola, Martina! 👋</h2><p>Completá tu perfil — solo toma 2 minutos</p></div>
 <div class="ob-dots"><div class="dot on"></div><div class="dot"></div><div class="dot"></div></div>
 <div class="ob-body">
@@ -616,6 +619,9 @@ body{
 </div>
 <!-- MIS DOCUMENTOS -->
 <div id="sdocs" class="scr">
+<!-- NT_INSERT_BACK_DOCS_START -->
+<div class="nt-backbar"><button onclick="go('home')"><i class="fas fa-arrow-left"></i> Volver al inicio</button></div>
+<!-- NT_INSERT_BACK_DOCS_END -->
 <div class="sub on" id="docs-main">
 <div class="sh2"><h1>Mis Documentos</h1><p>Accedé y gestioná tu documentación de forma segura</p></div>
 <div class="doc-banner"><div><h3>Recibo junio pendiente</h3><p>Firmá en menos de 1 minuto</p></div><button class="sign-btn" onclick="openModal('mfirma')">Firmar ahora</button></div>
@@ -669,6 +675,9 @@ body{
 
 <!-- MURO SOCIAL -->
 <div id="ssocial" class="scr">
+<!-- NT_INSERT_BACK_SOCIAL_START -->
+<div class="nt-backbar"><button onclick="go('home')"><i class="fas fa-arrow-left"></i> Volver al inicio</button></div>
+<!-- NT_INSERT_BACK_SOCIAL_END -->
 <div class="sh2"><h1>Muro Social</h1><p>Novedades, reconocimientos y celebraciones</p></div>
 <div style="margin:12px 14px;background:#EEF2FF;border:1px solid #C7D2FE;border-radius:var(--r);padding:14px">
 <h4 style="font-size:13px;font-weight:800;color:#4338CA;margin-bottom:4px">🔔 Alerta RR.HH. — En 3 días: Roberto C.</h4>
@@ -712,7 +721,7 @@ body{
 <!-- LEGAL IA -->
 <div id="slegal" class="scr">
 <!-- NT_INSERT_BACK_LEGAL_START -->
-<div class="nt-backbar nt-backbar-dark"><button onclick="go('ger')"><i class="fas fa-arrow-left"></i> Volver atrás</button></div>
+<div class="nt-backbar nt-backbar-dark"><button onclick="go('home')"><i class="fas fa-arrow-left"></i> Volver al inicio</button></div>
 <!-- NT_INSERT_BACK_LEGAL_END -->
 <div class="legal-hero">
 <span class="badge-rrhh"><i class="fas fa-lock"></i> Solo RR.HH.</span>
@@ -735,7 +744,10 @@ body{
 <div><label class="lbl">Fecha del hecho</label><input type="date" class="inp" value="2025-06-03"></div>
 <div><label class="lbl">Días de sanción</label><input type="number" class="inp" placeholder="0" value="3" inputmode="numeric"></div>
 </div>
+<div class="legal-action-row">
 <button class="bp" id="btn-gen" onclick="genLegal()"><i class="fas fa-magic"></i> Generar con IA</button>
+<button class="bs legal-cv-btn" onclick="go('cvs')"><i class="fas fa-user-check"></i> Ir a Filtro CVs</button>
+</div>
 <div id="gen-out" style="background:var(--sf);border-radius:var(--r);padding:14px;border:1px solid var(--bd);display:none">
 <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
 <span style="font-size:13px;font-weight:800">Borrador generado</span>
@@ -755,6 +767,9 @@ body{
 
 <!-- TRÁMITES -->
 <div id="stamites" class="scr">
+<!-- NT_INSERT_BACK_TRAMITES_START -->
+<div class="nt-backbar"><button onclick="go('home')"><i class="fas fa-arrow-left"></i> Volver al inicio</button></div>
+<!-- NT_INSERT_BACK_TRAMITES_END -->
 <div class="sub on" id="tram-main">
 <div class="sh2"><h1>Trámites y permisos</h1><p>Gestioná tus solicitudes sin ir a RR.HH.</p></div>
 <div class="conf" id="tram-conf"><i class="fas fa-check-circle"></i><p id="tram-msg">Solicitud enviada</p></div>
@@ -796,7 +811,7 @@ body{
 <!-- VACACIONES -->
 <div id="svac" class="scr">
 <!-- NT_INSERT_BACK_VAC_START -->
-<div class="nt-backbar"><button onclick="go('home')"><i class="fas fa-arrow-left"></i> Volver atrás</button></div>
+<div class="nt-backbar"><button onclick="go('home')"><i class="fas fa-arrow-left"></i> Volver al inicio</button></div>
 <!-- NT_INSERT_BACK_VAC_END -->
 <div class="sh2"><h1>Vacaciones y Permisos</h1><p>Gestioná tus licencias desde el celular</p></div>
 <div class="vac-ring">
@@ -872,10 +887,6 @@ body{
 <tr><td style="color:var(--mt)">+ 6 más</td><td>$1.040.000</td><td><span class="tag tbl">Ver detalle</span></td></tr>
 </tbody></table>
 </div>
-<div class="ger-actions" style="padding:0 12px 16px;display:flex;flex-direction:column;gap:10px">
-<button class="bp ger-action-btn" onclick="toast('Reporte generado y enviado a tu correo')"><i class="fas fa-download"></i> Exportar reporte</button>
-<button class="bs ger-action-btn" onclick="toast('Módulo de aprobaciones próximamente')"><i class="fas fa-check-double"></i> Aprobar solicitud</button>
-</div>
 <div class="ger-tools" style="padding:0 12px 18px">
 <div class="ger-tools-label" style="font-size:10px;font-weight:800;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:.8px;margin-bottom:10px">Herramientas exclusivas RR.HH.</div>
 <div class="ger-tools-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
@@ -891,12 +902,16 @@ body{
 </button>
 </div>
 </div>
+<div class="ger-actions" style="padding:0 12px 16px;display:flex;flex-direction:column;gap:10px">
+<button class="bp ger-action-btn" onclick="toast('Reporte generado y enviado a tu correo')"><i class="fas fa-download"></i> Exportar reporte</button>
+<button class="bs ger-action-btn" onclick="toast('Módulo de aprobaciones próximamente')"><i class="fas fa-check-double"></i> Aprobar solicitud</button>
+</div>
 </div>
 
 <!-- COMUNICACIONES OFICIALES -->
 <div id="scomms" class="scr">
 <!-- NT_INSERT_BACK_COMMS_START -->
-<div class="nt-backbar"><button onclick="go('home')"><i class="fas fa-arrow-left"></i> Volver atrás</button></div>
+<div class="nt-backbar"><button onclick="go('home')"><i class="fas fa-arrow-left"></i> Volver al inicio</button></div>
 <!-- NT_INSERT_BACK_COMMS_END -->
 <div class="sh2"><h1>Comunicaciones</h1><p>La única fuente oficial de la empresa</p></div>
 <div style="padding:12px 14px;display:flex;flex-direction:column;gap:2px">
@@ -930,12 +945,12 @@ body{
 <!-- CVs CON IA -->
 <div id="scvs" class="scr">
 <!-- NT_INSERT_BACK_CVS_START -->
-<div class="nt-backbar nt-backbar-dark"><button onclick="go('ger')"><i class="fas fa-arrow-left"></i> Volver atrás</button></div>
+<div class="nt-backbar nt-backbar-dark"><button onclick="go('home')"><i class="fas fa-arrow-left"></i> Volver al inicio</button></div>
 <!-- NT_INSERT_BACK_CVS_END -->
 <div class="legal-hero" style="background:linear-gradient(135deg,#0B213A,#1E4D78)">
 <span class="badge-rrhh"><i class="fas fa-lock"></i> Solo RR.HH.</span>
 <div style="font-size:38px;margin:10px 0 8px">&#x1F916;</div>
-<h1>Asistente de Contratacion &amp; Filtro de CVs</h1>
+<h1>Filtro de CVs con IA</h1>
 <p>Agente de IA dedicado a la recepción, lectura y pre-clasificación masiva de postulantes. Integrado con WhatsApp: los CVs llegan automáticamente, ya ordenados, al correo de RR.HH.</p>
 </div>
 <div style="padding:14px;display:flex;flex-direction:column;gap:14px">
@@ -997,6 +1012,9 @@ body{
 
 <!-- PRODE: HERO -->
 <div id="sprode" class="scr" style="background:var(--pb);padding-bottom:80px">
+<!-- NT_INSERT_BACK_PRODE_START -->
+<div class="nt-backbar nt-backbar-dark"><button onclick="go('home')"><i class="fas fa-arrow-left"></i> Volver al inicio</button></div>
+<!-- NT_INSERT_BACK_PRODE_END -->
 <div style="position:relative;overflow:hidden;padding:36px 20px 28px;text-align:center">
 <!-- Maradona #10 watermark -->
 <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:180px;font-weight:900;color:rgba(159,197,232,.06);line-height:1;pointer-events:none;z-index:0">10</div>
@@ -1054,6 +1072,9 @@ body{
 
 <!-- PRODE: PRONÓSTICOS -->
 <div id="ppronosticos" class="scr" style="background:var(--pb);min-height:100%;padding-bottom:80px;display:none">
+<!-- NT_INSERT_BACK_PRONOSTICOS_START -->
+<div class="nt-backbar nt-backbar-dark"><button onclick="go('home')"><i class="fas fa-arrow-left"></i> Volver al inicio</button></div>
+<!-- NT_INSERT_BACK_PRONOSTICOS_END -->
 <div style="padding:20px 16px 10px;display:flex;align-items:center;justify-content:space-between">
 <h1 style="color:#fff;font-size:20px;font-weight:900">Mis Pronósticos</h1>
 <span style="color:rgba(255,255,255,.45);font-size:12px">Fecha 3 &bull; Mundial 2026</span>
@@ -1107,6 +1128,9 @@ body{
 
 <!-- PRODE: RANKING -->
 <div id="pranking" class="scr" style="background:var(--pb);min-height:100%;padding-bottom:80px;display:none">
+<!-- NT_INSERT_BACK_RANKING_START -->
+<div class="nt-backbar nt-backbar-dark"><button onclick="go('home')"><i class="fas fa-arrow-left"></i> Volver al inicio</button></div>
+<!-- NT_INSERT_BACK_RANKING_END -->
 <div style="padding:20px 16px 14px"><h1 style="color:#fff;font-size:20px;font-weight:900">Ranking General</h1></div>
 <!-- Podio top 3 -->
 <div style="display:flex;align-items:flex-end;justify-content:center;gap:0;padding:0 16px 20px">
@@ -1169,6 +1193,9 @@ body{
 
 <!-- PRODE: MURO -->
 <div id="pmuro" class="scr" style="background:var(--pb);min-height:100%;padding-bottom:80px;display:none">
+<!-- NT_INSERT_BACK_MURO_PRODE_START -->
+<div class="nt-backbar nt-backbar-dark"><button onclick="go('home')"><i class="fas fa-arrow-left"></i> Volver al inicio</button></div>
+<!-- NT_INSERT_BACK_MURO_PRODE_END -->
 <div style="background:rgba(255,255,255,.06);padding:16px;margin-bottom:2px">
 <div style="font-size:11px;color:var(--pa);font-weight:900;letter-spacing:.8px;margin-bottom:8px">PARTIDO EN JUEGO</div>
 <div style="display:flex;align-items:center;justify-content:space-between">
@@ -1218,6 +1245,9 @@ body{
 
 <!-- PERFIL -->
 <div id="sperfil" class="scr">
+<!-- NT_INSERT_BACK_PERFIL_START -->
+<div class="nt-backbar nt-backbar-dark"><button onclick="go('home')"><i class="fas fa-arrow-left"></i> Volver al inicio</button></div>
+<!-- NT_INSERT_BACK_PERFIL_END -->
 <div class="perfil-hero">
 <div class="perf-av">MG</div>
 <div style="text-align:center">
@@ -1808,8 +1838,706 @@ body{
   .legal-hero h1{font-size:16.5px!important;}
   .legal-hero p{font-size:10.8px!important;}
 }
+
+
+/* === AJUSTE FINAL SOLICITADO: Vacaciones compacto + herramientas RR.HH. visibles === */
+#svac.scr > .nt-backbar{
+  padding:5px 10px!important;
+  min-height:30px!important;
+}
+#svac.scr > .nt-backbar button{
+  padding:4px 9px!important;
+  font-size:11px!important;
+  line-height:1!important;
+}
+#svac.scr > .sh2{
+  padding:7px 12px 6px!important;
+}
+#svac.scr > .sh2 h1{
+  font-size:17px!important;
+  line-height:1.05!important;
+}
+#svac.scr > .sh2 p{
+  font-size:10.5px!important;
+  line-height:1.15!important;
+  margin-top:1px!important;
+}
+#svac.scr > .vac-ring{
+  padding:8px 16px 3px!important;
+  gap:3px!important;
+}
+#svac.scr .ring-w{
+  width:92px!important;
+  height:92px!important;
+}
+#svac.scr .ring-w svg circle{
+  stroke-width:8!important;
+}
+#svac.scr .ring-n{
+  font-size:24px!important;
+  line-height:.95!important;
+}
+#svac.scr .ring-s{
+  font-size:9.5px!important;
+}
+#svac.scr > .vac-ring > div:last-child{
+  font-size:10.5px!important;
+  line-height:1.15!important;
+}
+#svac.scr > .vac-btns{
+  gap:7px!important;
+  padding:0 14px 7px!important;
+}
+#svac.scr > .vac-btns .vacbtn{
+  min-height:48px!important;
+  padding:8px 8px!important;
+  gap:4px!important;
+  border-radius:14px!important;
+}
+#svac.scr > .vac-btns .vacbtn i{
+  font-size:18px!important;
+}
+#svac.scr > .vac-btns .vacbtn span{
+  font-size:10.5px!important;
+  line-height:1.05!important;
+}
+#svac.scr > div[style*="padding:0 14px 4px"]{
+  padding:0 14px 2px!important;
+}
+#svac.scr .slbl{
+  font-size:9.5px!important;
+  margin-bottom:5px!important;
+  letter-spacing:.55px!important;
+}
+#svac.scr > div:has(> #upl-vac){
+  padding:0 14px 7px!important;
+}
+#svac.scr #upl-vac{
+  display:grid!important;
+  grid-template-columns:34px minmax(0,1fr) auto!important;
+  grid-template-rows:auto auto!important;
+  column-gap:8px!important;
+  row-gap:1px!important;
+  align-items:center!important;
+  min-height:58px!important;
+  padding:8px 9px!important;
+  text-align:left!important;
+  border-radius:14px!important;
+}
+#svac.scr #upl-vac > i{
+  grid-row:1 / 3!important;
+  grid-column:1!important;
+  width:34px!important;
+  height:34px!important;
+  border-radius:11px!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  font-size:17px!important;
+  color:#0B213A!important;
+  background:linear-gradient(145deg,#EAF2F8,#ffffff)!important;
+  border:1px solid rgba(11,33,58,.12)!important;
+  box-shadow:inset 2px 2px 5px rgba(188,188,188,.22),inset -2px -2px 5px rgba(255,255,255,.9)!important;
+}
+#svac.scr #upl-vac h3{
+  grid-column:2!important;
+  grid-row:1!important;
+  font-size:12px!important;
+  line-height:1.05!important;
+  margin:0!important;
+}
+#svac.scr #upl-vac p{
+  grid-column:2!important;
+  grid-row:2!important;
+  font-size:9.8px!important;
+  line-height:1.1!important;
+  margin:0!important;
+}
+#svac.scr #upl-vac .upl-btns{
+  grid-column:3!important;
+  grid-row:1 / 3!important;
+  width:auto!important;
+  gap:5px!important;
+  align-self:center!important;
+}
+#svac.scr #upl-vac .upl-btns button{
+  padding:6px 7px!important;
+  font-size:9.5px!important;
+  border-radius:10px!important;
+  gap:4px!important;
+  white-space:nowrap!important;
+}
+#svac.scr #upl-vac .upl-btns button i{
+  font-size:10px!important;
+}
+#svac.scr > div[style*="display:flex;flex-direction:column;gap:8px"]{
+  gap:6px!important;
+  padding:0 14px 8px!important;
+}
+#svac.scr > div[style*="display:flex;flex-direction:column;gap:8px"] .card{
+  padding:8px 9px!important;
+  border-radius:13px!important;
+  gap:8px!important;
+}
+#svac.scr > div[style*="display:flex;flex-direction:column;gap:8px"] .card div[style*="width:38px"]{
+  width:31px!important;
+  height:31px!important;
+  border-radius:9px!important;
+  font-size:13px!important;
+}
+#svac.scr > div[style*="display:flex;flex-direction:column;gap:8px"] .card div[style*="font-size:14px"]{
+  font-size:12.5px!important;
+  line-height:1.1!important;
+}
+#svac.scr > div[style*="display:flex;flex-direction:column;gap:8px"] .card div[style*="font-size:12px"]{
+  font-size:10px!important;
+  line-height:1.1!important;
+}
+#svac.scr > div[style*="display:flex;flex-direction:column;gap:8px"] .card .tag{
+  font-size:9px!important;
+  padding:2px 7px!important;
+}
+
+#sger .ger-actions{
+  gap:7px!important;
+  padding:0 10px 8px!important;
+}
+#sger .ger-action-btn{
+  min-height:36px!important;
+  padding:7px 8px!important;
+  border-radius:12px!important;
+}
+#sger .ger-tools{
+  padding:0 10px 10px!important;
+}
+#sger .ger-tools-label{
+  margin-bottom:6px!important;
+  color:rgba(255,255,255,.78)!important;
+}
+#sger .ger-tools-grid{
+  gap:8px!important;
+}
+#sger button.ger-tool-card[onclick="go('legal')"],
+#sger button.ger-tool-card[onclick="go('cvs')"]{
+  min-height:92px!important;
+  padding:10px 8px!important;
+  gap:6px!important;
+  border-radius:18px!important;
+  position:relative!important;
+  overflow:hidden!important;
+  isolation:isolate!important;
+  backdrop-filter:blur(18px) saturate(150%)!important;
+  -webkit-backdrop-filter:blur(18px) saturate(150%)!important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.26),
+    inset 0 -1px 0 rgba(255,255,255,.08),
+    0 12px 28px rgba(0,0,0,.28)!important;
+}
+#sger button.ger-tool-card[onclick="go('legal')"]{
+  background:
+    radial-gradient(circle at 22% 8%,rgba(255,255,255,.26),transparent 33%),
+    linear-gradient(135deg,rgba(91,61,179,.88),rgba(11,33,58,.92))!important;
+  border:1px solid rgba(196,181,253,.66)!important;
+}
+#sger button.ger-tool-card[onclick="go('cvs')"]{
+  background:
+    radial-gradient(circle at 22% 8%,rgba(255,255,255,.24),transparent 33%),
+    linear-gradient(135deg,rgba(20,184,166,.82),rgba(5,46,63,.94))!important;
+  border:1px solid rgba(94,234,212,.66)!important;
+}
+#sger button.ger-tool-card[onclick="go('legal')"]::before,
+#sger button.ger-tool-card[onclick="go('cvs')"]::before{
+  content:"";
+  position:absolute;
+  inset:-1px;
+  background:linear-gradient(115deg,transparent 0%,rgba(255,255,255,.18) 42%,rgba(255,255,255,.38) 50%,rgba(255,255,255,.16) 58%,transparent 100%);
+  transform:translateX(-115%);
+  animation:ntCardSweep 4.8s ease-in-out infinite;
+  z-index:-1;
+}
+#sger button.ger-tool-card[onclick="go('legal')"] > .ger-tool-icon,
+#sger button.ger-tool-card[onclick="go('cvs')"] > .ger-tool-icon{
+  width:39px!important;
+  height:39px!important;
+  border-radius:14px!important;
+  background:rgba(255,255,255,.94)!important;
+  border:1px solid rgba(255,255,255,.62)!important;
+  box-shadow:0 8px 18px rgba(0,0,0,.22),inset 0 1px 0 rgba(255,255,255,.9)!important;
+  position:relative!important;
+  z-index:1!important;
+}
+#sger button.ger-tool-card[onclick="go('legal')"] > .ger-tool-icon i,
+#sger button.ger-tool-card[onclick="go('cvs')"] > .ger-tool-icon i{
+  font-size:18px!important;
+}
+#sger button.ger-tool-card[onclick="go('legal')"] > span:first-of-type,
+#sger button.ger-tool-card[onclick="go('cvs')"] > span:first-of-type{
+  font-size:13.2px!important;
+  line-height:1.05!important;
+  font-weight:900!important;
+  color:#fff!important;
+  letter-spacing:-.15px!important;
+  text-shadow:0 2px 10px rgba(0,0,0,.35)!important;
+  position:relative!important;
+  z-index:1!important;
+}
+#sger button.ger-tool-card[onclick="go('legal')"] > span:last-child,
+#sger button.ger-tool-card[onclick="go('cvs')"] > span:last-child{
+  font-size:8.8px!important;
+  padding:2px 7px!important;
+  color:#fff!important;
+  background:rgba(255,255,255,.18)!important;
+  border:1px solid rgba(255,255,255,.30)!important;
+  border-radius:999px!important;
+  position:relative!important;
+  z-index:1!important;
+}
+@keyframes ntCardSweep{
+  0%,30%{transform:translateX(-115%);opacity:0;}
+  45%{opacity:.85;}
+  68%{transform:translateX(115%);opacity:.35;}
+  100%{transform:translateX(115%);opacity:0;}
+}
+@media(prefers-reduced-motion:reduce){
+  #sger button.ger-tool-card[onclick="go('legal')"]::before,
+  #sger button.ger-tool-card[onclick="go('cvs')"]::before{animation:none!important;}
+}
 </style>
 
+
+
+<style>
+/* === AJUSTE FINAL GERENCIA / LEGAL IA / CVs: compactar sin tocar lógica === */
+#sger .ger-top{
+  padding:7px 16px 7px!important;
+}
+#sger .ger-bk{
+  margin-bottom:4px!important;
+  gap:6px!important;
+}
+#sger .ger-bk button{
+  font-size:17px!important;
+}
+#sger .ger-bk span{
+  font-size:11px!important;
+}
+#sger .ger-badge{
+  font-size:9px!important;
+  padding:3px 8px!important;
+  margin-bottom:4px!important;
+}
+#sger .ger-top h1{
+  font-size:20px!important;
+  line-height:1!important;
+}
+#sger .ger-top p{
+  font-size:10.5px!important;
+  margin-top:1px!important;
+  line-height:1.1!important;
+}
+#sger .kgrid{
+  gap:7px!important;
+  padding:8px 10px!important;
+}
+#sger .kpi{
+  padding:8px 9px!important;
+  border-radius:13px!important;
+}
+#sger .kpi-l{
+  font-size:8.5px!important;
+  line-height:1!important;
+  margin-bottom:2px!important;
+}
+#sger .kpi-v{
+  font-size:22px!important;
+  line-height:.95!important;
+}
+#sger .kpi-s,
+#sger .kpi-tr{
+  font-size:9.5px!important;
+  line-height:1.08!important;
+  margin-top:2px!important;
+}
+#sger .chart-w{
+  margin:0 10px 6px!important;
+  padding:8px 10px!important;
+  border-radius:14px!important;
+}
+#sger .chart-w h3{
+  font-size:12.2px!important;
+  line-height:1.05!important;
+  margin-bottom:0!important;
+}
+#sger .chart-w .cs{
+  font-size:9.3px!important;
+  line-height:1.05!important;
+  margin-bottom:5px!important;
+}
+#sger .bars{
+  height:46px!important;
+  gap:5px!important;
+}
+#sger .bv,
+#sger .bl{
+  font-size:8px!important;
+  line-height:1!important;
+}
+#sger .adt th{
+  font-size:8px!important;
+  padding:0 0 4px!important;
+}
+#sger .adt td{
+  padding:4px 0!important;
+  font-size:10.5px!important;
+  line-height:1.08!important;
+}
+#sger .adt .tag{
+  font-size:8px!important;
+  padding:1px 6px!important;
+}
+#sger .ger-tools{
+  padding:0 10px 7px!important;
+}
+#sger .ger-tools-label{
+  font-size:8.8px!important;
+  line-height:1!important;
+  margin-bottom:5px!important;
+  letter-spacing:.55px!important;
+}
+#sger .ger-tools-grid{
+  gap:7px!important;
+}
+#sger button.ger-tool-card[onclick="go('legal')"],
+#sger button.ger-tool-card[onclick="go('cvs')"]{
+  min-height:72px!important;
+  padding:7px 8px!important;
+  gap:4px!important;
+  border-radius:16px!important;
+  background:
+    linear-gradient(145deg,rgba(255,255,255,.16),rgba(255,255,255,.05)),
+    radial-gradient(circle at 18% 0%,rgba(255,255,255,.28),transparent 38%),
+    linear-gradient(135deg,rgba(91,61,179,.86),rgba(11,33,58,.94))!important;
+  border:1px solid rgba(159,197,232,.42)!important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.32),
+    inset 0 -1px 0 rgba(255,255,255,.08),
+    0 8px 20px rgba(11,33,58,.24),
+    0 0 18px rgba(159,197,232,.18)!important;
+}
+#sger button.ger-tool-card[onclick="go('cvs')"]{
+  background:
+    linear-gradient(145deg,rgba(255,255,255,.16),rgba(255,255,255,.05)),
+    radial-gradient(circle at 18% 0%,rgba(154,255,95,.26),transparent 38%),
+    linear-gradient(135deg,rgba(20,184,166,.82),rgba(5,46,63,.96))!important;
+  border-color:rgba(154,255,95,.48)!important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.32),
+    inset 0 -1px 0 rgba(255,255,255,.08),
+    0 8px 20px rgba(11,33,58,.24),
+    0 0 18px rgba(154,255,95,.18)!important;
+}
+#sger button.ger-tool-card[onclick="go('legal')"] > .ger-tool-icon,
+#sger button.ger-tool-card[onclick="go('cvs')"] > .ger-tool-icon{
+  width:30px!important;
+  height:30px!important;
+  border-radius:11px!important;
+  background:rgba(255,255,255,.88)!important;
+  box-shadow:0 5px 14px rgba(0,0,0,.18),inset 0 1px 0 rgba(255,255,255,.95)!important;
+}
+#sger button.ger-tool-card[onclick="go('legal')"] > .ger-tool-icon i,
+#sger button.ger-tool-card[onclick="go('cvs')"] > .ger-tool-icon i{
+  font-size:15px!important;
+}
+#sger button.ger-tool-card[onclick="go('legal')"] > span:first-of-type,
+#sger button.ger-tool-card[onclick="go('cvs')"] > span:first-of-type{
+  font-size:12px!important;
+  line-height:1!important;
+}
+#sger button.ger-tool-card[onclick="go('legal')"] > span:last-child,
+#sger button.ger-tool-card[onclick="go('cvs')"] > span:last-child{
+  font-size:7.8px!important;
+  padding:1px 6px!important;
+}
+#sger .ger-actions{
+  display:grid!important;
+  grid-template-columns:1fr 1fr!important;
+  gap:7px!important;
+  padding:0 10px 8px!important;
+}
+#sger .ger-action-btn{
+  min-height:32px!important;
+  padding:7px 8px!important;
+  border-radius:13px!important;
+  font-size:10.5px!important;
+  line-height:1!important;
+  box-shadow:
+    inset 3px 3px 8px rgba(0,0,0,.14),
+    inset -3px -3px 8px rgba(255,255,255,.12),
+    0 8px 18px rgba(11,33,58,.16)!important;
+}
+#sger .ger-action-btn.bp{
+  background:linear-gradient(145deg,#0B213A,#12385D)!important;
+  border:1px solid rgba(159,197,232,.28)!important;
+}
+#sger .ger-action-btn.bs{
+  background:linear-gradient(145deg,#ffffff,#f3f6fa)!important;
+  border:2px solid rgb(206,206,206)!important;
+  color:#0B213A!important;
+  box-shadow:
+    inset 3px 3px 8px rgba(188,188,188,.42),
+    inset -3px -3px 8px rgba(255,255,255,.96),
+    0 8px 18px rgba(11,33,58,.08)!important;
+}
+#sger .ger-action-btn i{
+  font-size:11px!important;
+}
+
+#slegal .nt-backbar,
+#scvs .nt-backbar{
+  padding:5px 14px!important;
+  min-height:34px!important;
+}
+#slegal .nt-backbar button,
+#scvs .nt-backbar button{
+  padding:6px 14px!important;
+  font-size:11px!important;
+  border-radius:999px!important;
+}
+#slegal .legal-hero,
+#scvs .legal-hero{
+  padding:12px 18px 13px!important;
+}
+#slegal .legal-hero .badge-rrhh,
+#scvs .legal-hero .badge-rrhh{
+  margin-bottom:5px!important;
+  padding:3px 10px!important;
+  font-size:10px!important;
+}
+#slegal .legal-hero > div[style*="font-size:38px"],
+#scvs .legal-hero > div[style*="font-size:38px"]{
+  font-size:26px!important;
+  margin:3px 0 3px!important;
+}
+#slegal .legal-hero h1,
+#scvs .legal-hero h1{
+  font-size:18px!important;
+  line-height:1.12!important;
+  margin:2px 0 3px!important;
+  text-wrap:balance;
+}
+#slegal .legal-hero p,
+#scvs .legal-hero p{
+  font-size:11.3px!important;
+  line-height:1.32!important;
+  max-width:330px!important;
+  margin:0 auto!important;
+}
+#slegal .legal-body{
+  padding:10px 14px 12px!important;
+  gap:8px!important;
+}
+#slegal .slbl,
+#scvs .slbl{
+  font-size:9.2px!important;
+  margin-bottom:5px!important;
+}
+#slegal .chip-row{
+  gap:6px!important;
+}
+#slegal .chip{
+  padding:6px 12px!important;
+  font-size:10.8px!important;
+  border-width:1.5px!important;
+}
+#slegal .lbl{
+  font-size:9.5px!important;
+  margin-bottom:4px!important;
+}
+#slegal .inp{
+  padding:9px 12px!important;
+  font-size:12px!important;
+  border-radius:13px!important;
+}
+#slegal textarea.inp{
+  min-height:54px!important;
+  line-height:1.25!important;
+}
+#slegal .legal-action-row{
+  display:grid!important;
+  grid-template-columns:1fr 1fr!important;
+  gap:8px!important;
+}
+#slegal .legal-action-row .bp,
+#slegal .legal-action-row .bs{
+  min-height:38px!important;
+  padding:9px 8px!important;
+  font-size:11px!important;
+  border-radius:14px!important;
+  box-shadow:
+    inset 3px 3px 8px rgba(0,0,0,.12),
+    inset -3px -3px 8px rgba(255,255,255,.12),
+    0 9px 18px rgba(11,33,58,.16)!important;
+}
+#slegal .legal-cv-btn{
+  color:#0B213A!important;
+  border:2px solid rgb(206,206,206)!important;
+  background:linear-gradient(145deg,#ffffff,#f3f6fa)!important;
+  box-shadow:
+    inset 3px 3px 8px rgba(188,188,188,.42),
+    inset -3px -3px 8px rgba(255,255,255,.96),
+    0 8px 18px rgba(11,33,58,.08)!important;
+}
+#slegal .legal-warn{
+  padding:9px 10px!important;
+  gap:8px!important;
+}
+#slegal .legal-warn p{
+  font-size:10.8px!important;
+  line-height:1.35!important;
+}
+#slegal .hist-item{
+  padding:8px 0!important;
+}
+#slegal .hist-ico{
+  width:31px!important;
+  height:31px!important;
+  border-radius:9px!important;
+  font-size:13px!important;
+}
+
+#scvs > div[style*="padding:14px"]{
+  padding:10px 14px 12px!important;
+  gap:10px!important;
+}
+#scvs > div[style*="padding:14px"] > div:first-child{
+  padding:12px!important;
+  border-radius:16px!important;
+}
+#scvs > div[style*="padding:14px"] > div:first-child p{
+  font-size:11px!important;
+  line-height:1.35!important;
+  margin-bottom:7px!important;
+}
+#scvs > div[style*="padding:14px"] > div:first-child p:first-child{
+  font-size:12px!important;
+}
+#scvs > div[style*="padding:14px"] span[style*="white-space:nowrap"]{
+  white-space:normal!important;
+  text-align:center!important;
+  line-height:1.05!important;
+  font-size:9px!important;
+  padding:3px 8px!important;
+}
+#scvs > div[style*="padding:14px"] > div:nth-child(2){
+  padding:10px 12px!important;
+  border-radius:15px!important;
+}
+#scvs > div[style*="padding:14px"] > div:nth-child(2) p{
+  font-size:10.8px!important;
+  line-height:1.38!important;
+}
+#scvs .vacbtn{
+  min-height:48px!important;
+  padding:9px 8px!important;
+  border-radius:14px!important;
+  box-shadow:
+    inset 3px 3px 8px rgba(188,188,188,.42),
+    inset -3px -3px 8px rgba(255,255,255,.96),
+    0 8px 18px rgba(11,33,58,.08)!important;
+}
+#scvs .vacbtn i{
+  font-size:18px!important;
+}
+#scvs .vacbtn span{
+  font-size:10.5px!important;
+  line-height:1.05!important;
+}
+@media(max-width:420px){
+  #sger .ger-top{padding:6px 14px 6px!important;}
+  #sger .ger-bk{margin-bottom:3px!important;}
+  #sger .kgrid{padding:7px 10px!important;gap:6px!important;}
+  #sger .kpi{padding:7px 8px!important;}
+  #sger .chart-w{margin:0 10px 6px!important;padding:8px 10px!important;}
+  #sger .bars{height:43px!important;}
+  #sger button.ger-tool-card[onclick="go('legal')"],
+  #sger button.ger-tool-card[onclick="go('cvs')"]{min-height:70px!important;}
+  #slegal .legal-hero,
+  #scvs .legal-hero{padding:10px 16px 11px!important;}
+  #slegal .legal-body{padding:9px 14px 11px!important;gap:7px!important;}
+}
+</style>
+
+<style>
+/* === REFINAMIENTO VISUAL GERENCIA: evita solapamiento y reduce blanco final === */
+#sger .chart-w{
+  padding:10px 11px!important;
+  margin:0 10px 7px!important;
+}
+#sger .chart-w h3{
+  font-size:12.5px!important;
+  margin-bottom:1px!important;
+}
+#sger .chart-w .cs{
+  font-size:9.6px!important;
+  margin-bottom:8px!important;
+}
+#sger .bars{
+  height:62px!important;
+  margin-top:2px!important;
+}
+#sger .bv{
+  display:block!important;
+  margin-bottom:2px!important;
+  font-size:8px!important;
+  line-height:1!important;
+}
+#sger .bl{
+  font-size:8px!important;
+  line-height:1!important;
+  margin-top:2px!important;
+}
+#sger .adt td{
+  padding:5px 0!important;
+  font-size:11px!important;
+}
+#sger .adt th{
+  padding:0 0 5px!important;
+}
+#sger .ger-tools{
+  padding:0 10px 8px!important;
+}
+#sger button.ger-tool-card[onclick="go('legal')"],
+#sger button.ger-tool-card[onclick="go('cvs')"]{
+  min-height:80px!important;
+  padding:8px 8px!important;
+}
+#sger button.ger-tool-card[onclick="go('legal')"] > .ger-tool-icon,
+#sger button.ger-tool-card[onclick="go('cvs')"] > .ger-tool-icon{
+  width:34px!important;
+  height:34px!important;
+}
+#sger button.ger-tool-card[onclick="go('legal')"] > span:first-of-type,
+#sger button.ger-tool-card[onclick="go('cvs')"] > span:first-of-type{
+  font-size:12.4px!important;
+}
+#sger .ger-action-btn{
+  min-height:34px!important;
+}
+@media(max-width:420px){
+  #sger .bars{height:58px!important;}
+  #sger .chart-w .cs{margin-bottom:7px!important;}
+  #sger button.ger-tool-card[onclick="go('legal')"],
+  #sger button.ger-tool-card[onclick="go('cvs')"]{min-height:78px!important;}
+}
+</style>
+
+<style>
+/* === LIMPIEZA DE GRAFICO EN MOVIL: evita cruce de valores con titulo === */
+@media(max-width:420px){
+  #sger .bv{display:none!important;}
+  #sger .bars{height:58px!important;margin-top:4px!important;}
+}
+</style>
 <script>
 // ---- State ----
 let currentScreen = 'sl';
